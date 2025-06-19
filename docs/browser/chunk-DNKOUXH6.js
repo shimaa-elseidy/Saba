@@ -1,0 +1,1 @@
+import{tb as i}from"./chunk-FHROAHAP.js";var p=(()=>{class t{transform(r){return r?r.toLowerCase().split("_").map(o=>o.charAt(0).toUpperCase()+o.slice(1)).join(" "):""}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275pipe=i({name:"formatCategory",type:t,pure:!0})}}return t})();export{p as a};

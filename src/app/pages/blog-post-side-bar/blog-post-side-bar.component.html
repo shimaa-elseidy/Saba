@@ -1,0 +1,89 @@
+<!-- blog-post-side-bar.component.html -->
+<div class="sidebar ">
+  <!-- 🔹 البحث -->
+  <h5 class="section-title">Related Post</h5>
+  <div class="card my-2">
+    <img src="assets/egyptjpg.jpg" class="card-img-top" alt="You May Like Image" />
+    <div class="card-body">
+      <p class="card-title fw-bold">The Ultimate Guide to Planning Your Perfect Tour From Start to Finish</p>
+    </div>
+  </div>
+  <ul class="list-unstyled">
+    <li *ngFor="let post of randomBlogs; trackBy: trackByFn">
+      <hr>
+
+      <div class="d-flex align-items-center mb-3 related-post" (click)="navigateToBlog(post.id)" style="cursor: pointer;">
+        <img [src]="post.mainImage" class="sidebar-img" alt="Post Image" />
+        <div class="post-content">
+          <p class="category"><i class="bi bi-person"></i> By Saba Tours ---- {{ post.category }}</p>
+          <span class="post-title">{{ post.title }}</span>
+        </div>
+      </div>
+    </li>
+    <hr>
+  </ul>
+
+  <!-- 🔹 التصنيفات -->
+  <h5 class="section-title my-3">Categories</h5>
+  <div class="tags">
+    <span class="tag" *ngFor="let category of randomCategories" (click)="router.navigate(['/blog/category', category.id])" style="cursor: pointer;">{{ category.name }}</span>
+  </div>
+
+  <!-- 🔹 العلامات الشائعة -->
+  <h5 class="section-title my-3">Popular Tag</h5>
+  <div class="tags">
+    <span class="tag" *ngFor="let tag of randomTags" (click)="router.navigate(['/blog/tag', tag.id])" style="cursor: pointer;">{{ tag.name }}</span>
+  </div>
+
+  <!-- you-may-like.component.html -->
+<!-- قالب المكتبة الدائرية المحدث -->
+<div class="you-may-like py-3">
+  <h5 class="section-title">You May Like</h5>
+
+  <div id="youMayLikeCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+      <div *ngFor="let item of youMayLikeList; let i = index; trackBy: trackByFn" class="carousel-item"
+        [class.active]="i === 0">
+        <img [src]="item.mainImageUrl" class="d-block w-100" alt="Tour Image">
+        
+        <!-- أزرار التحكم على الصورة -->
+        <div class="carousel-controls">
+          <button class="carousel-control-prev" type="button" data-bs-target="#youMayLikeCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#youMayLikeCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+
+        <div class="tour-info">
+          <div class="d-flex justify-content-between">
+            <p class="locations">{{ item.location }}</p>
+            <span class="rating">
+              <i class="bi bi-star-fill"></i> {{ item.rating }} ({{ item.reviews }} Reviews)
+            </span>
+          </div>
+
+          <p class="description">{{ item.description }}</p>
+
+          <div class="tour-meta d-flex justify-content-between">
+            <span class="duration">
+              <i class="bi bi-people"></i> {{ item.peopleCount }} People
+            </span>
+            <span class="duration">
+              <i class="bi bi-clock"></i> {{ item.duration }}
+            </span>
+          </div>
+
+          <div class="price-section">
+            <span class="price-label">Starting from:</span>
+            <span class="price">{{ item.price }}</span>
+            <button class="btn explore-btn">Explore Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

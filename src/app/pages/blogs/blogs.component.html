@@ -1,0 +1,67 @@
+<div class="overview">
+  <div class="header-title">
+    <h2 class="mx-auto">Blogs</h2>
+  </div>
+  <div class="content-wrapper">
+    <div class="stats-cards">
+      <div class="stat-card">
+        <h4>Total Blogs</h4>
+        <p><strong>1250</strong></p>
+      </div>
+      <div class="stat-card">
+        <h4>Total Comments</h4>
+        <p><strong>1,950</strong></p>
+      </div>
+    </div>
+
+    <button class="create-btn" routerLink="/dashboard/add-new-blog">+ Create New Blog</button>
+    
+    <div class="filters">
+      <input type="text" placeholder="Search for blog..." [(ngModel)]="searchTerm" />
+      <button class="btn" (click)="filterBlogs('all')">All Categories</button>
+      <button class="btn btn-primary" (click)="filterBlogs('technology')">Technology</button>
+      <button class="btn btn-primary" (click)="filterBlogs('lifestyle')">Lifestyle</button>
+    </div>
+  
+    <div class="blog-grid">
+      <div class="blog-card animate-card" *ngFor="let blog of filteredBlogs; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+        <img [src]="blog.mainImage" [alt]="blog.title" />
+        <div class="blog-content">
+          <div class="blog-title">{{ blog.title }}</div>
+          <p class="blog-description">{{ blog.description }}</p>
+          <div class="blog-footer">
+            <div class="info">
+              <div class="info-item">
+                <i class="bi bi-eye"></i>
+                <span>{{ blog.viewCount }}</span>
+              </div>
+              <div class="info-item">
+                <i class="bi bi-tag-fill"></i>
+                <span class="category">{{ blog.category }}</span>
+              </div>
+            </div>
+            <div class="buttons">
+              <button class="edit" [routerLink]="['/dashboard/add-new-blog', blog.id]">Edit</button>
+              <button class="delete" (click)="deleteBlog(blog.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="recent-comments">
+      <h3>Recent Comments</h3>
+      <div class="comment-list">
+        <div class="comment animate-comment" *ngFor="let comment of commentsBlogs; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+          <img [src]="comment.user.profilePicture" alt="User Avatar" class="avatar">
+          <div class="comment-content">
+            <p class="user-name">{{ comment.user.name }}</p>
+            <p class="comment-text" [innerHTML]="comment.content"></p>
+            <p class="timestamp">{{ comment.createdAt }}</p>
+          </div>
+          <button class="delete-btn" (click)="deleteComment(comment.id)">✖</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

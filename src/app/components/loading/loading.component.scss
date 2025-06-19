@@ -1,0 +1,47 @@
+.loading-screen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdf6e3dd;  
+}
+
+.logo {
+  width: 150px;
+}
+
+.loading-text {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #f59e0b;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Spin animation (for first logo) */
+.spin-only {
+  // animation: spin 5s linear infinite;
+  animation: pulse 2s infinite;
+}
+
+/* Pulse animation (for second logo) */
+.pulse-only {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

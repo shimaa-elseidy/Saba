@@ -1,0 +1,90 @@
+<div class="container-fluid p-0">
+  <!-- حاوية الفيديو الخلفي (Banner) -->
+  <div class="filter-background">
+    <div class="overlay"></div>
+    <div class="video-background">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/videos/0_Ancient Egyptian_Temple_1280x720.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="container">
+      <div class="tour-title text-center">
+        <h1>Classical Tour</h1>
+      </div>
+
+      <div class="filter-section bg-light rounded">
+        <div class="row g-2 align-items-center justify-content-center">
+          <!-- التاريخ -->
+          <div class="col-md-3 col-sm-4">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control form-control-sm" [(ngModel)]="date" (ngModelChange)="applyFilters()">
+          </div>
+
+          <!-- عدد الأشخاص -->
+          <div class="col-md-3 col-sm-4">
+            <label for="people" class="form-label">People</label>
+            <input type="number" id="people" class="form-control form-control-sm" [(ngModel)]="peopleCount" (ngModelChange)="applyFilters()" placeholder="Select People">
+          </div>
+
+          <!-- السعر -->
+          <div class="col-md-3 col-sm-4">
+            <label for="priceRange" class="form-label">Price: 0 - {{ priceRange }} USD</label>
+            <input type="range" id="priceRange" class="form-range" min="0" max="5000" [(ngModel)]="priceRange" (ngModelChange)="applyFilters()">
+          </div>
+
+          <!-- زر إعادة الضبط -->
+          <div class="col-md-2 col-sm-12 text-center mt-3">
+            <button class="btn btn-primary btn-sm w-100" (click)="resetFilters()">Find Tours</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <!-- الفرز وعدد الرحلات في الصف -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <span class="me-2 fw-bold">{{ filteredTours.length }} Tours</span>
+        <select id="sortBy" class="form-select d-inline-block w-auto me-3" [(ngModel)]="sortOption" (change)="onSortChange()">
+          <option value="default">Sort by: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+        <select id="toursPerRow" class="form-select d-inline-block w-auto" [(ngModel)]="toursPerRow" (change)="onToursPerRowChange()">
+          <option value="3">3 Tours</option>
+          <option value="4" selected>4 Tours</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- عرض الرحلات -->
+    <div class="row">
+      <div *ngFor="let tour of filteredTours" [ngClass]="{'col-md-3': toursPerRow === 4, 'col-md-4': toursPerRow === 3}" class="mb-4">
+        <div class="card h-100" (click)="viewTourDetails(tour.id)" style="cursor: pointer;">
+          <img [src]="tour.mainImageUrl || 'assets/default-tour-image.jpg'" class="card-img-top" alt="{{ tour.title }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">{{ tour.title }}</h5>
+              <button class="btn btn-outline-danger btn-sm" (click)="$event.stopPropagation()"><i class="bi bi-heart"></i></button>
+            </div>
+            <p class="card-text text-muted"><i class="bi bi-geo-alt me-1"></i>{{ tour.location }}</p>
+            <div class="d-flex gap-2 mb-2">
+              <span class="badge bg-light text-dark">{{ tour.peopleCount }} People</span>
+              <span class="badge bg-light text-dark">{{ tour.tourDay }} Days / {{ tour.tourNight }} Nights</span>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <span *ngFor="let i of [1, 2, 3, 4, 5]" class="text-warning me-1">
+                <i class="bi bi-star-fill"></i>
+              </span>
+            </div>
+            <p class="card-text text-primary fw-bold">Starting From {{ tour.price }} EGP</p>
+            <button class="btn btn-outline-primary w-100" (click)="viewTourDetails(tour.id)">Explore</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

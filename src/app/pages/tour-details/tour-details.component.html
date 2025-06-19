@@ -1,0 +1,647 @@
+<div class="container py-4">
+    <!-- Loading and Error States -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading tour details...</p>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <!-- Tour Content -->
+    <div *ngIf="!loading && !error && tourDetails" class="tour-details">
+      <!-- Header Section -->
+      <div class="row ">
+        <div class="col-lg-8">
+          <h1 class="fw-bold ">{{ tourDetails.tourTitle }}</h1>
+          <div class="d-flex align-items-center mb-3">
+            <span class="badge bg-primary mx-2">{{ tourDetails.tourCategory }}</span>
+            <span class="badge bg-secondary ">{{ tourDetails.tourDay }} Days / {{ tourDetails.tourNight }} Night </span>
+            
+            <span *ngIf="tourDetails.isVerified" class="badge bg-success mx-2">Verified</span>
+            <span *ngIf="tourDetails.isFeatured" class="badge bg-warning me-2">Featured</span>
+            <div class=" badge bg-secondary">
+              <i class="bi bi-geo-alt "></i>
+              {{ tourDetails.places?.join(', ') }}
+            </div>
+          </div>
+        </div>
+        <h1 >Starting From : <span class="text-primary fw-bold fs-4">
+            {{ tourDetails.tourPrice }} $
+        </span></h1>
+
+      </div>
+
+
+      <!-- أضف هذا الكود في قسم نظرة عامة على الجولة (Overview tab) -->
+
+  
+      <!-- Gallery Section -->
+      <div class="row ">
+        <div class="col-lg-8">
+          <!-- Main Image -->
+          <!-- معرض الصور الرئيسي -->
+          <div class="gallery-container d-flex gap-3">
+            <!-- الصورة الرئيسية (اليسار) -->
+            <div class="main-image-container flex-grow-1">
+              <img 
+                [src]="getActiveImage()" 
+                class=" rounded  main-image" 
+                
+                alt="Tour Image">
+            </div>
+            
+            <!-- الصور المصغرة (اليمين) -->
+            <div class="thumbnail-container d-flex flex-column gap-2">
+             
+              
+              <div class="thumbnail-scroll">
+                <div *ngFor="let image of tourDetails?.galleryImages; let i = index" class="thumbnail-item">
+                  <img 
+                    [src]="image" 
+                    class="thumbnail-img" 
+                    [class.active]="i === activeImageIndex"
+                    (click)="setActiveImage(i)"
+                    alt="Thumbnail">
+                </div>
+              </div>
+              <button class="view-all-btn btn btn-light  mb-2" (click)="openImageModal(activeImageIndex)">
+                <i class="bi bi-images me-2"></i>View All Photos
+              </button>
+            </div>
+            
+          </div>
+          
+          <!-- مودال عرض جميع الصور (يبقى كما هو) --> 
+
+<!-- مودال عرض جميع الصور -->
+<!-- مودال عرض جميع الصور -->
+<div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="image-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeModal()">&times;</button>
+    
+    <div class="modal-navigation">
+      
+      <div class="modal-main-image">
+        <img [src]="getModalImage()" class="modal-image" alt="Tour Image">
+      </div>
+      
+    </div>
+    
+    <div class="modal-thumbnails">
+      <div *ngFor="let image of tourDetails?.galleryImages; let i = index">
+        <img 
+          [src]="image" 
+          class="modal-thumbnail" 
+          [class.active]="i === modalImageIndex"
+          (click)="setModalImage(i)"
+          alt="Thumbnail">
+      </div>
+    </div>
+    
+    <div class="image-counter">
+      {{ modalImageIndex + 1 }} / {{ tourDetails?.galleryImages?.length || 1 }}
+    </div>
+  </div>
+</div>
+
+          <div class="tour-highlights">
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <i class="bi bi-calendar-check"></i>
+              </div>
+              <div class="highlight-content">
+                <h5>Start</h5>
+                <p>{{ tourDetails.startTour }}</p>
+              </div>
+            </div>
+          
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <i class="bi bi-clock"></i>
+              </div>
+              <div class="highlight-content">
+                <h5>Duration</h5>
+                <p>{{ tourDetails.tourDay }} Days</p>
+              </div>
+            </div>
+          
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+              <div class="highlight-content">
+                <h5>Pick up</h5>
+                <p>{{ tourDetails.pickUp }}</p>
+              </div>
+            </div>
+          
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <i class="bi bi-map"></i>
+              </div>
+              <div class="highlight-content">
+                <h5>Places</h5>
+                <p>{{ tourDetails.places.join(', ') }}</p>
+              </div>
+            </div>
+
+          </div>
+          <hr class="my-0">  <!-- أو يمكنك إزالته تمامًا إذا كنت لا تريد الخط -->
+
+        </div>
+        <div class="col-lg-4 mb-0 ">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h2 class="fw-bold mb-3">Book This Tour</h2>
+          
+             <form [formGroup]="bookingForm">
+                   <!-- Price -->
+                   <div class="mb-3">
+                    <h1 class="text-primary fw-bold">${{ totalPrice + tourDetails.tourPrice }}</h1>
+                    <small class="text-muted">Starting price per person</small>
+                  </div>
+            
+                  <!-- Date Selection -->
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Select Date</label>
+                    <select class="form-select" formControlName="selectedDate">
+                      <option value="">Select a date</option>
+                      <option *ngFor="let date of tourDetails.availableDates" [value]="date.date">
+                        {{ getDateString(date.date) }}
+                      </option>
+                    </select>
+                  </div>
+                  
+                  <!-- Time Selection -->
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Select Time</label>
+                    <select class="form-select" formControlName="selectedTime">
+                      <option value="">Select time</option>
+                      <option *ngFor="let time of tourDetails.availableDates" [value]="time.date">
+                        {{ formatTime(time.date) }}
+                      </option>
+                    </select>
+                  </div>
+                  
+            
+                  <!-- Guest Selection -->
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Guests</label>
+            
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Adults</span>
+                        <div class="input-group input-group-sm" style="width: 120px;">
+                          <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('adults', -1)">-</button>
+                          <input type="text" class="form-control text-center" [formControlName]="'adults'" readonly>
+                          <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('adults', 1)">+</button>
+                        </div>
+                      </div>
+                      
+            
+                    <!-- Children -->
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Children</span>
+                      <div class="input-group input-group-sm" style="width: 120px;">
+                        <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('children', -1)">-</button>
+                        <input type="text" class="form-control text-center" [formControlName]="'children'" readonly>
+                        <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('children', 1)">+</button>
+                      </div>
+                    </div>
+            
+                    <!-- Infants -->
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>Infants</span>
+                      <div class="input-group input-group-sm" style="width: 120px;">
+                        <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('infants', -1)">-</button>
+                        <input type="text" class="form-control text-center" [formControlName]="'infants'" readonly>
+                        <button class="btn btn-outline-secondary" type="button" (click)="updateGuestCount('infants', 1)">+</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Add this section to your booking form right before the Total Price section -->
+<!-- Update the radio button labels to use the dynamic deposit percentage -->
+<!-- Updated Payment Option section using the getter -->
+<div class="mb-3">
+  <label class="form-label fw-bold">Payment Option</label>
+  <div class="form-check mb-2">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="isDepositPayment" 
+      id="fullPayment" 
+      [value]="false" 
+      formControlName="isDepositPayment">
+    <label class="form-check-label d-flex justify-content-between" for="fullPayment">
+      <span>Full Payment</span>
+      <span>${{ finalAmount }}</span>
+    </label>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="isDepositPayment" 
+      id="depositPayment" 
+      [value]="true" 
+      formControlName="isDepositPayment">
+    <label class="form-check-label d-flex justify-content-between" for="depositPayment">
+      <span>Deposit ({{ getDepositPercentage }}%)</span>
+      <span>${{ depositAmount }}</span>
+    </label>
+    <small class="text-muted d-block">Pay {{ getDepositPercentage }}% now and the rest later</small>
+  </div>
+</div>
+
+<!-- Display price based on payment option -->
+<div class="mb-3 p-3 bg-light rounded">
+  <div class="d-flex justify-content-between">
+    <span class="fw-bold">{{ bookingForm.get('isDepositPayment')?.value ? 'Deposit Amount:' : 'Total Price:' }}</span>
+    <span class="fw-bold text-primary"> 
+      ${{ bookingForm.get('isDepositPayment')?.value ? depositAmount : totalPrice + tourDetails.tourPrice }} 
+    </span>
+  </div>
+  <div class="d-flex justify-content-between" *ngIf="bookingForm.get('isDepositPayment')?.value">
+    <span class="text-muted">Remaining Amount:</span>
+    <span class="text-muted">${{ (totalPrice + tourDetails.tourPrice) - depositAmount }}$</span>
+  </div>
+</div>
+
+<!-- Book Now button -->
+<button *ngIf="!session" type="button" class="btn btn-primary w-100" (click)="bookNow()" [disabled]="!bookingForm.valid || !bookingForm.get('selectedDate')?.value">
+  Book Now
+</button>
+</form>
+
+<!-- Payment form (only shown after booking is confirmed) -->
+<form id="paymentForm" action="https://test-nbe.gateway.mastercard.com/api/page/version/61/pay?charset=UTF-8" method="POST" style="display: none;">
+  <input type="hidden" name="session.id" value="">
+  <input type="hidden" name="merchant" value="TESTEGPTEST">
+  <input type="hidden" name="order.id" value="16">
+  <input type="hidden" name="order.description" value="OJ">
+  <input type="hidden" name="order.amount" value="100.00">
+  <input type="hidden" name="order.currency" value="USD">
+  <input type="hidden" name="interaction.operation" value="PURCHASE">
+  <input type="hidden" name="interaction.merchant.name" value="Nbe Test">
+  <input type="hidden" name="interaction.merchant.address.line1" value="عنوان المتجر السطر 1">
+  <input type="hidden" name="interaction.merchant.address.line2" value="عنوان المتجر السطر 2">
+</form>
+<div *ngIf="session" class="text-center py-3">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Redirecting to payment...</span>
+  </div>
+  <p class="mt-2">Redirecting to payment gateway...</p>
+</div>
+              </div>
+            </div>
+          </div>
+          
+  
+        <!-- Booking Sidebar -->
+      
+      </div>
+  
+      <!-- Content Tabs -->
+      <div class="row">
+        <div class="col-lg-8">
+          <!-- Tab Navigation -->
+       
+          
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <!-- Description Tab -->
+            <div  class="tab-pane fade show active">
+              <div class="tour-description mb-4">
+                <div class="titllle">Tour Overview</div>
+                <p [innerHTML]="tourDetails.tourDescription"></p>
+              </div>
+            <hr class="my-5">
+              
+           
+              
+              <!-- Tour Tags -->
+              <div class="tour-tags mb-4" *ngIf="tourDetails.tourTags && tourDetails.tourTags.length > 0">
+                <div class="titllle">Tour Tags</div>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="badge bg-light text-dark p-2" *ngFor="let tag of tourDetails.tourTags">
+                    {{ tag }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Itinerary Tab -->
+            <hr class="my-5">
+           
+            <!-- Includes/Excludes Tab -->
+            <div  class="tab-pane fade show active">
+              <div class="row">
+                <!-- Includes -->
+                <div class="col-md-12 mb-4">
+                  <div class="titllle">What's Included</div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex align-items-center" *ngFor="let item of tourDetails.tourIncludes">
+                      <i class="bi bi-check-circle-fill text-success me-2"></i>
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Excludes -->
+                <div class="col-md-12 mb-4">
+                  <div class="titllle">What's Not Included</div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex align-items-center" *ngFor="let item of tourDetails.tourExcludes">
+                      <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                      {{ item }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <hr class="my-5">
+            
+            <!-- Tour Facts Tab -->
+            <div  class="tab-pane fade show active ">
+              
+              <div  class="tab-pane fade show active">
+                <div class="titllle">Plans</div>
+                <div class="accordion" id="termsAccordion">
+                  <div class="accordion-item mb-3 border rounded shadow-sm" *ngFor="let term of tourDetails.tourPlans; let i = index">
+                    <h1 class="accordion-header">
+                      <button class="accordion-button collapsed bg-primary text-white fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#term-' + i">
+                        {{ term.title }}
+                      </button>
+                    </h1>
+                    <div [id]="'term-' + i" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                        <p>{{ term.description }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <hr class="my-5">
+              <!-- Tour Availability Calendar -->
+              <div class="calendar-container mb-5">
+                <div class="calendar-header">
+                  <div class="available-dates">Calendar & Price
+                  </div>
+                  <div class="month-navigation ">
+                    <button type="button" class="" (click)="changeMonth(-1)">&#8249;</button>
+                    <span class="months">{{ displayedYear }} {{ months[displayedMonth] }}</span>
+                    <button type="button" class="" (click)="changeMonth(1)">&#8250;</button>
+                  </div>
+                </div>
+                
+                <div class="calendar-grid">
+                  <!-- أيام الأسبوع -->
+                  <div class="day-label text-end days p-2 " *ngFor="let day of weekDays">{{ day }}</div>
+              
+                  <!-- أيام الشهر -->
+                  <div class="calendar-day p-2 text-center border " 
+                  *ngFor="let day of calendarData" 
+                  [class.disabled]="!day.date || !day.priceSet"
+                  [class.bg-light]="!day.date"
+                  [class.no-price]="day.date && !day.priceSet"
+                  [class.notDisabled]="day.date && day.priceSet"
+                  (click)="selectDate(day)">
+                    
+                    <div *ngIf="day.date" class="text-end">
+                      <div class="">{{ day.date.getDate() }}</div>
+                      
+                      <!-- إذا كان التاريخ متاحًا -->
+                      <div *ngIf="day.priceSet" class="notDisabled mt-1">
+                        <div class="">${{ day.price }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <hr class="my-5">
+
+            </div>
+            
+            <!-- Terms & Conditions Tab -->
+            <div  class="tab-pane fade show active">
+              <h1 class="mb-3">Terms & Conditions</h1>
+              <div class="accordion" id="termsAccordion">
+                <div class="accordion-item mb-3 border rounded shadow-sm" *ngFor="let term of tourDetails.termsAndConditions; let i = index">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-primary text-white fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#term-' + i">
+                      {{ term.title }}
+                    </button>
+                  </h2>
+                  <div [id]="'term-' + i" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      <p>{{ term.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-5">
+
+            <div class="faq-section container my-4">
+                <h2 class="section-title mb-4">FAQs</h2>
+              
+                <div class="accordion" id="faqAccordion">
+                  <!-- السؤال الأول -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button bg-primary text-white collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        What Should I Do If I Lose My Passport While Traveling?
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                      data-bs-parent="#faqAccordion">
+                      <div class="accordion-body">
+                        If you lose your passport while traveling, you should immediately contact the nearest embassy or consulate of your country. They can assist you in obtaining an emergency travel document to return home. It's also recommended to file a police report and keep a copy of your passport in a safe place when traveling.
+                      </div>
+                    </div>
+                  </div>
+              
+                  <!-- السؤال الثاني -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button bg-primary text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Do I Need A Passport To Travel Internationally?
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+                      data-bs-parent="#faqAccordion">
+                      <div class="accordion-body">
+                        Yes, a passport is typically required for international travel. It serves as your official government-issued identification and is necessary for entering and leaving a foreign country. It's important to note that the requirements for obtaining a passport can vary by country, so it's best to research the specific requirements for your destination well in advance of your trip.
+                      </div>
+                    </div>
+                  </div>
+              
+                  <!-- السؤال الثالث -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                      <button class="accordion-button bg-primary text-white collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Do I Need A Visa To Travel To Another Country?
+                      </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                      data-bs-parent="#faqAccordion">
+                      <div class="accordion-body">
+                        Visa requirements depend on your nationality and the country you're visiting. Some countries have visa-free agreements, while others require visas obtained in advance or upon arrival. Always check with the embassy or consulate of your destination country for the most current visa requirements.
+                      </div>
+                    </div>
+                  </div>
+              
+                  <!-- السؤال الرابع -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button class="accordion-button bg-primary text-white collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        How Do I Prepare For A Long Flight?
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                      data-bs-parent="#faqAccordion">
+                      <div class="accordion-body">
+                        To prepare for a long flight: wear comfortable clothing, stay hydrated, move around periodically to prevent blood clots, bring entertainment (books, movies), consider compression socks, adjust your sleep schedule before departure, and pack essential items in your carry-on. It's also helpful to research the airline's amenities and policies beforehand.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            
+            <!-- Comments Tab -->
+            <div  class="tab-pane fade show active">
+                <h1 class="mb-5">Customer Comments</h1>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="comments-title">{{ (tourDetails.comments?.length || 0) }} Comments</h3>
+                    <button class="btn btn-outline-primary btn-sm">Write A Review</button>
+                  </div>
+
+                 <div *ngIf="tourDetails?.comments?.length > 0" class="comments-list">
+                  <div *ngFor="let comment of tourDetails?.comments?.slice(0, showAllComments ? tourDetails.comments.length : 3)" class="comment-item mb-4">
+                    <div class="d-flex">
+                      <div class="comment-avatar me-3">
+                        <img [src]="comment.user?.profilePicture || 'assets/images/default-avatar.png'" 
+                             alt="User Avatar" 
+                             class="rounded-circle" 
+                             width="50" 
+                             height="50">
+                      </div>
+                      <div class="comment-content flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="comment-author mb-1">{{ comment.user?.userName || 'Anonymous' }}</div>
+                          <div class="comment-rating">
+                            <span *ngFor="let star of [1,2,3,4,5]" class="text-warning">★</span>
+                          </div>
+                        </div>
+                        <small class="smal">{{ formatTimestamp(comment.createdAt) }}</small>
+                        <div class="comment-text mb-1">{{ comment.content }}</div>
+
+                      </div>
+                    </div>
+                  </div>
+                
+                <!-- Show More / Show Less Button -->
+<div class="text-center" *ngIf="tourDetails.comments && tourDetails.comments.length > 3">
+    <button class="btn btn-link" (click)="toggleComments()">
+      {{ showAllComments ? 'Show Less' : 'Show More' }}
+    </button>
+  </div>
+  
+                
+                  <!-- No Comments Message -->
+                  <div class="text-center py-4" *ngIf="!tourDetails.comments || tourDetails.comments.length === 0">
+                    <p class="text-muted">No comments yet. Be the first to comment!</p>
+                  </div>
+                </div>
+                
+
+              <div>
+                <div class="add-comment-form mt-5">
+                    <h4 class="mb-4">Add Your Comment</h4>
+                    <form (ngSubmit)="submitComment()">
+                      <div class="row mb-3">
+                        <div class="col-12">
+                          <textarea class="form-control" 
+                                    [(ngModel)]="newComment.content" 
+                                    name="content" 
+                                    rows="4" 
+                                    placeholder="Your Comment"
+                                    required></textarea>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Post Comment</button>
+                    </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Right Sidebar with Related Tours (placeholder) -->
+        <div class="col-lg-4 mt-4">
+          <div class="card  border-0 mb-4 p-4">
+            <div class="card-bodyy ">
+              <h4 class="mb-3">Need Help?</h4>
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-telephone-fill text-primary fs-4 me-2"></i>
+                <div>
+                  <p class="mb-0 fw-bold mb-1">Call Us</p>
+                  <p class="phone-number" (click)="callPhone()">(+2) 01000676285</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-envelope-fill text-primary fs-4 me-2"></i>
+                <div>
+                  <p class="mb-0 fw-bold mb-1">Email Us</p>
+                  <a href="mailto:{{email}}" class="email-link">
+                     {{email}}
+                  </a>                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tour Stats -->
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h4 class="mb-3">Tour Information</h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item iiiii d-flex justify-content-between align-items-center px-0">
+                  <span>Duration</span>
+                  <span class="badge bg-primary rounded-pill">{{ tourDetails.tourDay }} Days / {{ tourDetails.tourNight }} Nights</span>
+                </li>
+                <li class="list-group-item iiiii d-flex justify-content-between align-items-center px-0">
+                  <span>Tour Type</span>
+                  <span class="badge bg-info rounded-pill">{{ tourDetails.tourCategory }}</span>
+                </li>
+                <li class="list-group-item iiiii d-flex justify-content-between align-items-center px-0">
+                  <span>Group Size</span>
+                  <span class="badge bg-secondary rounded-pill">Max {{ tourDetails.guestsCapabilityAdult + tourDetails.guestsCapabilityChildren }} people</span>
+                </li>
+                <li class="list-group-item iiiii d-flex justify-content-between align-items-center px-0">
+                  <span>Start Time</span>
+                  <span class="badge bg-danger rounded-pill">{{ tourDetails.startTour || 'Contact for details' }}</span>
+                </li>
+                <li class="list-group-item iiiii d-flex justify-content-between align-items-center px-0">
+                  <span>Pick Up</span>
+                  <span class="badge bg-dark rounded-pill">{{ tourDetails.pickUp || 'Contact for details' }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>

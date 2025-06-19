@@ -1,0 +1,25 @@
+<section class="why-saba-tours">
+    <h2 class="section-titlewhy">
+      Why Saba Tours
+      <div class="underlinewhy"></div>
+    </h2>
+  
+    <!-- ✅ البطاقات العلوية -->
+    <div class="features-containerwhy">
+      <div *ngFor="let feature of featuresWhy" class="feature-cardwhy">
+        <i class="fa" [ngClass]="feature.icon"></i>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  
+    <!-- ✅ إحصائيات -->
+    <div class="stats-containerwhy">
+      <div *ngFor="let stat of stats" class="stat-cardwhy">
+        <i class="fa" [ngClass]="stat.icon"></i>
+        <h3>{{ stat.value }}</h3>
+        <p>{{ stat.label }}</p>
+      </div>
+    </div>
+  </section>
+  

@@ -1,0 +1,30 @@
+<section class="history-section">
+  <div class="header">
+    <div class="explore">Explore The History</div>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider-controls">
+      <button (click)="prevSlide()" class="slider-btn left-btn">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button (click)="nextSlide()" class="slider-btn right-btn">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="items-container" #slider>
+      <div *ngFor="let item of data.items" class="item-card">
+        <img [src]="item.imageUrl" [alt]="item.title" class="item-image">
+        <h6 class="item-title">{{ item.title }}</h6>
+      </div>
+    </div>
+
+    <div class="slider-dots">
+      <div *ngFor="let item of data.items; let i = index" 
+           class="slider-dot" 
+           [class.active]="i === currentIndex"
+           (click)="setSlide(i)"></div>
+    </div>
+  </div>
+</section>

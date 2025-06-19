@@ -1,0 +1,29 @@
+export interface Tour {
+    tourID: string;
+    title: string;
+    category: string;
+    places: string[];
+    tags: string[];
+    price: number;
+    guestsCapacity: number;
+    days: number;
+    nights: number;
+    adultPrice: number;
+    childrenPrice: number;
+    infantPrice: number;
+    mainImage: string;
+    headerImages: string[];
+    galleryImages: string[];
+    description: string;
+    plan: string;
+    includes: string[];
+    excludes: string[];
+    facilities: string[];
+    facts: string[];
+    serviceFees: number;
+    availableDates: string[];
+    termsAndConditions: string;
+    isFeatured: boolean;
+    isVerified: boolean;
+    isDeleted: boolean;
+  }

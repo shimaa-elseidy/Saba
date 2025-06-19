@@ -1,0 +1,472 @@
+// navbar-dashboard.component.scss
+.navbar {
+  align-items: center;
+  padding: 15px 20px;
+  position: fixed;
+  top: 0;
+  left: 270px; // Match sidebar width
+  right: 200px; // Match sidebar width
+  z-index: 1000;
+  transition: left 0.3s, width 0.3s;
+}
+
+:host {
+  display: block;
+  height: 64px;
+}
+
+.navbar h2 {
+  font-size: 22px;
+  color:  #42f48f3b;
+  font-weight: bold;
+  margin: 0;
+}
+
+// Right side elements container
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+// Rounded icon containers
+.rounded-circle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F7FA;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  i {
+    font-size: 18px;
+    color: #2563eb;
+  }
+
+  &:hover {
+    background-color: #e2e6ea;
+  }
+}
+
+.user-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .user-info {
+    cursor: pointer;
+    font-weight: 500;
+    color: #222;
+    transition: color 0.2s;
+    &:hover {
+      color: #2563eb;
+    }
+  }
+
+  .profile-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+    cursor: pointer;
+    transition: border 0.2s;
+    &:hover {
+      border: 2px solid #2563eb;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    min-width: 140px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    padding: 8px 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.2s;
+    border: 1px solid #f0f0f0;
+
+    a {
+      padding: 10px 18px;
+      color: #222;
+      text-decoration: none;
+      font-size: 15px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        background: #f5f7fa;
+        color: #2563eb;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* When sidebar is collapsed */
+.sidebar.collapsed + .navbar {
+  left: 70px;
+  width: calc(100% - 70px);
+}
+
+.notification {
+  position: relative;
+
+  .notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+
+.notifications-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 2rem;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  z-index: 1050;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1.5px solid #e0e4ea;
+  padding: 0;
+  animation: fadeIn 0.2s;
+
+  .notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px 12px 20px;
+    border-bottom: 1px solid #e9ecef;
+
+    h4 {
+      margin: 0;
+      font-size: 17px;
+      color: #1e1e2d;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 24px;
+      color: #6c757d;
+      background: none;
+      border: none;
+      padding: 0 2px;
+      line-height: 1;
+      transition: color 0.2s;
+      &:hover {
+        color: #2563eb;
+      }
+    }
+  }
+
+  .notifications-list {
+    .no-notifications {
+      text-align: center;
+      padding: 22px 0;
+      color: #6c757d;
+      font-size: 15px;
+    }
+
+    .notification-item {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      .notification-content {
+        display: flex;
+        align-items: center;
+
+        .notification-icon {
+          margin-right: 12px;
+          color:  #2563eb;
+          font-size: 20px;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #495057;
+        }
+
+        small {
+          color: #6c757d;
+          font-size: 12px;
+          display: block;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced Navbar Styles
+.enhanced-navbar {
+  background: #fff;
+  border-bottom: 1.5px solid #e0e4ea;
+  box-shadow: none;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // Changed from center to space-between
+  padding: 0 2rem;
+  position: fixed;
+  top: 0;
+  left: 80px;
+  width: calc(100% - 80px);
+  z-index: 1000;
+
+  .navbar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Align to left
+    justify-content: center;
+    flex: 1;
+  }
+
+  .dashboard-title {
+    color:  #2563eb;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .navbar-date {
+    color: #64748b;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .rounded-circle-icon {
+    background: #f5f7fa;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    cursor: pointer;
+
+    i {
+      font-size: 20px;
+      color: #2563eb;
+    }
+
+    &:hover {
+      background: #e2e6ea;
+    }
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .user-info {
+      color: #222;
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+
+      &:hover { color:  #2563eb; }
+    }
+
+    .profile-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #eee;
+      transition: border 0.2s;
+
+      &:hover { border: 2px solid  #2563eb; }
+    }
+
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  /* Notification badge */
+  .notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1024px) {
+  .enhanced-navbar {
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    height: 70px;
+
+    .dashboard-title {
+      font-size: 1.5rem;
+    }
+
+    .navbar-date {
+      font-size: 0.9rem;
+    }
+
+    .navbar-right {
+      gap: 15px;
+    }
+  }
+
+  .notifications-dropdown {
+    width: 280px;
+    right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .enhanced-navbar {
+    height: 60px;
+    padding: 0 0.75rem;
+    
+    .navbar-left {
+      align-items: center; // Center items horizontally
+      justify-content: center; // Center items vertically
+      width: 100%;
+    }
+
+    .dashboard-title,
+    .navbar-date {
+      width: 100%;
+      text-align: center;
+    }
+
+    .navbar-right {
+      gap: 12px;
+    }
+
+    .user-profile {
+      .user-info span {
+        display: none; // Hide user text on mobile
+      }
+    }
+
+    .profile-img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .rounded-circle-icon {
+      padding: 6px;
+      
+      i {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .notifications-dropdown {
+    width: 95vw;
+    right: 2.5vw;
+    top: 65px;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .enhanced-navbar {
+    height: 55px;
+    padding: 0 0.5rem;
+
+    .navbar-left {
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .dashboard-title,
+    .navbar-date {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .notifications-dropdown {
+    width: 100vw;
+    right: 0;
+    left: 0;
+    top: 58px;
+    border-radius: 0;
+    max-height: 300px;
+  }
+}
+
+// Additional utility class for very small screens
+@media (max-width: 320px) {
+  .enhanced-navbar {
+    .dashboard-title {
+      font-size: 0.9rem;
+      max-width: 150px;
+    }
+
+    .navbar-date {
+      font-size: 0.65rem;
+      max-width: 150px;
+    }
+
+    .navbar-right {
+      gap: 6px;
+    }
+
+    .profile-img {
+      width: 26px;
+      height: 26px;
+    }
+  }
+}

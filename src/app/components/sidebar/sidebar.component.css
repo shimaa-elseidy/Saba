@@ -1,0 +1,66 @@
+/* Custom tooltip styles for collapsed sidebar */
+.sidebar.collapsed .nav-link:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1200;
+  margin-left: 10px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Arrow for tooltip */
+.sidebar.collapsed .nav-link:hover::before {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+  margin-left: 0px;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+/* Same for back-to-home button */
+.sidebar.collapsed .back-to-home:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1200;
+  margin-left: 10px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.sidebar.collapsed .back-to-home:hover::before {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+  margin-left: 0px;
+  z-index: 1200;
+  pointer-events: none;
+}

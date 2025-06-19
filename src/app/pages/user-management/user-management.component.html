@@ -1,0 +1,77 @@
+<!-- user-management.component.html -->
+<div class="user-management">
+    <div class="header">
+      <div class="left-section">
+        <div class="customer">
+          <span>All Users</span>
+          <strong>{{usersCount.allUsers}}</strong>
+        </div>
+        <div class="customer">
+          <span>Customer</span>
+          <strong>{{usersCount.customer}}</strong>
+        </div>
+      </div>
+  
+      <div class="right-section">
+        <button class="create-btn" routerLink="/dashboard/create-new-user">+ Create New User</button>
+        <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search for user..." />
+        <i class="material-icons search-icon">search</i>
+      </div>
+      </div>
+    </div>
+  
+    <div class="user-management-container">
+      <div class="filter-buttons">
+        <button class="btn" [ngClass]="{'active': selectedStatus === 'all'}" (click)="filterUsers('all')">All Customers</button>
+        <button class="btn" [ngClass]="{'active': selectedStatus === 'active'}" (click)="filterUsers('active')">Active Users</button>
+        <button class="btn" [ngClass]="{'active': selectedStatus === 'blocked'}" (click)="filterUsers('blocked')">Blocked Users</button>
+        <button class="btn" [ngClass]="{'active': selectedStatus === 'pending'}" (click)="filterUsers('pending')">Pending Users</button>
+        <button class="btn" [ngClass]="{'active': selectedStatus === 'deleted'}" (click)="filterUsers('deleted')">Deleted Users</button>
+      </div>
+  
+      <div class="user-grid">
+        <div 
+          class="user-card" 
+          *ngFor="let user of filteredUser" 
+          [ngClass]="{'active-user': user.status === 'active'}"
+        >
+          <div class="user-card-header">
+            <div class="user-image-container">
+              <img 
+                [src]="getSafeImageUrl(user.profilePicture)" 
+                alt="User Image" 
+                class="user-image" 
+                (error)="handleImageError($event)" 
+              />
+            </div>
+            <div class="user-actions">
+              <button class="action-btn chat-btn" (click)="openChat(user)" title="Chat with user">
+                <i class="material-icons">chat</i>
+              </button>
+              <button class="action-btn delete-btn" (click)="showDeleteConfirmation(user)" title="Delete user">
+                <i class="material-icons">close</i>
+              </button>
+            </div>
+          </div>
+          <div class="user-info">
+            <h5 class="user-name">{{ user.name }}</h5>
+            <p class="user-email">{{ user.email }}</p>
+            <p class="user-date">{{ user.createdAt | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3>Confirm Deletion</h3>
+        <p>Are you sure you want to delete {{ userToDelete?.name }}?</p>
+        <div class="modal-buttons">
+          <button class="btn btn-danger" (click)="confirmDelete()">Yes, I'm sure</button>
+          <button class="btn btn-secondary" (click)="closeModal()">No, cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>

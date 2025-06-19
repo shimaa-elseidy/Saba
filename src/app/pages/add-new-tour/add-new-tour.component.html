@@ -1,0 +1,534 @@
+<form class="container" [formGroup]="tourForm" (ngSubmit)="submitTour()">
+  <div >
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h2 class="section-title">Basic Informations</h2>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <button class="btn-featured" type="button" (click)="setButtonValue('featured')">Featured</button>
+        <button class="btn-success" type="button" (click)="setButtonValue('verified')">Verify</button>
+      </div>
+    </div>
+
+    <div class="form1">
+      <!-- Tour Title -->
+      <div class="form-group full-width">
+        <label>Tour Title</label>
+        <input type="text" formControlName="tourTitle" placeholder="Name of your tour">
+        <div *ngIf="tourForm.get('tourTitle')?.invalid && tourForm.get('tourTitle')?.touched" class="text-danger">
+          Tour title is required and must be at least 3 characters.
+        </div>
+      </div>
+
+      <!-- Tour Category, Days, Nights -->
+      <div class="half-width">
+        <div class="form-group large">
+          <label>Tour Category</label>
+          <select formControlName="selectedCategory">
+            <option value="">Select</option>
+            <option value="0">Guide Of Egypt</option>
+            <option value="1">Classical Tours</option>
+            <option value="2">Day Of Trip</option>
+            <option value="3">Turkey Trips</option>
+          </select>
+        </div>
+
+        <div class="guest-inputs-container" formGroupName="guests">
+          <div class="guest-input">
+            <label>Ad</label>
+            <input type="number" formControlName="adult" placeholder="0">
+          </div>
+          <div class="guest-input">
+            <label>Ch</label>
+            <input type="number" formControlName="child" placeholder="0">
+          </div>
+          <div class="guest-input">
+            <label>In</label>
+            <input type="number" formControlName="infant" placeholder="0">
+          </div>
+        </div>
+
+
+        <div class="form-group small">
+          <label>Tour Day</label>
+          <input type="number" formControlName="tourDays" min="0">
+        </div>
+
+        <div class="form-group small">
+          <label>Tour Night</label>
+          <input type="number" formControlName="tourNights" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="forma">
+      <!-- Places Section -->
+      <div class="form-group places-container">
+        <div class="input-row">
+          <label>Places</label>
+          <button (click)="addPlace()" type="button" class="btn">Add</button>
+          <div class="tags-container">
+            <span *ngFor="let place of places.controls; let i = index" class="tag">
+              {{ place.value }}
+              <button (click)="removePlace(i)" type="button" class="remove-btn">&times;</button>
+            </span>
+          </div>
+        </div>
+        <div class="select-box">
+          <input list="placesList" formControlName="newPlace" id="place-select" placeholder="Choose or write a place" />
+          <datalist id="placesList">
+            <option value="Paris">
+            <option value="London">
+            <option value="New York">
+            <option value="Tokyo">
+          </datalist>
+        </div>
+      </div>
+
+      <!-- Tour Tags -->
+      <div class="form-group places-container">
+        <div class="input-row">
+          <label>Tour Tags</label>
+          <button (click)="addTag()" type="button" class="btn">Add</button>
+          <div class="tags-container">
+            <span *ngFor="let tag of tags.controls; let i = index" class="tag">
+              {{ tag.value }}
+              <button (click)="removeTag(i)" type="button" class="remove-btn">&times;</button>
+            </span>
+          </div>
+        </div>
+        <div class="select-box">
+          <input list="tagsList" formControlName="newTag" id="tag-select" placeholder="Choose or write your tag" />
+          <datalist id="tagsList">
+            <option value="Adventure">
+            <option value="Shopping">
+            <option value="Nature">
+            <option value="Beach">
+          </datalist>
+        </div>
+      </div>
+    </div>
+
+    <div class="forma">
+      <!-- Start Tour Section -->
+<div class="form-group places-container">
+  <div class="input-row">
+    <label>Start Tour</label>
+    <button (click)="addStartTour()" type="button" class="btn">Add</button>
+    <div class="tags-container">
+      <span *ngFor="let startTour of startTours.controls; let i = index" class="tag">
+        {{ startTour.value }}
+        <button (click)="removeStartTour(i)" type="button" class="remove-btn">&times;</button>
+      </span>
+    </div>
+  </div>
+  <div class="select-box">
+    <input list="startToursList" formControlName="newStartTour" id="startTour-select" placeholder="Choose or write a start tour location" />
+    <datalist id="startToursList">
+      <option value="From Hotel">
+      <option value="City Center">
+      <option value="Airport">
+      <option value="Tourist Office">
+    </datalist>
+  </div>
+</div>
+
+<!-- Pick Up Section -->
+<div class="form-group places-container">
+  <div class="input-row">
+    <label>Pick Up</label>
+    <button (click)="addPickUp()" type="button" class="btn">Add</button>
+    <div class="tags-container">
+      <span *ngFor="let pickUp of pickUps.controls; let i = index" class="tag">
+        {{ pickUp.value }}
+        <button (click)="removePickUp(i)" type="button" class="remove-btn">&times;</button>
+      </span>
+    </div>
+  </div>
+  <div class="select-box">
+    <input list="pickUpsList" formControlName="newPickUp" id="pickUp-select" placeholder="Choose or write a pick up location" />
+    <datalist id="pickUpsList">
+      <option value="Hotel Lobby">
+      <option value="Airport Terminal">
+      <option value="Train Station">
+      <option value="Custom Location">
+    </datalist>
+  </div>
+</div>
+
+    </div>
+
+    <div class="thirdForm">
+      <!-- First Row -->
+      <div class="thirdForm1">
+        <div class="form-group">
+          <label>Tour Price</label>
+          <div class="custom-input">
+            <input type="text" formControlName="tourPrice" placeholder="Tour Price">
+            
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Deposit</label>
+          <div class="custom-input">
+            <input type="text" formControlName="depositPercentage" placeholder="Deposit Percentage">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Second Row -->
+      <div class="thirdForm2 mb-2">
+        <div class="form-group">
+          <label>Adult Price</label>
+          <input type="text" formControlName="adultPrice" placeholder="Price per adult">
+        </div>
+        <div class="form-group">
+          <label>Children Price</label>
+          <input type="text" formControlName="childrenPrice" placeholder="Price per children">
+        </div>
+        <div class="form-group">
+          <label>Infant Price</label>
+          <input type="text" formControlName="infantPrice" placeholder="Price per infant">
+        </div>
+      </div>
+    </div>
+
+    <div class="image-upload-section">
+      <!-- Main Image -->
+      <div class="image-upload">
+        <label>Main Image</label>
+        <div class="upload-box" (click)="triggerFileInput('mainImage')">
+          <img *ngIf="mainImageUrl; else uploadIcon" [src]="mainImageUrl" alt="Uploaded Image">
+          <ng-template #uploadIcon>
+            <img src="" alt="Upload Icon">
+            <span>Click here to upload</span>
+          </ng-template>
+        </div>
+        <input type="file" #mainImage accept="image/*" (change)="onFileSelected($event, 'mainImage')" hidden>
+      </div>
+
+      <!-- Header Image -->
+      <div class="image-upload">
+        <label>Header Image</label>
+        <div class="upload-box" (click)="triggerFileInput('headerImage')">
+          <img *ngIf="headerImageUrl; else uploadIconHeader" [src]="headerImageUrl" alt="Uploaded Image">
+          <ng-template #uploadIconHeader>
+            <img src="" alt="Upload Icon">
+            <span>Click here to upload</span>
+          </ng-template>
+        </div>
+        <input type="file" #headerImage accept="image/*" (change)="onFileSelected($event, 'headerImage')" hidden>
+      </div>
+
+      <!-- Gallery Images -->
+      <div class="image-upload full-width">
+        <label>Gallery Images</label>
+        <div class="upload-box" (click)="triggerFileInput('galleryImage')">
+          <ng-container *ngIf="galleryImages.controls.length > 0; else uploadIconGallery">
+            <div class="gallery-container">
+              <div *ngFor="let imgCtrl of galleryImages.controls; let i = index" class="gallery-image">
+                <img [src]="imgCtrl.value" alt="Uploaded Image">
+                <!-- <button class="delete-btn1" (click)="removeImage(i)">✖</button> -->
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #uploadIconGallery>
+            <img src="" alt="Upload Icon">
+            <span>Click here to upload</span>
+          </ng-template>
+        </div>
+        <input type="file" #galleryImage accept="image/*" multiple (change)="onFileSelected($event, 'galleryImage')"
+          hidden>
+      </div>
+    </div>
+
+    <div class="tour-description-container">
+      <label for="editor">Tour Description</label>
+      <quill-editor id="editor" formControlName="tourDescription" [modules]="modules"
+        class="full-width-editor"></quill-editor>
+    </div>
+
+    <div class="tour-plan-container" [formGroup]="tourForm">
+      <div class="header">
+        <span>Tour Plan</span>
+        <button class="add-btn" type="button" (click)="addTourPlan()">Add</button>
+      </div>
+
+      <!-- تأكد من إضافة formArrayName هنا -->
+      <div formArrayName="tourPlans">
+        <div *ngFor="let plan of tourPlans.controls; let i = index" [formGroupName]="i" class="tour-plan-fields">
+          <input type="text" formControlName="title" placeholder="Title field" class="title-field">
+          <input type="text" formControlName="description" placeholder="Description" class="title-field">
+
+          <label class="upload-boxPlan">
+            <input type="file" hidden (change)="uploadFile($event, i)">
+            <span *ngIf="!plan.value.imageUrl">Click here to upload</span>
+            <img *ngIf="plan.value.imageUrl" [src]="plan.value.imageUrl" alt="Uploaded Image" class="uploaded-img">
+          </label>
+
+          <button class="delete-btnPlan" (click)="deleteItem(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tour-sections">
+      <!-- Tour Facilities -->
+      <div class="tour-section">
+        <div class="d-flex align-items-center">
+          <label class="me-2">Tour Facilities</label>
+          <button class="add-btn" type="button" (click)="addFacility()">Add</button>
+        </div>
+        <div *ngFor="let facility of facilities.controls; let i = index" [formGroup]="getFacilityFormGroup(i)"
+          class="input-group">
+          <input type="text" formControlName="title" placeholder="Facilities Title"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="description" placeholder="Description"
+            class="form-control bg-light border-0 rounded px-3">
+          <button class="delete-fac" type="button" (click)="removeFacility(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tour Includes & Excludes -->
+      <div class="tour-options-container">
+        <div class="tour-sectionIncludes">
+          <div class="d-flex align-items-center">
+            <label class="section-titleIncludes me-2">Tour Includes</label>
+            <button class="add-btn" type="button" (click)="addInclude()">Add</button>
+          </div>
+          <div *ngFor="let item of includes.controls; let i = index" [formGroup]="getIncludeFormGroup(i)"
+            class="option-group">
+            <div class="option-box">
+              <i class="bi bi-check-circle include-icon"></i>
+              <input type="text" formControlName="option" class="option-text form-control">
+            </div>
+            <button class="delete-btn" type="button" (click)="removeInclude(i)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="tour-sectionIncludes">
+          <div class="d-flex align-items-center">
+            <label class="section-titleIncludes me-2">Tour Excludes</label>
+            <button class="add-btn" type="button" (click)="addExclude()">Add</button>
+          </div>
+          <div *ngFor="let item of excludes.controls; let i = index" [formGroup]="getExcludeFormGroup(i)"
+            class="option-group">
+            <div class="option-box">
+              <i class="bi bi-x-circle exclude-icon"></i>
+              <input type="text" formControlName="option" class="option-text form-control">
+            </div>
+            <button class="delete-btn" type="button" (click)="removeExclude(i)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div *ngIf="excludes.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one item to "Tour Excludes".
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-sections">
+      <!-- Tour Facts -->
+      <div class="tour-section">
+        <div class="d-flex align-items-center">
+          <label class="me-2">Tour Facts</label>
+          <button class="add-btn" type="button" (click)="addFact()">Add</button>
+        </div>
+        <div *ngFor="let fact of facts.controls; let i = index" [formGroup]="getFactFormGroup(i)" class="input-group">
+          <input type="text" formControlName="title" placeholder="Fact Title"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="number" placeholder="Fact Number"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="description" placeholder="Description"
+            class="form-control bg-light border-0 rounded px-3">
+          <button class="delete-fac" type="button" (click)="removeFact(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Additional Service Fees -->
+      <div class="tour-section">
+        <div class="d-flex align-items-center">
+          <label class="me-2">Additional Service Fees</label>
+          <button class="add-btn" type="button" (click)="addService()">Add</button>
+        </div>
+        <div *ngFor="let service of services.controls; let i = index" [formGroup]="getServiceFormGroup(i)"
+          class="input-group">
+          <input type="text" formControlName="name" placeholder="Service Name"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="price" placeholder="Service Price"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="description" placeholder="Description"
+            class="form-control bg-light border-0 rounded px-3">
+          <button class="delete-fac" type="button" (click)="removeService(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-Termss">
+      <!-- Terms and Conditions -->
+      <div class="tour-Terms">
+        <div class="d-flex align-items-center">
+          <label class="me-2">Terms and Conditions</label>
+          <button class="add-btn" (click)="addTerms()">Add</button>
+        </div>
+        <div *ngFor="let term of terms.controls; let i = index" [formGroup]="getTermFormGroup(i) " class="input-group">
+          <input type="text" formControlName="title" placeholder="Title"
+            class="form-control bg-light border-0 rounded px-3">
+          <input type="text" formControlName="description" placeholder="Description"
+            class="form-control bg-light border-0 rounded px-3">
+          <button class="delete-Terms" (click)="removeTerms(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="calendar-container my-2">
+      <div class="calendar-header">
+        <span class="available-dates">Available Dates</span>
+        <div class="month-navigation">
+          <button type="button" class="nav-btn" (click)="changeMonth(-1)">&#8249;</button>
+          <button type="button" class="unlock-btn">Unlock this month</button>
+          <button type="button" class="nav-btn" (click)="changeMonth(1)">&#8250;</button>
+          <span>{{ displayedYear }} {{ months[displayedMonth] }}</span>
+        </div>
+      </div>
+      <div class="calendar-container my-2">
+        <div class="calendar-grid">
+          <div class="day-label" *ngFor="let day of weekDays">{{ day }}</div>
+
+          <div class="calendar-day" *ngFor="let day of calendarData" [class.selected]="isSelected(day.date)"
+            (click)="selectDate(day)">
+            <span class="mx-1">{{ day.date.getDate() }}</span>
+
+            <!-- عرض السهم بشكل دروب داون -->
+            <span *ngIf="  !day.priceSet" (click)="openOptionsForm(day)" class="dropdown-btn">&#9660;</span>
+
+            <!-- فورم الخيارات الذي يظهر عند الضغط على السهم بشكل دروب داون -->
+            <div *ngIf="day.optionsForm" class="options-form">
+              <label>Max Guests</label>
+              <input type="number" [(ngModel)]="day.maxGuests" [ngModelOptions]="{standalone: true}" min="1" />
+              <label>Adult Price</label>
+              <input type="number" [(ngModel)]="day.adultPrice" [ngModelOptions]="{standalone: true}" min="0" />
+              <label>Children Price</label>
+              <input type="number" [(ngModel)]="day.childrenPrice" [ngModelOptions]="{standalone: true}" min="0" />
+              <button (click)="setPrice(day)">Set Price</button>
+            </div>
+
+            <!-- عرض السعر بعد تحديده -->
+            <div *ngIf="day.priceSet" class="price-display">
+              Price: ${{ day.price }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="button-group mt-2">
+    <button class="btn btn-primary" *ngIf="!tourId">Submit Now</button>
+    <!-- <button class="btn btn-primary" *ngIf="tourId" (click)="updateTour()">Update Tour</button>  -->
+       <button class="btn btn-danger">Cancel</button>
+  </div>
+
+  <!-- Places -->
+<div *ngIf="places.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one place. (Required)
+</div>
+
+<!-- Tour Tags -->
+<div *ngIf="tags.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one tag. (Required)
+</div>
+
+<!-- Main Image -->
+<div *ngIf="!mainImageUrl && tourForm.touched" class="text-danger">
+  Please upload a main image. (Required)
+</div>
+
+<!-- Start Tour -->
+<div *ngIf="startTours.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one start tour location. (Required)
+</div>
+
+<!-- Pick Up -->
+<div *ngIf="pickUps.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one pick up location. (Required)
+</div>
+
+<!-- Tour Facts -->
+<div *ngIf="facts.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one tour fact. (Required)
+</div>
+
+<!-- Tour Plans -->
+<div *ngIf="tourPlans.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one tour plan. (Required)
+</div>
+
+<!-- Tour Title -->
+<div *ngIf="tourForm.get('tourTitle')?.invalid && tourForm.get('tourTitle')?.touched" class="text-danger">
+  Tour title is required and must be at least 3 characters.
+</div>
+
+<!-- Header Images -->
+<div *ngIf="!headerImageUrl && tourForm.touched" class="text-danger">
+  Please upload a header image. (Required)
+</div>
+
+<!-- Tour Includes -->
+<div *ngIf="includes.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one item to "Tour Includes". (Required)
+</div>
+
+<!-- Tour Excludes -->
+<div *ngIf="excludes.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one item to "Tour Excludes". (Required)
+</div>
+
+<!-- Gallery Images -->
+<div *ngIf="galleryImages.length === 0 && tourForm.touched" class="text-danger">
+  Please upload at least one gallery image. (Required)
+</div>
+
+<!-- Available Dates -->
+<div *ngIf="availableDates.length === 0 && tourForm.touched" class="text-danger">
+  Please select at least one available date. (Required)
+</div>
+
+<!-- Tour Facilities -->
+<div *ngIf="facilities.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one tour facility. (Required)
+</div>
+
+<!-- Tour Description -->
+<div *ngIf="tourForm.get('tourDescription')?.invalid && tourForm.get('tourDescription')?.touched" class="text-danger">
+  Please enter a tour description. (Required)
+</div>
+
+<!-- Terms and Conditions -->
+<div *ngIf="terms.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one term and condition. (Required)
+</div>
+
+<!-- Additional Service Fees -->
+<div *ngIf="services.length === 0 && tourForm.touched" class="text-danger">
+  Please add at least one additional service fee. (Required)
+</div>
+</form>

@@ -1,0 +1,458 @@
+// Modern Sidebar Styling
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0;
+  z-index: 1101;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+/* Ensure sidebar content stretches for scrolling */
+.sidebar > * {
+  flex-shrink: 0;
+}
+
+/* Optional: Style the scrollbar for Webkit browsers */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+
+.sidebar.collapsed {
+  width: 80px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Logo adjustments
+  .sidebar-logo {
+    padding: 12px 12px 8px 12px; // Reduced bottom padding
+    
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      margin-bottom: 8px; // Reduced space below collapsed logo
+    }
+  }
+
+  // Hide text elements with smooth transition
+  .nav-label, .item-text {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: 
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    will-change: opacity, transform;
+  }
+
+  // Center nav items when collapsed and reduce spacing
+  .nav-item {
+    justify-content: center;
+    margin: 0 12px 2px 12px; // Center with proper margins
+    
+    .nav-link {
+      justify-content: center;
+      padding: 10px 8px; // Better padding for icons
+      min-height: 40px; // Slightly larger for better touch targets
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-icon {
+      margin: 0 !important; // Remove any margin from icon
+      font-size: 20px; // Slightly larger icons in collapsed state
+      text-align: center;
+      width: 20px; // Fixed width for consistent alignment
+    }
+  }
+
+  // Adjust nav list spacing
+  .nav-list {
+    gap: 1px; // Minimal gap when collapsed
+    padding: 4px 0; // Reduced padding
+  }
+
+  // Adjust back to home button when collapsed
+  .back-to-home {
+    margin: 12px 12px 16px 12px; // Reduced top margin
+    align-self: center; 
+    width: calc(100% - 24px);
+    padding: 12px;
+    justify-content: center;
+    min-height: 40px; // Match nav items height
+    
+    span {
+      display: none;
+    }
+    
+    .bi-house-door-fill {
+      font-size: 20px; // Match nav icon size
+      margin: 0;
+    }
+    
+    .bi-chevron-double-right {
+      display: none;
+    }
+  }
+}
+
+// Toggle Button - Show when collapsed (positioned outside sidebar)
+.toggle-btn {
+  position: fixed;
+  top: 4%;
+  left: 70px;
+  transform: translateY(-50%);
+  background: transparent;
+  // backdrop-filter: blur(10px);
+  // border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1102;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid transparent;
+  
+  &:hover {
+    transform: translateY(-50%) scale(1.1);
+    // background: rgba(255, 255, 255, 0.95);
+  }
+
+  i {
+    color: #2563eb;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover i {
+    transform: scale(1.1);
+  }
+}
+
+.toggle-btn-out {
+  position: fixed;
+  top: 4%;
+  left: 232px;
+  transform: translateY(-50%);
+  background: white;
+  // backdrop-filter: blur(1px);
+  border: none;
+  // border-radius: 50%;
+  width: 32px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1102;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-50%) scale(1.1);
+    // background: rgba(255, 255, 255, 0.95);
+  }
+
+  i {
+    color: #2563eb;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover i {
+    transform: scale(1.1);
+  }
+}
+
+// Logo Section Styling
+.sidebar-logo {
+  padding: 12px 16px 16px 16px;
+  text-align: center;
+  
+  img {
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+  }
+}
+
+// Navigation Section
+.sidebar-nav {
+  padding: 8px 0;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+}
+
+.nav-item {
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: visible;
+  margin: 0 12px;
+
+  .nav-link {
+    color: #9CA3AF;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    background: transparent;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    min-height: 36px;
+
+    .nav-icon {
+      font-size: 18px;
+      color: #9CA3AF;
+      min-width: 20px;
+      text-align: center;
+      transition: color 0.2s ease;
+    }
+
+    .nav-label {
+      color: #9CA3AF;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+  }
+
+  &:hover {
+    background: transparent;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: #2563eb;;
+      border-radius: 3px 8px 8px 3px;
+    }
+    
+    .nav-link {
+      .nav-icon, .nav-label {
+        color: #2563eb !important;
+      }
+    }
+  }
+  
+  &.active {
+    background: transparent;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: #2563eb;
+      border-radius: 0 2px 2px 0;
+    }
+    
+    .nav-link {
+      .nav-icon, .nav-label {
+        color: #2563eb !important;
+      }
+    }
+  }
+}
+
+// Back to Homepage Button
+.back-to-home {
+  background: #2563eb;
+  color: #fff !important;
+  border-radius: 24px;
+  padding: 8px 12px;
+  margin: 20px 12px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-height: 36px;
+  gap: 8px;
+
+  i {
+    color: #fff !important;
+    font-size: 18px;
+    transition: transform 0.2s ease;
+  }
+
+  span {
+    color: #fff !important;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background: #2563eb;
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    text-decoration: none;
+    
+    i {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 80px;
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // وسط كل العناصر
+
+    .nav-list {
+      gap: 0; // شيل المسافة بين العناصر
+      padding: 0;
+      align-items: center; // وسط الروابط
+    }
+
+    .nav-item {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .nav-link {
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        min-height: 44px;
+        width: 48px;
+        margin: 0 auto;
+      }
+
+      .nav-icon {
+        font-size: 22px !important;
+        color: #2563eb !important;
+        margin: 0 !important;
+        width: 22px !important;
+        text-align: center;
+      }
+    }
+
+    .back-to-home {
+      min-height: 44px;
+      width: 48px;
+      padding: 0;
+      margin: 8px auto 8px auto; // قلل المسافة فوق وتحت
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        display: none;
+      }
+
+      .bi-house-door-fill {
+        font-size: 22px;
+        margin: 0;
+      }
+    }
+  }
+  
+  .main-content {
+    margin-left: 80px;
+  }
+  
+  .toggle-btn, .toggle-btn-out {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: none !important;
+    border-radius: 0;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .toggle-btn {
+    display: flex;
+    top: 20px;
+    left: 20px;
+    transform: none;
+  }
+  
+  .toggle-btn-out {
+    display: none;
+  }
+  
+  .toggle-btn,
+  .toggle-btn-out {
+    display: none !important;
+  }
+}
+
+// Smooth animations for expanding/collapsing
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sidebar:not(.collapsed) {
+  .nav-item {
+    animation: slideInRight 0.3s ease forwards;
+    
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+  }
+  
+  .nav-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

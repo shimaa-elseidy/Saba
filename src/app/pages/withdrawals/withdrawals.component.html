@@ -1,0 +1,97 @@
+<div class="container overview"> 
+  <div class="">
+    <div class="stats">
+      <div class="stat-card">
+        <div>
+          <h4>My Wallet Balance</h4>
+          <h2>{{myWalletBalance}}</h2>
+        </div>
+        <i class="bi bi-cash-stack"></i>
+      </div>
+      <div class="stat-card">
+        <div>
+          <h4>My Refunds</h4>
+          <h2>{{allRefunds}}</h2>
+        </div>
+        <i class="bi bi-megaphone-fill"></i>
+      </div>
+      <div class="stat-card">
+        <div>
+          <h4>Payments Last Week</h4>
+          <h2>{{paymentLastWeek}}</h2>
+        </div>
+        <i class="bi bi-handbag-fill"></i> 
+      </div>
+    </div>
+  </div>
+  
+  <!-- قسم الفلاتر -->
+  <div class="filters">
+    <button class="btn">Bulk Actions ▼</button>
+    <button class="btn btn-primary">Apply</button>
+    <div class="d-flex align-items-center">
+      <label class="me-1" for="start">Start Date:</label>
+      <input type="date" id="start" [(ngModel)]="startDate" (change)="filterByDate()"/>
+    </div>
+    <div class="d-flex align-items-center">
+      <label class="me-1" for="end">End Date:</label>
+      <input type="date" id="end" [(ngModel)]="endDate" (change)="filterByDate()"/>
+    </div> 
+    <button class="btn btn-primary">Filter</button>
+    <button class="btn btn-primary">Export to CSV</button>
+    <button class="btn">Show / Hide columns</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox"></th>
+          <th>Username</th>
+          <th>User Email</th>
+          <th>Gateway</th>
+          <th>Payment Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td class="checkbox-cell"><input type="checkbox" /></td>
+          <td>{{transaction.username}}</td>
+          <td>{{ transaction.userEmail }}</td>
+          <td>{{ transaction.gateway }}</td>
+          <td>{{ transaction.paymentDate }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td [class]="getStatusClass(transaction.status)">
+            {{ transaction.status }}
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7" class="table-footer">
+            <div class="d-flex justify-content-between align-items-center">
+            
+              <div class="pagination-controls">
+                <button 
+                  [disabled]="currentPage === 1" 
+                  (click)="previousPage()" 
+                  class="btn btn-sm btn-outline-primary me-2">
+                  Previous
+                </button>
+                <span class="page-info">Page {{ currentPage }} of {{ getTotalPages() }}</span>
+                <button 
+                  [disabled]="currentPage === getTotalPages()" 
+                  (click)="nextPage()" 
+                  class="btn btn-sm btn-outline-primary ms-2">
+                  Next
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

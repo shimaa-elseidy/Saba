@@ -1,0 +1,112 @@
+<div class="reels-container">
+  <!-- Upload Section -->
+  <div class="upload-button" *ngIf="isAdmin" (click)="toggleUpload()">
+    <i class="bi bi-plus-lg"></i>
+    <span>Upload Reel</span>
+  </div>
+
+  
+  <div class="overlay" *ngIf="isUploading" (click)="toggleUpload()"></div>
+
+  <!-- Upload Form -->
+  <div class="upload-form" *ngIf="isUploading">
+
+    <div class="form-header">
+      <h3>Upload New Reel</h3>
+      <button class="close-button" (click)="toggleUpload()">×</button>
+    </div>
+    
+    <div class="form-body">
+        <div class="file-input">
+            <label for="video-input">Select Video:</label>
+            <input 
+              type="file" 
+              id="video-input" 
+              accept="video/*" 
+              (change)="onFileSelected($event)"
+              #fileInput
+              style="display: none"
+            >
+            <button class="file-select-button" (click)="fileInput.click()">
+              Choose File
+            </button>
+            <div class="file-info" *ngIf="newReelFile">
+                <span class="file-name">{{ newReelFile.name }}</span>
+                <span class="file-size">({{ getFileSize(newReelFile.size) }})</span>
+                <button class="remove-file" (click)="removeFile()">×</button>
+              </div>
+          </div>
+      
+      <div class="description-input">
+        <label for="description">Description:</label>
+        <textarea 
+          id="description" 
+          rows="3" 
+          [(ngModel)]="newReelDescription" 
+          placeholder="Write a description for your reel..."
+        ></textarea>
+      </div>
+      
+      <button class="upload-submit" (click)="uploadReel()">
+        <i class="bi bi-cloud-upload"></i> Upload
+      </button>
+    </div>
+  </div>
+
+  <!-- Reels Viewer - Single Video Display -->
+  <div class="reels-viewer" *ngIf="reels.length > 0">
+    <div class="reel-content">
+      <video 
+        [src]="reels[currentReelIndex].videoUrl" 
+        controls 
+        autoplay
+        loop
+        class="reel-video"
+      ></video>
+      
+      <!-- Navigation buttons -->
+      <button 
+        class="nav-button prev-button" 
+        (click)="previousReel()" 
+        [disabled]="currentReelIndex === 0"
+      >
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      
+      <button 
+        class="nav-button next-button" 
+        (click)="nextReel()" 
+        [disabled]="currentReelIndex === reels.length - 1"
+      >
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+    
+    <!-- Video counter -->
+    <div class="reel-counter">
+      {{ currentReelIndex + 1 }} / {{ reels.length }}
+    </div>
+    
+    <!-- User info and description -->
+    <div class="reel-info">
+      <div class="username">{{ reels[currentReelIndex].username }}</div>
+      <div class="description">{{ reels[currentReelIndex].description }}</div>
+    </div>
+    
+    <!-- Action buttons -->
+    <div class="reel-actions">
+      <button class="like-button" (click)="toggleLike(reels[currentReelIndex])">
+        <i class="bi" [class.bi-heart-fill]="reels[currentReelIndex].liked" [class.bi-heart]="!reels[currentReelIndex].liked"></i>
+        <span>{{ reels[currentReelIndex].likes }}</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="reels.length === 0">
+    <p>No reels available. Be the first to upload!</p>
+    <button (click)="toggleUpload()">
+      <i class="bi bi-plus-lg"></i> Upload Reel
+    </button>
+  </div>
+</div>

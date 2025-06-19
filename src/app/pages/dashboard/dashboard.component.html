@@ -1,0 +1,12 @@
+<!-- app.component.html - Updated Template -->
+<div class="dashboard-layout">
+  <app-loading *ngIf="isLoading"></app-loading>
+  <app-sidebar class="sidebar" (titleChange)="updateTitle($event)"></app-sidebar>
+  <div class="main-area">
+    <app-navbar-dashboard class="mb-3" [pageTitle]="pageTitle"></app-navbar-dashboard>
+    <div class="dashboard-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,194 @@
+<div class="booking-page-wrapper">
+<form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
+  <div class="container booking-container">
+    <div class="decorative-element"></div>
+    <div class="row">
+      <!-- Booking Information -->
+      <div class="col-md-7">
+        <h4>New Booking</h4>
+
+        <!-- Display error message if present -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label>User Name*</label>
+            <select class="form-control" formControlName="travelerName">
+              <option value="">Select user...</option>
+              <option *ngFor="let user of users" [value]="user.userID">
+                {{ user.name }}
+              </option>
+            </select>
+            <div
+              *ngIf="bookingForm.get('travelerName')?.invalid && bookingForm.get('travelerName')?.touched"
+              class="text-danger"
+            >
+              Please select a user.
+            </div>
+          </div>
+    
+          <div class="form-group">
+            <label>Tour Name*</label>
+            <select class="form-control" formControlName="tourName">
+              <option value="">Select tour item...</option>
+              <option *ngFor="let tour of tours" [value]="tour.id">
+                {{ tour.tourTitle }}
+              </option>
+            </select>
+            <div
+              *ngIf="bookingForm.get('tourName')?.invalid && bookingForm.get('tourName')?.touched"
+              class="text-danger"
+            >
+              Please select a tour.
+            </div>
+          </div>
+            
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Tour Price*</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="tourPrice"
+                placeholder="Tour Price"
+              />
+              <div
+                *ngIf="
+                  bookingForm.get('tourPrice')?.errors?.['required'] &&
+                  bookingForm.get('tourPrice')?.touched
+                "
+                class="text-danger"
+              >
+                Tour price is required.
+              </div>
+            </div>
+          </div>
+
+      <!-- Payment Method -->
+      <div class="form-group">
+        <label>Payment Method*</label>
+        <select class="form-control" formControlName="paymentMethod">
+          <option [ngValue]="true">Pay Now</option>
+          <option [ngValue]="false">Pay Later</option>
+        </select>
+        <div *ngIf="bookingForm.get('paymentMethod')?.invalid && bookingForm.get('paymentMethod')?.touched" class="text-danger">
+          Please select a valid payment method.
+        </div>
+      </div>
+
+      <!-- Deposit Payment -->
+      <div class="form-group">
+        <label>Deposit Payment*</label>
+        <select class="form-control" formControlName="isDepositPayment">
+          <option [ngValue]="true">Yes</option>
+          <option [ngValue]="false">No</option>
+        </select>
+        <div *ngIf="bookingForm.get('isDepositPayment')?.invalid && bookingForm.get('isDepositPayment')?.touched" class="text-danger">
+          Please select a deposit option.
+        </div>
+      </div>
+          
+          <div class="form-group">
+            <label>Tour Time*</label>
+            <input
+              type="time"
+              class="form-control"
+              formControlName="tourTime"
+              placeholder="Tour Time"
+            />
+            <div
+              *ngIf="bookingForm.get('tourTime')?.invalid && bookingForm.get('tourTime')?.touched"
+              class="text-danger"
+            >
+              Tour Time is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Per Guest Type -->
+        <h5>Number of Guests</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Adults*</label>
+              <input type="number" class="form-control" formControlName="adultsCount" min="1" />
+              <div *ngIf="bookingForm.get('adultsCount')?.invalid && bookingForm.get('adultsCount')?.touched" class="text-danger">
+                At least 1 adult is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Children</label>
+              <input type="number" class="form-control" formControlName="childrenCount" min="0" />
+              <div *ngIf="bookingForm.get('childrenCount')?.invalid && bookingForm.get('childrenCount')?.touched" class="text-danger">
+                Cannot be negative.
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Tour Date*</label>
+          <input type="date" class="form-control" formControlName="tourDate" />
+          <div *ngIf="bookingForm.get('tourDate')?.invalid && bookingForm.get('tourDate')?.touched" class="text-danger">
+            Booking date is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email to Notify*</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="emailToNotify"
+            placeholder="Type email address"
+          />
+          <div
+            *ngIf="bookingForm.get('emailToNotify')?.invalid && bookingForm.get('emailToNotify')?.touched"
+            class="text-danger"
+          >
+            Please enter a valid email address.
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-md-5">
+        <h4>Order Summary</h4>
+
+        <!-- زر إتمام الحجز - يظهر فقط إذا لم تكن هناك جلسة دفع -->
+        <button *ngIf="!session" type="button" class="btn btn-primary w-100" (click)="submitBooking()" [disabled]="submitting">
+          <span *ngIf="!submitting">Book Now</span>
+          <span *ngIf="submitting" class="spinner-inline">
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+            <span class="spinner-dot"></span>
+          </span>
+        </button>
+        <!-- نموذج الدفع - يُخفى بشكل افتراضي ويُظهر فقط عند وجود رابط دفع -->
+        <form id="paymentForm" action="https://test-nbe.gateway.mastercard.com/api/page/version/61/pay?charset=UTF-8" method="POST" style="display: none;">
+          <input type="hidden" name="session.id" value="">
+          <input type="hidden" name="merchant" value="TESTEGPTEST">
+          <input type="hidden" name="order.id" value="16">
+          <input type="hidden" name="order.description" value="OJ">
+          <input type="hidden" name="order.amount" value="100.00">
+          <input type="hidden" name="order.currency" value="USD">
+          <input type="hidden" name="interaction.operation" value="PURCHASE">
+          <input type="hidden" name="interaction.merchant.name" value="Nbe Test">
+          <input type="hidden" name="interaction.merchant.address.line1" value="عنوان المتجر السطر 1">
+          <input type="hidden" name="interaction.merchant.address.line2" value="عنوان المتجر السطر 2">
+        </form>
+        <div *ngIf="session" class="text-center py-3">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Redirecting to payment...</span>
+          </div>
+          <p class="mt-2">Redirecting to payment gateway...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>

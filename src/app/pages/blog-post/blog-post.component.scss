@@ -1,0 +1,229 @@
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.video-background:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 10, 10, 0.6); /* طبقة شفافة لتحسين قراءة المحتوى */
+  z-index: 1;
+}
+
+.video-background video {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+/* footer.component.scss */
+.footer-section {
+  position: relative;
+  height: 28vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  background-image: url('../../../assets/footerjpg.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: left;
+  padding: 20px;
+  margin-bottom: 50px;
+  
+  /* Gradient overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  
+  .breadcrumb-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+  
+  .breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .breadcrumb-current {
+    color: white;
+    font-weight: 500;
+  }
+}
+
+
+
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    
+  }
+  .card:hover .card-img-top {
+  }
+  .card-img-top {
+    height: 400px;
+    object-fit: cover;
+    animation: zoomIn 1s ease forwards;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.5s ease;
+
+  }
+  
+  
+  
+  
+  @keyframes zoomIn {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .date-box {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    background-color: #007bff;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    width: 50px;
+    font-weight: bold;
+  }
+  
+  .date-box .day {
+    font-size: 18px;
+    display: block;
+  }
+  
+  .date-box .month {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  
+  .meta-info {
+    font-size: 14px;
+    color: #6c757d;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .meta-info i {
+    margin-right: 5px;
+  }
+  
+  .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .blog-excerpt {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .blog-stats {
+    font-size: 14px;
+    color: #6c757d;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .blog-stats i {
+    margin-right: 5px;
+  }
+  
+  .blog-post {
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card {
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      
+      &-img-top {
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &:hover .card-img-top {
+        transform: scale(1.05);
+      }
+      
+      &-body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
+        .blog-excerpt {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+  
+  // باقي الأنماط تبقى كما هي

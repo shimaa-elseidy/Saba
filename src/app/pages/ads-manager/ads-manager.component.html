@@ -1,0 +1,102 @@
+<div class="overview">
+    <div class="header-title">
+        <h2 class="mx-auto">Ads</h2>
+    </div>
+    <div class="content-wrapper">
+        <button class="create-btn">+ Create new Ad</button>
+
+        <div class="packages">
+            <div class="package-card silver">
+              <h4>Silver Package</h4>
+              <p>Total ads used: <strong>99</strong></p>
+              <p>Subscribed users: <strong>28</strong></p>
+              <p>Canceled users: <strong>7</strong></p>
+            </div>
+            <div class="package-card gold">
+              <h4>Gold Package</h4>
+              <p>Total ads used: <strong>985</strong></p>
+              <p>Subscribed users: <strong>76</strong></p>
+              <p>Canceled users: <strong>18</strong></p>
+            </div>
+            <div class="package-card platinum">
+              <h4>Platinum Package</h4>
+              <p>Total ads used: <strong>5,585</strong></p>
+              <p>Subscribed users: <strong>158</strong></p>
+              <p>Canceled users: <strong>35</strong></p>
+            </div>
+            <div class="package-card business">
+              <h4>Business Package</h4>
+              <p>Total ads used: <strong>20,285</strong></p>
+              <p>Subscribed users: <strong>966</strong></p>
+              <p>Canceled users: <strong>190</strong></p>
+            </div>
+        </div>
+          
+        <!-- Filters section -->
+        <div class="filters">
+            <button class="btn">Bulk Actions ▼</button>
+            <button class="btn btn-primary">Apply</button>
+            <div class="d-flex align-items-center">
+              <label class="me-1" for="start">Start Date:</label>
+              <input type="date" id="start" placeholder="Start Date" />
+            </div>
+            <div class="d-flex align-items-center">
+              <label class="me-1" for="end">End Date:</label>
+              <input type="date" id="end" placeholder="End Date" />
+            </div> 
+            <button class="btn btn-primary">Filter</button>
+            <button class="btn btn-primary">Export to CSV</button>
+            <button class="btn" (click)="toggleColumnSelector()">Show / Hide columns</button>
+            <div class="column-selector" [class.show]="showColumnSelector">
+              <div class="column-selector-header">
+                <h4>Toggle Columns</h4>
+                <button class="close-btn" (click)="toggleColumnSelector()">×</button>
+              </div>
+              <div class="column-options">
+                <div class="column-option" *ngFor="let column of columns">
+                  <input type="checkbox" [id]="column.key" [checked]="column.visible" (change)="toggleColumn(column.key)">
+                  <label [for]="column.key">{{ column.name }}</label>
+                </div>
+              </div>
+            </div>
+        </div>
+      
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th *ngIf="isColumnVisible('checkbox')"><input type="checkbox"></th>
+                  <th *ngIf="isColumnVisible('id')">ID</th>
+                  <th *ngIf="isColumnVisible('package')">Ad Package</th>
+                  <th *ngIf="isColumnVisible('startDate')">Start Date</th>
+                  <th *ngIf="isColumnVisible('endDate')">End Date</th>
+                  <th *ngIf="isColumnVisible('amount')">Amount</th>
+                  <th *ngIf="isColumnVisible('status')">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Ad of Ads" class="animate-row">
+                  <td *ngIf="isColumnVisible('checkbox')" class="checkbox-cell"><input type="checkbox" /></td>
+                  <td *ngIf="isColumnVisible('id')">{{Ad.ID}}</td>
+                  <td *ngIf="isColumnVisible('package')" [class]="getPackageClass(Ad['Ad Package'])">
+                    {{ Ad['Ad Package'] }}
+                  </td>
+                  <td *ngIf="isColumnVisible('startDate')">{{ Ad['Start Date']}}</td>
+                  <td *ngIf="isColumnVisible('endDate')">{{ Ad['End Date']}}</td>
+                  <td *ngIf="isColumnVisible('amount')">{{ Ad.amount }}</td>
+                  <td *ngIf="isColumnVisible('status')" [class]="getStatusClass(Ad.status)">
+                    {{ Ad.status }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                    <td colspan="7" class="table-footer">
+                        <div class="entries-info">Showing 1 to 10 of 472 entries</div>
+                    </td>
+                </tr>
+            </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

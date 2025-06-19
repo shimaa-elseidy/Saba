@@ -1,0 +1,211 @@
+
+.container-fluid{
+    font-family: 'Barlow', sans-serif;
+
+}
+ 
+.filter-background {
+  width: 100%;
+  height: 40vh;
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.618); /* Black overlay with 60% opacity */
+  z-index: 1;
+}
+
+.filter-background > .container {
+  z-index: 2;
+}
+
+  .tour-title h1 {
+margin-bottom: 15px;
+    color: #ffffff; /* اللون الأبيض ليكون واضحًا على الخلفية */
+    font-size: 2.5rem; /* حجم الخط */
+    font-weight: 700; /* وزن الخط */
+    text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+    letter-spacing: 2px; /* تباعد بين الحروف */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* ظل للنص لإبرازه */
+    animation: fadeInDown 1.5s ease-in-out forwards; /* تطبيق الحركة */
+  }
+  
+  /* الحركة (Animation) */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px); /* البداية من الأعلى */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* الوصول إلى المكان الطبيعي */
+    }
+  }
+  .filter-section {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .form-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.2rem;
+  }
+  
+  .form-control,
+  .form-range {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 4px;
+    font-size: 0.85rem;
+  }
+  
+  .form-range {
+    height: 5px;
+  }
+  
+  .form-select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 50px 4px 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    
+    &:hover {
+      border-color: #666;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #0d62e2;
+      box-shadow: 0 0 5px rgba(13, 98, 226, 0.3);
+    }
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+  
+  @media (min-width: 768px) {
+    .col-md-3 .card-title {
+      font-size: 1.1rem;
+    }
+    
+    .col-md-3 .card-text {
+      font-size: 0.85rem;
+    }
+    
+    .col-md-3 .badge {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .btn-outline-primary {
+    border-color: #0d62e2;
+    color: #0d62e2;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #0d62e2;
+    color: white;
+  }
+  
+  .btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-primary {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    .card{
+      margin: 0 15px;
+    }
+
+    .filter-background {
+      height: 400px;
+    }
+  
+  
+    .filter-section {
+      padding: 8px 12px;
+    }
+  
+    .form-label {
+      font-size: 0.75rem;
+    }
+  
+    .form-control,
+    .form-range {
+      font-size: 0.8rem;
+    }
+  
+    .btn-primary {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+  }

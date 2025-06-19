@@ -1,0 +1,322 @@
+.container {
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.701);
+  margin: 30px auto;
+  border-radius: 15px;
+  padding: 35px;
+      font-family: 'Inter', sans-serif;
+    
+  }
+  .cont{
+    max-height: 500px; /* حد أقصى للارتفاع، يمكن تغييره حسب احتياجك */
+    overflow-y: auto; /* يضيف سكرول رأسي فقط عندما يتجاوز المحتوى الارتفاع المحدد */
+  }
+  /* تخصيص مظهر السكولبار في المتصفحات الداعمة (مثل Chrome و Safari) */
+  .cont::-webkit-scrollbar {
+    width: 8px; /* عرض السكولبار */
+  }
+  
+  .cont::-webkit-scrollbar-thumb {
+    background-color: #007bff; /* اللون الأزرق */
+    border-radius: 10px; /* تدوير حواف السكولبار */
+  }
+  
+  /* تخصيص السكولبار في المتصفحات التي تدعم scrollbar-color (مثل Firefox) */
+  .cont {
+    scrollbar-color: #007bff #f1f1f1; /* اللون الأزرق للسكولبار والخلفية الرمادية */
+    scrollbar-width: thin; /* عرض السكولبار */
+  }
+  
+  
+  .create-btn {
+    background-color: #2d60ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .delete {
+    background-color: #fff !important;
+    color: black !important;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .delete:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  .trash-icon {
+    width: 20px;
+    height: 20px;
+    fill: #0D62E2;
+  }
+  .refresh-icon {
+    width: 20px;
+    height: 20px;
+    fill: #0D62E2;
+    animation: rotate 1.5s linear infinite;
+    color: gray;
+  }
+  .filters {
+    display: flex;
+    margin: 20px auto;
+    gap: 20px;
+
+    label{
+        color: gray;
+    }
+  }
+  
+  .filters .btn {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  select.form-select {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  
+  .filters .btn-primary {
+    background-color: #2d60ff;
+    color: white;
+    border-radius: 8px;
+    padding: 2px 8px;
+  }
+  
+  .filters input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+  }
+  
+  td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  // td.completed {
+  //   color: green;
+  //   font-weight: bold;
+  // }
+  
+  // td.failed {
+  //   color: red;
+  //   font-weight: bold;
+  // }
+  
+  // td.pending {
+  //   color: orange;
+  //   font-weight: bold;
+  // }
+  
+  // td.on-progress {
+  //   color: blue;
+  //   font-weight: bold;
+  // }
+  
+  // td.rejected {
+  //   color: #EB4D4D;
+  //   font-weight: bold;
+  // }
+  
+  // td.refund {
+  //   color: purple;
+  //   font-weight: bold;
+  // }
+  // td.Canceled {
+  //   color: #A55F77;
+  //   font-weight: bold;
+  // }
+  // td.on-review {
+  //   color: #32ADE6;
+  //   font-weight: bold;
+  // }
+  // td.Deleted {
+  //   color: red;
+  //   font-weight: bold;
+  // }
+  .status-pending {
+    
+    color: #856404;
+  }
+  
+  .status-review {
+    
+    color: #0c5460;
+  }
+  
+  .status-completed {
+    
+    color: #155724;
+  }
+  
+  .status-rejected {
+    
+    color: #721c24;
+  }
+  
+  .status-canceled {
+    
+    color: #383d41;
+  }
+  
+  .status-onprogress {
+    
+    color: #004085;
+  }
+  .form-select {
+    background-color: transparent !important; /* يشيل الخلفية */
+    box-shadow: none !important;             /* يشيل الظل */
+    border: none !important;                 /* يشيل البوردر */
+    padding-left: 0;                         /* لو حابب تشيل المسافة */
+    font-weight: bold;
+    width: 200px; /* تحديد عرض ثابت */
+    height: 40px; /* تحديد ارتفاع مناسب */
+  
+    cursor: pointer;
+  }
+  
+  select option {
+    padding: 10px;
+    background-color: white;
+    color: #333;
+    font-weight: 500;
+  }
+  .form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* إزالة السهم */
+  
+    background-color: transparent; /* خلفية شفافة */
+    border: 1px solid #ccc; /* تحديد حد بسيط */
+    padding: 8px 12px; /* حشوة مناسبة داخل الـ select */
+    font-size: 16px; /* حجم الخط */
+    color: #333; /* لون النص */
+    width: 100%; /* العرض 100% ليملأ المكان المتاح */
+    cursor: pointer; /* تغيير المؤشر عند التمرير */
+    border-radius: 4px; /* زوايا مدورة */
+  }
+  
+  .table-container {
+    
+    display: flex;
+    justify-content: center;
+  }
+  
+  .table-responsive {
+    width: 88%;
+    margin: 15px 0;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;  // ✅ لجعل الجدول قابلًا للتمرير على الشاشات الصغيرة
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;  // ✅ يمنع الجدول من الانكماش بشدة
+    }
+      th, td {
+        padding: 12px;
+        text-align: left;
+        white-space: nowrap; 
+        color: #000000;
+        font-size: 16px;
+        font-weight: 500;
+
+      }
+  
+      th {
+        font-weight: bold;
+        color: #718EBF;
+        font-size: 16px;
+        font-weight: 500;
+        border-bottom: 2px solid #e9ecef;
+      }
+  
+      td {
+        border-bottom: 1px solid #e9ecef;
+      }
+      
+     
+      
+     
+  
+      .table-footer {
+        text-align: left; /* محاذاة النص للوسط */
+        padding: 15px;
+        font-size: 14px;
+        color: #555;
+        
+        
+      }
+  
+     
+  .action-icons .material-icons {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  
+  .action-icons .copy{
+    color: #2CA9BC;
+  }
+  .action-icons .visual{
+    color: #FF9706;
+  }
+  .action-icons .edit{
+    color: #0D62E2;
+  }
+  .action-icons .deletee{
+    color: #E02727;
+  }
+  
+    
+    // ✅ جعل الجدول متجاوبًا بشكل مثالي على الأجهزة المختلفة
+    @media (max-width: 992px) {
+      .table-responsive {
+        width: 90%;
+        margin: 15px auto;
+  
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .table-responsive {
+        width: 90%;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 15px  auto 30px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .table-responsive {
+        padding: 5px;
+      }
+    
+      table {
+        font-size: 12px; // ✅ تصغير الخط قليلاً للهواتف الصغيرة
+      }
+    }
+  
+  }

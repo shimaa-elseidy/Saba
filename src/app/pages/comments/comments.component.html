@@ -1,0 +1,43 @@
+<div class="recentComment">
+  <h1 class="text-center">Comment for All Tours ({{ comments.length }})</h1>
+  
+  <div class="comments-container" *ngFor="let comment of comments">
+    
+    <div class="comment-card">
+      <img [src]="comment.user.profilePicture" class="avatar" alt="User">
+      <div class="comment-content">
+        <h2>{{ comment.user.name }}</h2>
+        <p>"{{ comment.content }}"</p>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <div class="d-flex">
+        <button class="icon-btn btn btn-light me-2" (click)="openChat(comment)">
+          <i class="bi bi-chat-dots-fill"></i>
+        </button>
+        <button class="icon-btn btn btn-light" (click)="deleteComment(comment.id)">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <button class="reply-btn" (click)="startReply(comment.id)">↩ Reply</button>
+    </div>
+
+    <!-- Reply Form -->
+    <div class="reply-form" *ngIf="replyingToCommentId === comment.id">
+      <div class="reply-input-container">
+        <textarea 
+          [(ngModel)]="replyContent" 
+          placeholder="Write your reply..." 
+          class="reply-textarea"
+          rows="3">
+        </textarea>
+        <div class="reply-actions">
+          <button class="btn btn-secondary me-2" (click)="cancelReply()">Cancel</button>
+          <button class="btn btn-primary" (click)="submitReply(comment.id)">Send Reply</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

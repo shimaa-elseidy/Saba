@@ -1,0 +1,177 @@
+<section class="footer-section">
+  <div class="footer-overlay"></div>
+  <div class="footer-content">
+    <div class="breadcrumb-nav">
+      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Tours</span>
+    </div>
+    <h1 class="">
+      <img src="assets/ankh.png" alt="Ankh Icon">
+      Book Your Tour
+    </h1>
+  </div>
+  <div class="video-background">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="assets/videos/4943965_Hieroglyphics_Egypt_1280x720.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  
+  <!-- بطاقة آخر رحلة -->
+  <div class="latest-tour-card" *ngIf="latestTour" (click)="viewTourDetails(latestTour.id)">
+    <div class="card-content">
+      <div class="tour-image">
+        <img [src]="latestTour.mainImageUrl || latestTour.mainImage" alt="Tour Image">
+      </div>
+      <div class="tour-info">
+        <div class="location">
+          <i class="bi bi-star"></i>Tour Recent
+
+        </div>
+        <h3 class="title">
+          {{ latestTour.title || latestTour.tourTitle || 'Power Of The Symbols Of Ancient Egypt' }}
+        </h3>
+        <div class="date">
+          <i class="bi bi-calendar3"></i> {{ formatDateForLatestTour(latestTour.tourDate) }}
+        </div>
+      </div>
+    </div>
+    <button class="close-btn" (click)="removeLatestTour($event)">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+</section>
+
+<div class="container mt-4">
+  <!-- Total Tours and Controls -->
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+      <p class="total-tours mb-0">{{ filteredTours.length }}+ Tours</p>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <label for="sortBy" class="me-2 fw-bold">Sort by:</label>
+      <select id="sortBy" class="form-select d-inline-block w-auto me-3" [(ngModel)]="sortOption" (change)="onSortChange()">
+        <option value="default">Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <!-- <option value="rating-desc">Rating: High to Low</option> -->
+      </select>
+      
+      <label for="toursPerRow" class="me-2 fw-bold">Tours per row:</label>
+      <select id="toursPerRow" class="form-select d-inline-block w-auto" [(ngModel)]="toursPerRow" (change)="onToursPerRowChange()">
+        <option value="2">2 Tours</option>
+        <option value="3" selected>3 Tours</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-md-3">
+      <div class="filter-sidebar p-3 rounded shadow-sm mb-4">
+        <h5 class="mt-4 mb-4 fs-5">Places</h5>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.place" (change)="onPlaceChange($event)">
+          <option value="">Select City...</option>
+          <option *ngFor="let place of uniquePlaces" [value]="place">{{ place }}</option>
+        </select>
+
+        <h5 class="mt-4 mb-4 fs-5">Tour Type</h5>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.tourType" (change)="onTourTypeChange($event)">
+          <option value="">Select Type</option>
+          <option *ngFor="let type of uniqueTourTypes" [value]="type">{{ type | formatCategory }}</option>
+        </select>
+
+        <h5 class="mt-4 mb-4 fs-5">Date</h5>
+        <input type="date" class="form-control mb-3" [(ngModel)]="searchCriteria.date" (change)="onDateChange($event)">
+
+        <h5 class="mt-4 mb-4 fs-5">People</h5>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.people" (change)="onPeopleChange($event)">
+          <option value="">Select People</option>
+          <option *ngFor="let peopleOption of peopleOptions" [value]="peopleOption">{{ peopleOption }}</option>
+        </select>
+
+        <h5 class="mt-4 mb-4 fs-5">Price</h5>
+        <div class="d-flex justify-content-between mb-2">
+          <span>${{ searchCriteria.priceMin }}</span>
+          <span>${{ searchCriteria.priceMax }}</span>
+        </div>
+        <input type="range" class="form-range mb-3" min="100" max="3000" step="100" 
+               [(ngModel)]="searchCriteria.priceMin" (input)="updatePriceMin($event)">
+        <input type="range" class="form-range mb-3" min="100" max="5000" step="100" 
+               [(ngModel)]="searchCriteria.priceMax" (input)="updatePriceMax($event)">
+
+        <h5 class="mt-4 mb-4 fs-5">Tags</h5>
+        <div class="form-check mb-2" *ngFor="let tag of topTags">
+          <input class="form-check-input"
+                 type="checkbox"
+                 [id]="tag.tagName"
+                 [value]="tag.tagName"
+                 [(ngModel)]="tag.selected"
+                 (change)="onTagFilterChange(tag.tagName, $event)">
+          <label class="form-check-label" [for]="tag.tagName">
+            {{ tag.tagName }}
+          </label>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-3" (click)="applyFilters()">Find Tours</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="row">
+        <div [ngClass]="toursPerRow === '2' ? 'col-md-6' : 'col-md-4'" class="mb-4" *ngFor="let tour of paginatedTours">
+          <div class="card custom-shadow border-0 h-100" (click)="viewTourDetails(tour.id)">
+            <div class="position-relative">
+              <img [src]="tour.mainImage" class="card-img-top" alt="Tour Image">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-2">{{ tour.tourCategory | formatCategory }}</span>
+              <button class="btn btn-light position-absolute top-0 end-0 m-2">
+                <i class="bi" [class.bi-heart-fill]="tour.liked" [class.bi-heart]="!tour.liked"></i>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center text-muted small mb-2">
+                <div>
+                  <i class="bi bi-geo-alt"></i>
+                  {{ tour.places?.join(', ') }}
+                </div>
+                <div class="text-warning fw-bold">
+                  {{ tour.rating }} <i class="bi bi-star-fill"></i>
+                </div>
+              </div>
+              <h5 class="card-title fw-bold">{{ tour.tourTitle }}</h5>
+              <p class="text-muted small"><i class="bi bi-calendar"></i> {{ tour.tourDay }} Days / {{ tour.tourNight }} Nights</p>
+              <hr>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mt-2"><strong>Starting from ${{ tour.tourPrice }}</strong></p>
+                <button class="btn btn-primary">Explore</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No results message -->
+      <div *ngIf="filteredTours.length === 0" class="text-center py-5">
+        <h4>No tours found matching your criteria</h4>
+        <p>Try adjusting your filters</p>
+      </div>
+
+      <!-- Pagination -->
+      <nav *ngIf="filteredTours.length > 0">
+        <ul class="pagination justify-content-center mt-4">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalPages" [class.active]="currentPage === page">
+            <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages.length">
+            <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

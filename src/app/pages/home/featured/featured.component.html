@@ -1,0 +1,65 @@
+
+<section class="featured-tours mb-5">
+  <div class="header">
+    <h3>Featured Egypt Tours</h3>
+    <p>Discover the magic of Egypt with our top-rated tours!</p>
+  </div>
+
+  <div class="categories">
+    <div 
+      class="category view-all"
+      [class.active]="activeCategory === 'all'"
+      (click)="showAllTours()">
+      View All
+    </div>
+    
+    <!-- عرض الفئات الديناميكية -->
+    <div class="category-wrapper">
+      <div 
+        class="category"
+        *ngFor="let category of categories"
+        [class.active]="activeCategory === category"
+        (click)="filterTours(category)">
+        {{ category | formatCategory }}
+      </div>
+    </div>
+  </div>
+
+  <!-- إذا كانت هناك رسالة لعدم وجود بيانات -->
+  <div *ngIf="noDataMessage" class="no-data-message">
+    {{ noDataMessage }}
+  </div>
+
+  <div class="tours-grid">
+    <div class="tour-card" *ngFor="let tour of filteredTours" (click)="viewTourDetails(tour.id)">
+      <div class="tour-image">
+        <img [src]="tour.mainImageUrl" [alt]="tour.title">
+        <div class="tour-type-badge" [ngClass]="'type-' + tour.category">
+          {{ tour.category | formatCategory }}
+        </div>
+      </div>
+      <div class="tour-content">
+        <div class="tour-header">
+          <div class="location-rating">
+            <h3 class="location">{{ tour.location }}</h3>
+            <div class="rating">
+              <span class="star-icon">★</span>
+              <span class="rating-value">{{ tour.rating }}</span>
+            </div>
+          </div>
+          <h2 class="subtitle">{{ tour.title }}</h2>
+        </div>
+        <div class="tour-details">
+          <div class="group-size">{{ tour.peopleCount }} People</div>
+          <div class="duration">{{ tour.tourDay }} Days / {{ tour.tourNight }} Nights</div>
+        </div>
+        <div class="price-section">
+          <div class="price">Starting from: 
+            <span>${{ tour.price }}</span>
+          </div>
+          <button class="book-now">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

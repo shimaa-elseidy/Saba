@@ -1,0 +1,76 @@
+<div class="component-class">
+  <div class="container">
+    <div class="recent-tours animate-fade-in">
+      <div class="allBtns d-flex justify-content-between align-items-center">
+          <div class="filter-buttons">
+              <button (click)="filter('Paid')" [class.active]="currentFilter === 'Paid'" class="animate-button">
+                Paid Booking
+                <span class="badge" [ngClass]="'paid'">{{ getCount('Paid') }}</span>
+              </button>
+              <button (click)="filter('Canceled')" [class.active]="currentFilter === 'Canceled'" class="animate-button">
+                Canceled Booking
+                <span class="badge" [ngClass]="'canceled'">{{ getCount('Canceled') }}</span>
+              </button>
+              <button (click)="filter('Deleted')" [class.active]="currentFilter === 'Deleted'" class="animate-button">
+                Deleted Booking
+                <span class="badge" [ngClass]="'deleted'">{{ getCount('Deleted') }}</span>
+              </button>
+              <button (click)="filter('Pending')" [class.active]="currentFilter === 'Pending'" class="animate-button">
+                Pending Booking
+                <span class="badge" [ngClass]="'pending'">{{ getCount('Pending') }}</span>
+              </button>
+            </div>
+            
+            <div>
+              <button class="addBtn animate-button" routerLink="/dashboard/add-new-booking">Add New Booking</button>
+            </div>
+      </div>
+      <h2 class="animate-title">Recent Tours:</h2>
+
+      <div *ngIf="filteredBooking.length === 0" class="animate-fade-in">
+          <p class="no-results-message">No {{ currentFilter }} bookings available.</p>
+        </div>
+
+      <div class="booking-scroll-wrapper">
+        <div *ngFor="let tour of filteredBooking; let i = index" class="tour-card animate-card" [style.animation-delay]="i * 0.1 + 's'">
+          <div class="tour-header">
+              <div class="user-info">
+                  <img [src]="tour.userImage" alt="User Image" class="user-image">
+                  <h1>{{ tour.username }}</h1>
+              </div>
+              <div class="contact-info">
+                  <p class="black"> <span>Phone:</span>{{ tour.phone }}</p>
+                  <p class="black"><span>Email:</span> {{ tour.email }}</p>
+              </div>
+              <div class="booking-info">
+                  <p class="black"> <span>Booking Date:</span>{{ tour.bookingDate }}</p>
+              </div>
+              <div class="price-info">
+                  <p class="price"><span class="spanPrice">Price:</span>$ {{ tour.price }}</p>
+              </div>
+          </div>
+
+          <div class="detail-image">
+              <div class="tour-details">
+                  <p class="black"><span>Status: </span><span [ngStyle]="{'color': tour.status === 'Paid' ? 'green' : 'red'}">{{ tour.status }}</span></p>
+                  <p class="black"><span>Tour Name:</span> {{ tour.tourName }}</p>
+                  <p class="black"> <span>Guests:</span> {{ tour.guests }}</p>
+                  <p class="black"><span>Duration:</span> {{ tour.duration }}</p>
+                  <p class="black"><span>Tour Start:</span> {{ tour.tourStart }}</p>
+              </div>
+      
+              <div class="tour-image">
+                  <img [src]="tour.imageUrl" alt="Tour Image">
+              </div>
+          </div>
+
+          <div class="tour-actions">
+              <button (click)="acceptTour(tour)" class="action-btn">Accept</button>
+              <button (click)="cancelTour(tour)" class="action-btn">Cancel</button>
+              <button (click)="deleteTour(tour)" class="action-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

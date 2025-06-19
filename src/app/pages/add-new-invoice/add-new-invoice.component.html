@@ -1,0 +1,134 @@
+<div class="page-container animate__animated animate__fadeIn">
+  <div class="invoice-container animate__animated animate__zoomIn">
+    <div class="form-header animate__animated animate__fadeInDown">
+      <h1>Create New Invoice</h1>
+      <p>Fill in the details to create a new invoice</p>
+    </div>
+
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+
+        <!-- Username -->
+        <div class="form-group animate__animated animate__fadeInLeft" [style.animation-delay]="'0.1s'">
+          <label>Username <span class="required">*</span></label>
+          <select formControlName="username" class="form-control">
+            <option value="">Select user...</option>
+            <option *ngFor="let user of users" [value]="user.userID">{{ user.name }}</option>
+          </select>
+          <div *ngIf="invoiceForm.get('username')?.errors && invoiceForm.get('username')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('username')?.errors?.['required']">Username is required</div>
+          </div>
+        </div>
+
+        <!-- Invoice Number -->
+        <div class="form-group animate__animated animate__fadeInRight" [style.animation-delay]="'0.1s'">
+          <label>Invoice Number <span class="required">*</span></label>
+          <input type="text" class="form-control" formControlName="invoiceNumber" placeholder="Type Invoice...">
+          <div *ngIf="invoiceForm.get('invoiceNumber')?.errors && invoiceForm.get('invoiceNumber')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('invoiceNumber')?.errors?.['required']">Invoice number is required</div>
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group animate__animated animate__fadeInLeft" [style.animation-delay]="'0.2s'">
+          <label>Email Address <span class="required">*</span></label>
+          <input type="email" class="form-control" formControlName="userEmail" placeholder="Type email address...">
+          <div *ngIf="invoiceForm.get('userEmail')?.errors && invoiceForm.get('userEmail')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('userEmail')?.errors?.['required']">Email is required</div>
+            <div *ngIf="invoiceForm.get('userEmail')?.errors?.['email']">Enter a valid email</div>
+          </div>
+        </div>
+
+        <!-- Total Amount -->
+        <div class="form-group animate__animated animate__fadeInRight" [style.animation-delay]="'0.2s'">
+          <label>Total Amount <span class="required">*</span></label>
+          <input type="text" class="form-control" formControlName="totalAmount" placeholder="Total Amount...">
+          <div *ngIf="invoiceForm.get('totalAmount')?.errors && invoiceForm.get('totalAmount')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('totalAmount')?.errors?.['required']">Total amount is required</div>
+            <div *ngIf="invoiceForm.get('totalAmount')?.errors?.['pattern']">Enter a valid number</div>
+            <div *ngIf="invoiceForm.get('totalAmount')?.errors?.['min']">Amount must be greater than 0</div>
+          </div>
+        </div>
+
+        <!-- Tour Name -->
+        <div class="form-group animate__animated animate__fadeInLeft" [style.animation-delay]="'0.3s'">
+          <label>Tour Name <span class="required">*</span></label>
+          <select formControlName="tourName" class="form-control">
+            <option value="">Select tour item...</option>
+            <option value="tour1">Tour 1</option>
+            <option value="tour2">Tour 2</option>
+          </select>
+          <div *ngIf="invoiceForm.get('tourName')?.errors && invoiceForm.get('tourName')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('tourName')?.errors?.['required']">Tour name is required</div>
+          </div>
+        </div>
+
+        <!-- Issue Date -->
+        <div class="form-group animate__animated animate__fadeInRight" [style.animation-delay]="'0.3s'">
+          <label>Issue Date <span class="required">*</span></label>
+          <input type="date" class="form-control" formControlName="issueDate">
+          <div *ngIf="invoiceForm.get('issueDate')?.errors && invoiceForm.get('issueDate')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('issueDate')?.errors?.['required']">Issue date is required</div>
+            <div *ngIf="invoiceForm.get('issueDate')?.errors?.['beforeToday']">Issue date cannot be before today</div>
+          </div>
+        </div>
+
+        <!-- Due Date -->
+        <div class="form-group animate__animated animate__fadeInLeft" [style.animation-delay]="'0.4s'">
+          <label>Due Date <span class="required">*</span></label>
+          <input type="date" class="form-control" formControlName="dueDate">
+          <div *ngIf="invoiceForm.get('dueDate')?.errors && invoiceForm.get('dueDate')?.touched" class="error">
+            <div *ngIf="invoiceForm.get('dueDate')?.errors?.['required']">Due date is required</div>
+            <div *ngIf="invoiceForm.get('dueDate')?.errors?.['dueBeforeIssue']">Due date must be after issue date</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group description animate__animated animate__fadeInUp" [style.animation-delay]="'0.5s'">
+          <label>Description</label>
+          <textarea class="form-control" formControlName="description" placeholder="Description..."></textarea>
+        </div>
+
+        <!-- Guests Capability (adults, children, infants) -->
+        <div class="form-group guests animate__animated animate__fadeInUp" [style.animation-delay]="'0.6s'" style="grid-column: span 2;">
+          <label>Guests Capability <span class="required">*</span></label>
+          <div class="guest-inputs">
+            <div class="guest-input">
+              <label>Adult</label>
+              <input type="number" class="form-control" formControlName="adults" placeholder="Ad">
+              <div *ngIf="invoiceForm.get('adults')?.errors && invoiceForm.get('adults')?.touched" class="error">
+                <div *ngIf="invoiceForm.get('adults')?.errors?.['required']">Required</div>
+                <div *ngIf="invoiceForm.get('adults')?.errors?.['pattern']">Only positive numbers allowed</div>
+              </div>
+            </div>
+            <div class="guest-input">
+              <label>Children</label>
+              <input type="number" class="form-control" formControlName="children" placeholder="Ch">
+              <div *ngIf="invoiceForm.get('children')?.errors && invoiceForm.get('children')?.touched" class="error">
+                <div *ngIf="invoiceForm.get('children')?.errors?.['required']">Required</div>
+                <div *ngIf="invoiceForm.get('children')?.errors?.['pattern']">Only positive numbers allowed</div>
+              </div>
+            </div>
+            <div class="guest-input">
+              <label>Infant</label>
+              <input type="number" class="form-control" formControlName="infants" placeholder="In">
+              <div *ngIf="invoiceForm.get('infants')?.errors && invoiceForm.get('infants')?.touched" class="error">
+                <div *ngIf="invoiceForm.get('infants')?.errors?.['required']">Required</div>
+                <div *ngIf="invoiceForm.get('infants')?.errors?.['pattern']">Only positive numbers allowed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="buttons animate__animated animate__fadeInUp" [style.animation-delay]="'0.7s'">
+        <button type="button" class="cancel" routerLink="/dashboard/invoices">Cancel</button>
+        <button type="submit" [disabled]="isSubmitting || !invoiceForm.valid" class="create">
+          <span *ngIf="!isSubmitting">Create Invoice</span>
+          <span *ngIf="isSubmitting" class="spinner"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

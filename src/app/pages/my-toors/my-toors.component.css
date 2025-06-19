@@ -1,0 +1,45 @@
+.center-add-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.add-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #0056b3;
+}
+
+.center-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adds spacing between buttons */
+  margin: 20px 0;
+}
+
+.filter-buttons button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-buttons button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background-color: #0056b3;
+  color: white;
+}

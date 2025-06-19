@@ -1,0 +1,126 @@
+<div class="all">
+    <div class="settings-container">
+        <!-- ✅ التابات -->
+        <div class="settings-header">
+            <button *ngFor="let tab of ['Edit Profile', 'Preferences', 'Security']" (click)="changeTab(tab)"
+                [class.active]="activeTab === tab">
+                {{ tab | titlecase }}
+            </button>
+        </div>
+    
+        <div class="settings-body" [ngSwitch]="activeTab">
+            <!-- ✅ محتوى Edit Profile -->
+            <div *ngSwitchCase="'Edit Profile'">
+                <div class="profile-section">
+                    <div class="profile-img-container">
+                        <img [src]="selectedImage || user.profileImage" alt="Profile Image" class="profile-img">
+    
+                        <button class="edit-btn" (click)="fileInput.click()">✎</button>
+    
+                        <input #fileInput type="file" accept="image/*" (change)="onProfileImageChange($event)" hidden>
+                    </div>
+    
+    
+                    <!-- ✅ الحقول -->
+                    <form [formGroup]="editProfileForm" (ngSubmit)="editProfileSetting()" class="profile-form">
+                    
+                        <input type="hidden" formControlName="profileImage">
+    
+                          <div class="form-groupp" *ngFor="let field of formFields">
+                            <label>{{ field.label }}</label>
+                            <input [type]="field.type" formControlName="{{ field.key }}" placeholder="Enter {{ field.label }}" />
+                            <small *ngIf="editProfileForm.get(field.key)?.invalid && editProfileForm.get(field.key)?.touched">
+                               {{ field.label }} is Invalid
+                            </small>
+                          </div>
+                    </form>
+    
+                </div>
+                <!-- ✅ إضافة حاوية جديدة للزر -->
+                <div class="form-footer">
+                    <button type="submit" class="save-btn" (click)="editProfileSetting()"
+                        [disabled]="editProfileForm.invalid">Save</button>
+                </div>
+            </div>
+    
+    
+            <div *ngSwitchCase="'Preferences'">
+            
+                <!-- ✅ النموذج الخاص بالإعدادات -->
+                <form [formGroup]="preferencesForm" (ngSubmit)="savePreferences()" class="preferences-form">
+                    <!-- ✅ الحقول الخاصة بالعملة والمنطقة الزمنية -->
+                    <div class="preferences-fields">
+                        <div class="form-group">
+                            <label>Currency</label>
+                            <select formControlName="currency">
+                                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Time Zone</label>
+                            <select formControlName="timeZone">
+                                <option *ngFor="let timeZone of timeZones" [value]="timeZone">{{ timeZone }}</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <!-- ✅ إعدادات الإشعارات -->
+                    <div class="notifications">
+                        <label>Notification</label>
+            
+                        <div class="toggle-group" *ngFor="let notification of notificationOptions">
+                            <label class="switch">
+                                <input type="checkbox" formControlName="{{ notification.key }}" placeholder="nul" />
+                                <span class="slider"></span>
+                            </label>
+                            <span>{{ notification.label }}</span>
+                        </div>
+                    </div>
+            
+                    <!-- ✅ زر الحفظ -->
+                    <div class="form-footer">
+                        <button type="submit" class="save-btn" [disabled]="preferencesForm.invalid">Save</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div *ngSwitchCase="'Security'">
+            
+                <form [formGroup]="securityForm" (ngSubmit)="saveSecuritySettings()">
+                   
+                
+                    <!-- Change Password Section -->
+                    <h4>Change Password</h4>
+                
+                    <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" class="form-control" formControlName="OldPassword" placeholder="Enter Old Password">
+                        <small class="error" *ngIf="securityForm.get('OldPassword')?.invalid && securityForm.get('OldPassword')?.touched">
+                            Password is required and must be at least 6 characters long.
+                        </small>
+                    </div>
+                
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" formControlName="NewPassword" placeholder="Enter New Password">
+                        <small class="error" *ngIf="securityForm.get('NewPassword')?.invalid && securityForm.get('NewPassword')?.touched">
+                            Password is required and must be at least 6 characters long.
+                        </small>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" formControlName="ConfirmNewPassword" placeholder="Enter Confirm Password">
+                        <small class="error" *ngIf="securityForm.get('ConfirmNewPassword')?.invalid && securityForm.get('ConfirmNewPassword')?.touched">
+                            Password is required and must be at least 6 characters long.
+                        </small>
+                    </div>
+                
+                    <!-- Save Button -->
+                    <button class="save-btn" type="submit" [disabled]="securityForm.invalid">Save</button>
+                </form>
+            
+        </div>
+    </div>
+</div>

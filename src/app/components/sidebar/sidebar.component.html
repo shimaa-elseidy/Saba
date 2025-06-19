@@ -1,0 +1,46 @@
+<!-- Toggle Button - Show when collapsed -->
+<div>
+  <button class="toggle-btn" *ngIf="isCollapsed" aria-label="Expand sidebar" (click)="toggleSidebar()">
+    <i class="bi bi-chevron-double-right"></i>
+  </button>
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar" [ngClass]="{'collapsed': isCollapsed, 'open': isOpen}">
+  <!-- Collapse Button - Show when expanded (positioned on sidebar border) -->
+  <button class="toggle-btn-out" *ngIf="!isCollapsed" (click)="toggleSidebar()" aria-label="Collapse sidebar">
+    <i class="bi bi-chevron-double-left"></i>
+  </button>
+
+  <!-- Logo Section -->
+  <div class="sidebar-logo" *ngIf="!isCollapsed">
+    <img src="./assets/sabba.png" alt="logo" class="w-100" />
+  </div>
+    
+  <!-- Logo Section - Collapsed -->
+  <div class="sidebar-logo" *ngIf="isCollapsed">
+    <img src="./assets/favicon.ico.ico" alt="logo" />
+  </div>
+
+  <!-- <div class="sidebar-divider"></div> -->
+
+  <!-- Navigation Menu -->
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li *ngFor="let item of menuItems" class="nav-item" [class.active]="isActive(item.route)">
+        <a [routerLink]="item.route" (click)="setActiveMenuAndTitle(item)" [attr.aria-label]="item.label" class="nav-link" [title]="isCollapsed ? item.label : ''">
+          <i class="bi nav-icon" [ngClass]="item.icon"></i>
+          <span class="nav-label" *ngIf="!isCollapsed">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Back to Homepage -->
+  <a routerLink="/" class="back-to-home" [title]="isCollapsed ? 'Back to Homepage' : ''">
+    <i class="bi bi-house-door-fill"></i>
+    <span *ngIf="!isCollapsed">Back to Homepage</span>
+    <i class="bi bi-chevron-double-right" *ngIf="!isCollapsed"></i>
+  </a>
+
+</aside>

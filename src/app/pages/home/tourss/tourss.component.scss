@@ -1,0 +1,342 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
+
+.top-destinations {
+  padding: 4rem 0;
+
+  .section-title {
+    font-size: 44px;
+    color: #121212;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .section-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+  }
+
+  .items-container {
+    display: contents;
+  }
+
+  .slider-controls {
+    display: none; // Hidden by default, shown on mobile
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    right: -10px;
+    transform: translateY(-50%);
+    z-index: 10;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .slider-btn {
+    background-color: #0D62E2;
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+  }
+
+  .slider-btn:hover {
+    background-color: #0956c5;
+    transform: scale(1.05);
+  }
+
+  .left-btn {
+    margin-left: 5px;
+  }
+
+  .right-btn {
+    margin-right: 5px;
+  }
+
+  .destination-card {
+    cursor: pointer;
+    height: 310px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .destination-image {
+    width: 100%;
+    height: 310px;
+    object-fit: cover;
+    transition: transform 0.9s ease;
+  }
+
+  .destination-card:hover .destination-image {
+    transform: scale(1.05);
+  }
+
+  .destination-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.219);
+    transition: all 0.3s ease;
+  }
+
+  .destination-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 2;
+    color: black;
+    background: rgba(255, 255, 255, 0.95);
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .destination-name {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  .tour-count {
+    color: #64666C;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .slider-dots {
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 3;
+  }
+
+  .slider-dot.active {
+    background-color: #0D62E2;
+    transform: scale(1.2);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 991px) {
+    padding: 3rem 0;
+
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .destinations-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+
+    .destination-card {
+      height: 280px;
+    }
+
+    .destination-image {
+      height: 280px;
+    }
+
+    .destination-content {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 8px;
+    }
+
+    .destination-name {
+      font-size: 18px;
+    }
+
+    .tour-count {
+      font-size: 13px;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 2rem 0;
+
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .destinations-grid {
+      display: block;
+      overflow: hidden;
+      padding: 0 0.8rem;
+      position: relative;
+    }
+
+    .slider-controls {
+      display: flex; // Show controls on mobile
+    }
+
+    .items-container {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .destination-card {
+      flex: 0 0 calc(100% - 1rem); // Show one card at a time
+      max-width: calc(100% - 1rem);
+      height: 240px;
+    }
+
+    .destination-image {
+      height: 240px;
+    }
+
+    .destination-content {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      margin: 5px;
+      border-radius: 6px;
+    }
+
+    .destination-name {
+      font-size: 16px;
+      margin-bottom: 0.3rem;
+    }
+
+    .tour-count {
+      font-size: 12px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 15px;
+    }
+
+    .slider-dots {
+      display: flex;
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 1.5rem 0;
+
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .destinations-grid {
+      padding: 0 0.5rem;
+    }
+
+    .items-container {
+      gap: 0.8rem;
+    }
+
+    .destination-card {
+      flex: 0 0 calc(100% - 0.8rem);
+      max-width: calc(100% - 0.8rem);
+      height: 200px;
+      margin: 0;
+    }
+
+    .destination-image {
+      height: 200px;
+    }
+
+    .destination-content {
+      display: flex;
+      align-items: center;
+      padding: 6px;
+      margin: 4px;
+      border-radius: 5px;
+    }
+
+    .destination-name {
+      margin-top: 0;
+      margin-bottom: 0.2rem;
+      font-size: 14px;
+    }
+
+    .tour-count {
+      font-size: 11px;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+    }
+
+    .slider-dots {
+      margin-top: 12px;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      margin: 0 4px;
+    }
+
+    .slider-btn {
+      width: 35px;
+      height: 35px;
+      font-size: 14px;
+    }
+  }
+}

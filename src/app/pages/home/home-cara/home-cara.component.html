@@ -1,0 +1,29 @@
+<div class="slider-container">
+  <!-- Arrow navigation (hidden on mobile) -->
+  <button class="slider-btn prev" (click)="moveSlide(-1)">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+
+  <div #slider class="slider">
+    <div *ngFor="let tour of tours; let i = index" 
+         class="tour-card" 
+         [class.active]="i === activeIndex">
+      <span class="tour-count">{{ tour.count }} TOURS</span>
+      <i class="my-2" [class]="tour.icon"></i>
+      <div class="h1">{{ tour.title }}</div>
+      <p class="desc">{{ tour.description }}</p>
+    </div>
+  </div>
+
+  <button class="slider-btn next" (click)="moveSlide(1)">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+  
+  <!-- Dots navigation (visible only on mobile) -->
+  <div class="slider-dots">
+    <div *ngFor="let tour of tours; let i = index" 
+         class="slider-dot" 
+         [class.active]="i === activeIndex"
+         (click)="setActiveIndex(i)"></div>
+  </div>
+</div>

@@ -1,0 +1,635 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
+.top-navbar {
+  background: #005B90;
+  color: #ffffff;
+  padding: 4px;
+  font-size: 14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1031;
+}
+
+.top-navbar .navbar-brand span,
+.top-navbar .navbar-contact span {
+  color: #ffffff;
+  margin-right: 15px;
+}
+
+.top-navbar i {
+  margin-right: 5px;
+}
+.navbar-contact a{
+  text-decoration: none;
+  color: #ffffff;
+}
+/* الشريط الرئيسي */
+:root {
+  --navbar-total-height: 110px;
+}
+
+body {
+  padding-top: var(--navbar-total-height);
+}
+.main-navbar {
+  background-color: white !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1030;
+  position: fixed;
+  top: 32px; /* Height of top navbar */
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.main-navbar .nav-link {
+  color: #333333; /* Dark color for desktop visibility */
+}
+
+
+
+.main-navbar .container-fluid {
+  padding: 0 30px;
+}
+
+.logo {
+  height: 40px;
+  transition: transform 0.3s;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  color: #ffffff; // Link color
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f5b942; // Highlight color on hover
+}
+
+.main-navbar .nav-item {
+  margin: 0 5px;
+}
+
+.main-navbar .nav-link {
+  position: relative;
+  cursor: pointer;
+}
+
+.main-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #005B90;
+  transition: width 0.3s;
+}
+
+.main-navbar .nav-link:hover::after {
+  width: 100%;
+}
+
+.main-navbar .active-link {
+  color: #005B90 !important;
+  font-weight: 700;
+  position: relative;
+}
+
+.main-navbar .active-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #005B90;
+  display: block;
+}
+
+/* Mobile and tablet active link color */
+@media (max-width: 991px) {
+  .offcanvas .active-link {
+    color: #f5b942 !important;
+    position: relative;
+  }
+  
+  .offcanvas .active-link::after {
+    background-color: #f5b942;
+    display: block;
+  }
+}
+
+/* ملف تعريف المستخدم */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.user-info span {
+  color: #121212;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.profile-img:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  z-index: 1050;
+  border: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.dropdown-menu a:hover {
+  background: #f8f9fa;
+  color: #005B90;
+  padding-left: 25px;
+}
+
+/* تحسين القوائم المنسدلة */
+.nav-item.dropdown {
+  position: relative; /* التأكد من أن nav-item هو المرجع لتحديد الموضع */
+}
+
+.animate-dropdown {
+  display: none; /* مخفية افتراضيًا */
+  position: absolute;
+  top: 100%; /* مباشرة أسفل الرابط بدون فجوة */
+  left: 0; /* محاذاة مع بداية الرابط */
+  transform: translateY(0); /* إزالة التحريك الأولي للـ transform لتجنب الفجوة */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* الانتقال يكون فقط على الـ opacity */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+  min-width: 200px;
+  padding: 10px 0;
+  z-index: 1050; /* التأكد من أن القائمة تظهر فوق العناصر الأخرى */
+  margin-top: 5px;
+}
+
+/* إظهار القائمة المنسدلة عند الـ hover */
+.nav-item.dropdown:hover .animate-dropdown,
+.nav-item.dropdown.show .animate-dropdown {
+  display: block;
+  opacity: 1;
+  z-index: 1040;
+  pointer-events: auto;
+}
+
+/* تأثير على الأيقونة عند الـ hover */
+.dropdown-icon {
+  transition: transform 0.3s ease-in-out;
+  display: inline-block; /* Ensure the icon is a block element that can be transformed */
+  cursor: pointer;
+}
+
+.main-navbar .dropdown-icon {
+  color: #333333; /* Make dropdown arrows black in desktop view */
+}
+
+.main-navbar .nav-item.dropdown:hover .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Ensure dropdown icon rotates when dropdown is open */
+.main-navbar .nav-item.dropdown.show .dropdown-icon {
+  transform: rotate(180deg) !important;
+}
+
+/* Rotate arrow when dropdown is open */
+.main-navbar .nav-item.dropdown.show .dropdown-icon {
+  transform: rotate(180deg) !important;
+}
+
+/* Fix for dropdown icon rotation */
+.main-navbar .dropdown-icon {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Ensure dropdown icon rotates when dropdown is open */
+.nav-item.dropdown.show .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* تحسين مظهر العناصر داخل القائمة المنسدلة */
+.animate-dropdown .dropdown-item {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.animate-dropdown .dropdown-item:hover {
+  background: #fff8e8;
+  color: #005B90;
+  padding-left: 25px;
+}
+
+/* إضافة خط صغير على الجانب عند الـ hover */
+.animate-dropdown .dropdown-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0;
+  background: #005B90;
+  transition: height 0.3s ease;
+}
+
+.animate-dropdown .dropdown-item:hover::before {
+  height: 50%;
+}
+
+/* القائمة الجانبية للجوال */
+.offcanvas {
+  background-color: #005B90; // Set a consistent background color
+  color: #ffffff; // Ensure text is readable
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #ffffff; // Add a subtle border
+}
+
+.offcanvas .btn-close {
+  filter: invert(1) !important; /* Make close button white */
+  opacity: 1;
+}
+
+.offcanvas-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff; // Title color
+}
+
+.custom-close {
+  color: #ffffff !important; // Close button color
+  background: transparent;
+  border: none;
+}
+
+.offcanvas-body {
+  padding: 20px;
+}
+
+.offcanvas-body .nav-item {
+  margin-bottom: 15px;
+}
+
+.nav-link {
+  color: #ffffff; // Link color
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f5b942; // Highlight color on hover
+}
+
+.dropdown-icon {
+  color: #ffffff; // Dropdown icon color
+  transition: transform 0.3s ease;
+}
+
+.nav-link.collapsed .dropdown-icon {
+  transform: rotate(0deg); // Default state
+  transition: transform 0.3s ease;
+}
+
+.nav-link:not(.collapsed) .dropdown-icon {
+  transform: rotate(180deg); // Rotated state
+  transition: transform 0.3s ease;
+}
+
+/* Fix for mobile dropdown arrow rotation */
+[data-bs-toggle="collapse"] .dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+[aria-expanded="true"] .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.collapse {
+  background-color: #004a75; // Slightly darker background for dropdown
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.collapse.show {
+  display: block !important;
+}
+
+.dropdown-item {
+  color: #ffffff; // Dropdown item color
+  font-size: 14px;
+  padding: 8px 15px;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.dropdown-item:hover {
+  color: #f5b942; // Highlight color
+  padding-left: 20px; // Indentation effect
+  background-color: transparent; // Remove default background
+}
+
+.mobile-user-profile {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #004a75; // Background for user profile section
+  border-radius: 8px;
+}
+
+.mobile-user-profile .profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.mobile-user-profile .profile-icon-default {
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.mobile-user-profile .fw-bold {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.mobile-user-profile .small {
+  color: #f5b942; // Highlight for email
+}
+
+.mobile-user-profile a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-user-profile a:hover {
+  color: #f5b942;
+  padding-left: 5px;
+}
+
+/* Fix for navbar links display */
+/* Make sure desktop nav links are visible */
+.main-navbar .nav-link {
+  color: #333333; /* Dark color for desktop visibility */
+}
+
+/* Keep mobile nav links white */
+.offcanvas .nav-link {
+  color: #ffffff;
+}
+
+/* التكيف مع الشاشات الصغيرة */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    display: none;
+  }
+  
+  .navbar-nav {
+    flex-direction: column !important;
+  }
+  
+  .navbar-nav .nav-item {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .user-profile {
+    margin: 15px 0 0 0;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+
+  /* Show dropdown on click instead of hover */
+  .nav-item.dropdown:hover .animate-dropdown {
+    display: none;
+  }
+  
+  .nav-item.dropdown.show .animate-dropdown {
+    display: block;
+    opacity: 1;
+    position: static;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-navbar {
+    text-align: center;
+    padding: 8px 15px;
+  }
+  
+  .top-navbar .navbar-brand,
+  .top-navbar .navbar-contact {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .top-navbar span {
+    margin: 3px 0;
+    display: block;
+  }
+  
+  .logo {
+    height: 25px;
+  }
+  
+  .main-navbar {
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  
+  :host {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-navbar .container-fluid {
+    padding: 0 10px;
+  }
+  
+  .offcanvas {
+    max-width: 250px;
+  }
+  
+  .profile-img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Add these styles to your navbar.component.scss file */
+
+/* Profile icon styling */
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-icon-default {
+  font-size: 24px;
+  color: #555;
+}
+
+/* User profile styling */
+.user-profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.375rem;
+  border-radius: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.user-profile:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-info {
+  margin-right: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-info span {
+  margin-right: 0.5rem;
+}
+
+/* Mobile styling */
+.mobile-user-profile .profile-icon-default {
+  font-size: 32px;
+}
+
+.mobile-user-profile img.profile-img,
+.mobile-user-profile .profile-icon-default {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+/* Make dropdown items clickable */
+.dropdown-item {
+  cursor: pointer;
+}
+
+/* Custom navbar toggler and close button */
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 91, 144, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.custom-toggler {
+  border-color: #005B90;
+}
+
+.custom-close {
+  color: #ffffff !important; // Close button color
+  background: transparent;
+  border: none;
+}
+
+/* Add padding to body to account for fixed navbar */
+:host {
+  display: block;
+  margin-bottom: 0;
+}
+
+.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1031;
+  padding: 4px;
+}
+
+.main-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background-color: white;
+}

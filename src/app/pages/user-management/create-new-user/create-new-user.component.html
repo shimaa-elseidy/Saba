@@ -1,0 +1,280 @@
+<div class="container p-4">
+  <h2 class="form-title mb-4">Create New User</h2>
+  <div class="row">
+    <!-- Profile Picture Section -->
+    <div class="col-md-3 d-flex flex-column align-items-center">
+      <div class="position-relative mb-3">
+        <img
+          [src]="profilePicture"
+          class="rounded-circle profile-image"
+          alt="Profile Picture"
+        />
+        <label class="position-absolute bottom-0 end-0 bg-light rounded-circle p-2 edit-icon" 
+               style="cursor: pointer;" 
+               title="Change Profile Picture">
+          <input type="file" 
+                 hidden 
+                 accept="image/*"
+                 (change)="onImageChange($event)"/>
+          <i class="bi bi-pencil"></i>
+        </label>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="col-md-9">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row g-3">
+          
+          <!-- Row 1: Username and Role -->
+          <div class="col-md-6">
+            <label class="form-label">Username<span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('name')"
+              formControlName="username" 
+              placeholder="Enter username"
+              autocomplete="username"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
+              {{ getFieldError('name') }}
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">Role<span class="text-danger">*</span></label>
+            <div class="select-wrapper">
+              <select 
+                class="form-select"
+                [class.is-invalid]="isFieldInvalid('role')"
+                formControlName="role">
+                <option value="">Select Role...</option>
+                <option *ngFor="let role of roleOptions" [value]="role.value">
+                  {{ role.label }}
+                </option>
+              </select>
+            </div>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('role')">
+              Role is required
+            </div>
+          </div>
+
+          <!-- Row 2: First Name and Last Name -->
+          <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="firstName" 
+              placeholder="Enter first name"
+              autocomplete="given-name"
+            />
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="lastName" 
+              placeholder="Enter last name"
+              autocomplete="family-name"
+            />
+          </div>
+
+          <!-- Row 3: Email and Phone -->
+          <div class="col-md-6">
+            <label class="form-label">Email Address<span class="text-danger">*</span></label>
+            <input 
+              type="email" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('email')"
+              formControlName="email" 
+              placeholder="Enter email address"
+              autocomplete="email"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+              {{ getFieldError('email') }}
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">Phone Number<span class="text-danger">*</span></label>
+            <div class="phone-input-container">
+              <input 
+                type="tel" 
+                class="form-control"
+                [class.is-invalid]="isFieldInvalid('phone')"
+                formControlName="phone" 
+                placeholder="Enter phone number (e.g. +1 234 567 8900)"
+                autocomplete="tel"
+              />
+              <small class="phone-hint">Country code optional</small>
+            </div>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('phone')">
+              {{ getFieldError('phone') }}
+            </div>
+          </div>
+
+          <!-- Row 4: Password and Confirm Password -->
+          <div class="col-md-6">
+            <label class="form-label">Password<span class="text-danger">*</span></label>
+            <input 
+              type="password" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('password')"
+              formControlName="password" 
+              placeholder="Enter password"
+              autocomplete="new-password"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('password')">
+              {{ getFieldError('password') }}
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">Confirm Password<span class="text-danger">*</span></label>
+            <input 
+              type="password" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('confirmPassword') || (userForm.hasError('mismatch') && userForm.get('confirmPassword')?.touched)"
+              formControlName="confirmPassword" 
+              placeholder="Confirm password"
+              autocomplete="new-password"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('confirmPassword')">
+              Confirm password is required
+            </div>
+            <div class="invalid-feedback" *ngIf="userForm.hasError('mismatch') && userForm.get('confirmPassword')?.touched">
+              Passwords do not match
+            </div>
+          </div>
+
+          <!-- Row 5: Date of Birth and Gender -->
+          <div class="col-md-6">
+            <label class="form-label">Date of Birth<span class="text-danger">*</span></label>
+            <input 
+              type="date" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('birthDate')"
+              formControlName="birthDate"
+              [max]="getMaxDate()"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('birthDate')">
+              Date of birth is required
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">Gender<span class="text-danger">*</span></label>
+            <div class="select-wrapper">
+              <select 
+                class="form-select"
+                [class.is-invalid]="isFieldInvalid('gender')"
+                formControlName="gender">
+                <option value="">Select Gender...</option>
+                <option *ngFor="let gender of genderOptions" [value]="gender.value">
+                  {{ gender.label }}
+                </option>
+              </select>
+            </div>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('gender')">
+              Gender is required
+            </div>
+          </div>
+
+          <!-- Row 6: Country and City -->
+          <div class="col-md-6">
+            <label class="form-label">Country<span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('location')"
+              formControlName="location" 
+              placeholder="Enter country"
+              autocomplete="country"
+            />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('location')">
+              Country is required
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label">City</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="city" 
+              placeholder="Enter city"
+              autocomplete="address-level2"
+            />
+          </div>
+
+          <!-- Row 7: Present Address -->
+          <div class="col-md-12">
+            <label class="form-label">Present Address</label>
+            <textarea 
+              class="form-control" 
+              formControlName="presentAddress" 
+              placeholder="Enter present address"
+              rows="2"
+              autocomplete="street-address"
+            ></textarea>
+          </div>
+
+          <!-- Row 8: Toggle Switches -->
+          <!-- <div class="col-md-6">
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                role="switch" 
+                id="sendEmail" 
+                formControlName="sendEmail"
+              />
+              <label class="form-check-label" for="sendEmail">
+                Send Signup Email Notification to User
+              </label>
+            </div>
+          </div> -->
+<!--           
+          <div class="col-md-6">
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                role="switch" 
+                id="memberStatus" 
+                formControlName="memberStatus"
+              />
+              <label class="form-check-label" for="memberStatus">
+                Member Status
+              </label>
+            </div>
+          </div> -->
+
+          <!-- Action Buttons -->
+          <div class="col-12 text-end mt-4">
+            <button 
+              type="submit" 
+              class="btn btn-primary me-3"
+              [disabled]="userForm.invalid"
+            >
+              <i class="bi bi-check-circle me-2"></i>
+              Save User
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              (click)="onClose()"
+            >
+              <i class="bi bi-arrow-left me-2"></i>
+              Back
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

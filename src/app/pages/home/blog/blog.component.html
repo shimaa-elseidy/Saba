@@ -1,0 +1,31 @@
+<section class="blog-section">
+    <div class="container">
+      <h3 class="blog-title">Read More About Egypt History</h3>
+      <p class="blog-subtitle">Tips & insights we collected through the years.</p>
+  
+      <div class="blog-grid">
+        <article class="blog-card" *ngFor="let post of blogPosts">
+          <div class="blog-image">
+            <img [src]="post.image" [alt]="post.title">
+          </div>
+          <div class="blog-content">
+            <p class="blog-category">{{ post.category }}</p>
+
+            <h3 class="blog-heading">{{ post.title }}</h3>
+            <p class="blog-text">{{ post.text }}</p>
+  
+            <div class="blog-meta">
+              <i class="bi bi-chat-dots chat-icon" (click)="navigateToChat()"></i>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="blog-button-container">
+        <button class="blog-button" (click)="navigateToBlog()">
+          See More!
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+  

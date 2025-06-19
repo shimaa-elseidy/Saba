@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root, .app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// body {
+//   font-family: 'Barlow', sans-serif;
+//   background: #fff7e6 !important; // نفس خلفية صفحة auth
+// }
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  height: 56px; // أو حسب ارتفاع الـ navbar عندك
+  flex-shrink: 0;
+}
+
+// .main-content {
+//   display: flex;
+//   flex: 1 1 auto;
+//   min-height: 0;
+// }
+
+// .sidebar {
+//   width: 70px; // أو حسب عرض الـ sidebar عندك
+//   flex-shrink: 0;
+// }
+
+// .page-content {
+//   flex: 1 1 auto;
+//   min-width: 0;
+//   min-height: 0;
+//   overflow: auto;
+//   background: #f8f9fa;
+//   padding: 0;
+// }

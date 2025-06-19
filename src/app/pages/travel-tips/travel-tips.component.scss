@@ -1,0 +1,142 @@
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.video-background:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 10, 10, 0.6); /* طبقة شفافة لتحسين قراءة المحتوى */
+  z-index: 1;
+}
+
+.video-background video {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+/* footer.component.scss */
+.footer-section {
+  position: relative;
+  height: 28vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  background-image: url('../../../assets/footerjpg.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: left;
+  padding: 20px;
+  margin-bottom: 50px;
+  
+  /* Gradient overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  
+  .breadcrumb-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+  
+  .breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .breadcrumb-current {
+    color: white;
+    font-weight: 500;
+  }
+}
+
+  
+  
+.travel-info {
+    font-family: 'Barlow', sans-serif;
+    line-height: 1.7;
+    color: #333;
+  
+    h4 {
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+  
+    ul {
+      li {
+        margin-bottom: 0.5rem;
+        font-size: 22px;
+      margin-left: 35px;
+
+      }
+    }
+  
+    p {
+      font-size: 1.1rem;
+      margin-left: 45px;
+      font-weight: 500;
+    }
+
+  }
+  
+h4{
+    font-size: 25px;
+    font-weight: 600;
+}
+i{
+    color: #E0A337;
+}
+  svg{
+    color: #19BED3 ;
+    fill: #19BED3;
+    margin-right: 10px;
+
+  }

@@ -1,0 +1,360 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
+/* ✅ تنسيق القسم */
+.blog-section {
+  padding: 70px 0;
+  background: linear-gradient(to bottom, #f8faff, #ffffff);
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ✅ العنوان الرئيسي */
+.blog-title {
+  font-size: 44px;
+  font-weight: 700;
+  color: #121212;
+  margin-bottom: 15px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  animation: slideInDown 0.8s ease-out;
+}
+
+.blog-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  border-radius: 2px;
+}
+
+/* Subtitle */
+.blog-subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: #64666C;
+  margin-bottom: 50px;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ✅ الشبكة التي تحتوي على المقالات */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  text-align: center; /* جعل النص في اليسار داخل الشبكة */
+}
+
+/* ✅ تصميم كل مقالة */
+.blog-card {
+  overflow: hidden;
+  width: auto;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.4s ease;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e6f0ff;
+  animation: cardAppear 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.blog-card:nth-child(1) { animation-delay: 0.1s; }
+.blog-card:nth-child(2) { animation-delay: 0.3s; }
+.blog-card:nth-child(3) { animation-delay: 0.5s; }
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15);
+  border-color: #007bff;
+}
+
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-card:hover .blog-image img{
+  transform: scale(1.05);
+}
+
+/* ✅ صورة المقال */
+.blog-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.blog-card:hover .blog-image::after {
+  transform: scaleX(1);
+}
+
+.blog-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* ✅ محتوى المقال */
+.blog-content {
+  padding: 20px;
+  text-align: left;
+  background-color: #ffffff;
+  border-radius: 0 0 12px 12px;
+}
+
+/* ✅ عنوان المقال */
+.blog-heading {
+  font-size: 22px;
+  color: #121212;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: left;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.blog-card:hover .blog-heading {
+  color: #007bff;
+}
+
+/* ✅ نص المقال */
+.blog-text {
+  font-size: 16px;
+  font-weight: 400;
+
+  color: #64666C;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-align: left; /* جعل النص في اليسار */
+}
+span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #64666C;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.chat-icon {
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #007bff;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.chat-icon:hover {
+  background-color: #0056b3;
+  transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+// /* ✅ معلومات المقال */
+// .blog-meta {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   font-size: 12px;
+//   color: #777;
+//   text-align: left; /* جعل النص في اليسار */
+// }
+
+/* ✅ زر "Read All News" */
+.blog-button-container {
+  margin-top: 30px;
+  text-align: center; /* جعل الزر في اليسار */
+}
+
+.blog-button {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  animation: bounceIn 1s ease-out 1s backwards;
+}
+
+.blog-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.blog-button span {
+  margin-left: 8px;
+}
+
+.blog-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+}
+
+.blog-button:hover::before {
+  opacity: 1;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ✅ تحسين التباعد في الهواتف */
+@media (max-width: 768px) {
+  .blog-section {
+    padding: 40px 15px;
+    width: 95%;
+  }
+
+  .blog-title {
+    font-size: 32px;
+  }
+
+  .blog-subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .blog-card {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .blog-heading {
+    font-size: 20px;
+  }
+
+  .blog-text {
+    font-size: 15px;
+  }
+
+  .blog-button {
+    width: 80%;
+    max-width: 300px;
+    font-size: 16px;
+  }
+
+  .blog-button-container {
+    text-align: center;
+  }
+
+  .blog-title{
+    line-height: 2.5rem;
+  }
+}
+
+/* ✅ تحسين العرض في الشاشات المتوسطة */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+.blog-category {
+  font-size: 14px;
+  font-weight: 500;
+  color: #007bff;
+  margin-bottom: 8px;
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 20px;
+}

@@ -1,0 +1,293 @@
+.component-class {
+    font-family: 'Inter', sans-serif;
+  }
+  .recent-tours {
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.701);
+    margin: 30px auto;
+    border-radius: 15px;
+    padding: 20px;
+      
+      
+  }
+  /* نلف الـ tour cards داخل Wrapper */
+  .booking-scroll-wrapper {
+    max-height: 600px; /* أو حسب الارتفاع اللي يناسبك */
+    overflow-y: auto;
+    padding-right: 10px; /* عشان مفيش حاجات تتقص */
+  }
+  
+  /* تخصيص شكل السكرول */
+  .booking-scroll-wrapper::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .booking-scroll-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .booking-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #2D60FF; /* الأزرق */
+    border-radius: 10px;
+  }
+  
+  .booking-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #1c3fb3; /* أزرق أغمق عند التحويم */
+  }
+  
+  .no-results-message {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff4d4d;  // لون أحمر لافت للنظر (يمكنك تغييره حسب رغبتك)
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .no-results-message span {
+      font-style: italic;
+      color: #333;
+    }
+    
+  h2{
+      color: #2D60FF;
+  }
+  .tour-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px auto;
+      background-color: #f9f9f9;
+      border-radius: 15px;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
+
+
+  }
+  .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    
+      button {
+        background-color: #FFFFFF;
+        border: none;
+        color: black;
+        padding: 8px 25px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: relative; 
+    
+        .badge {
+          position: absolute;
+          top: -5px;
+          right: -10px;
+          background-color: gray;
+          color: white;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    
+        &.active {
+          background-color: #2D60FF;
+          color: white;
+        }
+    
+        .paid {
+          background-color: green;
+        }
+    
+        .canceled {
+          background-color: orange;
+        }
+    
+        .deleted {
+          background-color: red;
+        }
+      }
+    }
+    
+    .addBtn{
+      background-color: #2D60FF;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 8px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+  
+  .tour-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      text-align: center;
+  }
+  
+  span {
+      color: #2D60FF;
+      font-weight: 600;
+  }
+  
+  .user-info {
+      display: flex;
+      align-items: center;
+  }
+  
+  .user-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+  }
+  
+  .contact-info, .booking-info, .price-info {
+      flex: 1;
+      min-width: 150px; /* الحد الأدنى للعرض */
+  }
+  
+  .detail-image {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap; /* السماح بالتغيير للسطر التالي عند الحاجة */
+      gap: 20px;
+  }
+  
+  .tour-details {
+      flex: 1;
+      min-width: 200px; /* لتجنب التصغير الشديد */
+  }
+  
+  .tour-image {
+      max-width: 350px;
+      width: 100%; /* لجعل الصورة متجاوبة */
+  }
+  
+  .tour-image img {
+      width: 100%;
+      border-radius: 8px;
+  }
+  
+  .tour-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+  }
+  
+  .tour-actions button {
+      background-color: #2D60FF;
+      color: white;
+      border-radius: 15px;
+      border: #2D60FF solid 1px;
+      padding: 10px 25px;
+      transition: all 1s;
+  }
+  .tour-actions button:hover{
+      background-color: black;
+      color: white;
+  
+  }
+  
+  @media (max-width: 768px) {
+      .tour-header {
+          flex-direction: column;
+          text-align: left;
+          gap: 15px;
+      }
+  
+      .detail-image {
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: center;
+      }
+  
+      .tour-actions {
+          justify-content: center;
+      }
+      .allBtns{
+          display: flex;
+          flex-direction: column;
+          
+      }
+      .filter-buttons {
+          display: flex;
+          flex-direction: row;
+          margin: 15px;
+        }
+      
+        .buttons {
+          justify-content: center;
+        }
+  }
+  
+  @media (max-width: 480px) {
+      .tour-card {
+          width: 95%; /* عرض أكبر للشاشات الصغيرة */
+      }
+  
+      .user-image {
+          width: 40px;
+          height: 40px;
+      }
+  
+      .tour-actions button {
+          width: 100%; /* الأزرار بعرض كامل */
+          padding: 10px;
+          
+      }
+      button {
+          padding: 10px 20px; /* تصغير الحشو */
+          font-size: 14px; /* تقليل حجم النص */
+        }
+      
+        .badge {
+          top: -8px;
+          right: -8px;
+          
+          width: 18px;
+          height: 18px;
+          font-size: 10px;
+        }
+  }
+  
+  .price {
+    background-color: #2D60FF;
+    width: fit-content;
+    padding: 12px;
+    border-radius: 15px;
+    font-size:20px ;
+    font-weight: 800;
+    color: white;
+    
+    
+    .spanPrice{
+      color: white;
+      font-size: 20px;
+      font-weight: 200;
+    }
+  }
+  
+  .black{
+    color: #121212;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  
+  

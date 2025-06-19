@@ -1,0 +1,204 @@
+<section class="footer-section">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        <div class="breadcrumb-nav">
+            <a routerLink="/" class="breadcrumb-link">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Help Center</span>
+        </div>
+        <h1 class="fs-1">Help Center</h1>
+
+    </div>
+    <div class="video-background">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/videos/GettyImages-1299797455.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+</section>
+<div class="all">
+    <div class="container">
+        <div class="section">
+            <h2>Payments
+
+            </h2>
+            <ul>
+                We offer secure, fast, and flexible payment options to make your booking experience seamless. Pay with credit/debit cards, digital wallets, or bank transfers with complete peace of mind. Our encrypted transactions ensure your financial security, so you can focus on enjoying your trip hassle-free. Travel now, pay with confidence!
+
+
+            </ul>
+        </div>
+        <!-- Cancellations & Refunds Section -->
+        <div class="section">
+            <h2>Suggestions
+
+
+            </h2>
+            <ul>
+                We value your feedback! Share your thoughts and help us improve your travel experience. Whether it’s about new destinations, better services, or additional features, your suggestions matter to us. Let’s make every journey even more amazing—together!
+
+
+
+            </ul>
+        </div>
+
+        <!-- Changes Section -->
+        <div class="section">
+            <h2>Recommendations
+            </h2>
+            <ul>
+                Discover the best travel experiences with our expert recommendations! From must-visit destinations to hidden gems, we curate the perfect trips for you. Get personalized suggestions based on your preferences and make every journey unforgettable. Let us guide you to your next adventure!
+
+
+            </ul>
+        </div>
+
+        <!-- Insurance Section -->
+        <div class="section">
+            <h2>Booking
+
+            </h2>
+            <ul>
+                Plan your trip with ease! Our simple and secure booking system allows you to reserve your adventure in just a few clicks. Choose your destination, select your preferred package, and confirm your booking instantly. Enjoy a hassle-free experience with transparent pricing and flexible payment options. Start your journey today!
+
+
+            </ul>
+        </div>
+
+ 
+    </div>
+
+
+    <div class="video-tutorials-container">
+     <div class="container">
+        <div class="left-section">
+            <h2 class="section-title">Video Tutorials</h2>
+            <p class="section-description">
+              Experience the beauty of travel through our YouTube Channel. Watch
+              stunning destination highlights, travel tips, customer experiences, and
+              exclusive behind-the-scenes content. Subscribe now and get inspired
+              for your next adventure.
+            </p>
+            <a href="https://www.youtube.com/@guideofegypt8409" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="youtube-link">
+           <button class="yellow-button">
+             <i class="bi bi-youtube"></i> Our Youtube Channel
+           </button>
+         </a>            <!-- <div class="channel-name">
+              <i class="fab fa-youtube"></i> Sabatours
+            </div> -->
+          </div>
+        
+          <div class="right-section">
+            <div class="video-wrapper" (click)="openVideoModal()">
+              <img src="assets/7-1-4.webp" alt="Video thumbnail" class="video-thumbnail">
+              <div class="play-button">
+                  <i class="bi bi-play-fill"></i>
+              </div>
+  
+            </div>
+          </div>
+        
+          <!-- Video Modal -->
+          <div class="video-modal" *ngIf="showModal" (click)="closeModal($event)">
+            <div class="modal-content">
+              <span class="close-btn" (click)="closeModal($event)">&times;</span>
+              <iframe 
+                width="100%" 
+                height="500" 
+                [src]="safeVideoUrl" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+     </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- helpful-information.component.html -->
+<div class="helpful-information-container">
+    <div class="helpful-info-header">
+      <h2>Helpful information</h2>
+      <div class="blue-line"></div>
+      <p class="main-description">{{ mainDescription }}</p>
+    </div>
+  
+    <div class="info-cards-container">
+        <div class="info-card">
+            <div class="card-badge">NEW</div>
+            
+            <div class="icon-container">
+              <div class="icon-headphones"></div>
+            </div>
+            
+            <h3>Need Help? Contact us</h3>
+            
+            <p class="line">Were here for you! If you have any questions or need assistance, our support team is ready to help. Reach out to us via phone, email, or live chat, and we wll ensure a quick and friendly response. Your hassle-free travel experience starts here!</p>
+          </div>
+
+          <div class="info-card">
+            <div class="card-badge">NEW</div>
+            
+            <div class="icon-container">
+              <div class="icon-book"></div>
+            </div>
+            
+            <h3>Our Rules</h3>
+            
+            <p class="mb-0">To ensure a smooth and enjoyable experience for all travelers, please follow these guidelines:</p>
+            
+            <div class="checkmark-container my-1">
+              <div class="checkmark-box">
+                <div class="checkmark"></div>
+              </div>
+              <p>Timely Bookings & Cancellations – Follow our booking policies for a hassle-free experience.</p>
+            </div>
+            
+            <p>By following simple rules, we can create amazing travel experiences together!</p>
+          </div>
+
+          <div class="info-card">
+            <div class="card-badge">NEW</div>
+            
+            <div class="icon-container">
+              <div class="icon-list"></div>
+            </div>
+            
+            <h3>Terms and Conditions</h3>
+            
+            <p class="line">When using our services, you agree to the terms and conditions that we provide through our website, where we provide you with the best tourism services with entertainment packages that suit families and individuals.</p>
+          </div>
+    </div>
+    
+    <!-- Floating action buttons -->
+    <!-- <div class="floating-actions">
+      <button class="chat-button">
+        <div class="chat-icon"></div>
+      </button>
+      <button class="scroll-top-button">
+        <div class="arrow-up-icon"></div>
+      </button>
+    </div>
+    
+    <div class="windows-activation">
+      <p>Activate Windows</p>
+      <p class="small-text">Go to Settings to activate Windows</p>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,112 @@
+/* Dashboard Layout Styles - FIXED */
+.dashboard-layout {
+  min-height: 100vh;
+  background: #f7fafd;
+  display: flex;
+}
+
+/* Sidebar fixed */
+.sidebar {
+  width: 240px;
+  min-width: 200px;
+  background: #0b6fa4;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000; /* Increased z-index */
+  transition: width 0.3s;
+  overflow-y: auto;
+  color: white;
+}
+
+/* Main area shifted to the right */
+.main-area {
+  margin-left: 240px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: calc(100% - 240px);
+  min-height: 100vh; /* Ensure full height */
+}
+
+/* Navbar fixed at top of main area */
+app-navbar-dashboard {
+  position: fixed; /* Changed from sticky to fixed */
+  top: 0;
+  left: 240px; /* Position it to the right of sidebar */
+  right: 0;
+  z-index: 999; /* High z-index but below sidebar */
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  height: 64px; /* Set explicit height */
+}
+
+/* Dashboard content with top margin for navbar */
+.dashboard-content {
+  flex: 1;
+  padding: 32px 24px;
+  background: #f7fafd;
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 64px; /* Add margin for fixed navbar */
+  min-height: calc(100vh - 64px); /* Ensure content fills remaining space */
+}
+
+/* Content area adjustment */
+.content-area {
+  margin-top: 32px; /* غيّر الرقم حسب المسافة اللي تناسبك */
+}
+
+/* Dashboard card styles */
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    width: 70px;
+    min-width: 70px;
+    overflow: hidden;
+  }
+  
+  .main-area {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+  
+  app-navbar-dashboard {
+    left: 70px; /* Adjust navbar position */
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding: 16px;
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    width: 0;
+    min-width: 0;
+    transform: translateX(-100%); /* Hide sidebar completely */
+  }
+  
+  .main-area {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  app-navbar-dashboard {
+    left: 0; /* Full width navbar on mobile */
+  }
+}

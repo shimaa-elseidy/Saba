@@ -1,0 +1,34 @@
+/* Estilos adicionales para móvil y tablet */
+@media (max-width: 991px) {
+  .active-link {
+    color: #f5b942 !important;
+  }
+  
+  .dropdown-item:hover,
+  .dropdown-item.active-link {
+    color: #f5b942 !important;
+    background-color: transparent;
+  }
+  
+  .mobile-user-profile a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .mobile-user-profile a:hover {
+    color: #f5b942;
+    padding-left: 5px;
+  }
+  
+  /* Add bottom spacing for navbar in medium and small screens */
+  .main-navbar {
+    margin-bottom: 15px;
+  }
+  
+  /* Fix for navbar positioning */
+  body {
+    padding-bottom: 15px;
+  }
+}

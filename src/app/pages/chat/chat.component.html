@@ -1,0 +1,215 @@
+<div class="chat-container">
+  <!-- Sidebar with user list -->
+  <div class="sidebar" [ngClass]="{'sidebar-active': showSidebar}">
+    <div class="sidebar-header">
+      <div class="sidebar-tabs">
+        <button     
+          class="tab-btn"
+          [class.active]="!showAllConversations"
+          (click)="showAllConversations = false">
+          <i class="bi bi-chat-dots me-2"></i>Chats
+        </button>
+        <button 
+          class="tab-btn"
+          [class.active]="showAllConversations"
+          (click)="showAllConversations = true"
+          *ngIf="currentUserRole === 'admin'">
+          <i class="bi bi-people me-2"></i>Contacts
+        </button>
+      </div>
+    </div>
+    <div class="search-box">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="search-input">
+    </div>
+    <ng-container *ngIf="!showAllConversations">
+      <div class="users-list">
+        <div
+          *ngFor="let user of filteredUsers"
+          class="user-item"
+          [ngClass]="{
+            'active': selectedUser?.id === user.id,
+            'admin': user.role?.toLowerCase() === 'admin',
+            'employee': user.role?.toLowerCase() === 'employee' || user.role === 'موظف',
+            'user': user.role?.toLowerCase() === 'user'
+          }"
+          (click)="selectUser(user)"
+        >
+          <div class="user-avatar">
+            <img [src]="getSafeImageUrl(user.profilePicture)" alt="{{user.name}}'s avatar" (error)="handleImageError($event)">
+          </div>
+          <div class="user-info">
+            <h4 class="user-name">{{ user.name }}</h4>
+            <span class="role-label" [ngClass]="user.role?.toLowerCase()">
+              {{ user.role === 'admin' ? 'Admin' : (user.role?.toLowerCase() === 'employee' || user.role === 'موظف' ? 'Employee' : 'User') }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="showAllConversations">
+      <div class="admin-user-pairs-list">
+        <div
+          *ngFor="let pair of filteredUserPairs"
+          class="user-item"
+          [ngClass]="{'active': selectedPair?.id === pair.id}"
+          (click)="selectUserPair(pair)">
+          <div class="user-avatar">
+            <img [src]="getSafeImageUrl(pair.user1ProfilePicture)" alt="{{pair.user1Name}}'s avatar" (error)="handleImageError($event)">
+            <img [src]="getSafeImageUrl(pair.user2ProfilePicture)" alt="{{pair.user2Name}}'s avatar" (error)="handleImageError($event)">
+          </div>
+          <div class="user-info">
+            <h4 class="user-name">{{ pair.user1Name }} – {{ pair.user2Name }}</h4>
+            <div class="last-message" *ngIf="pair.lastMessage; else noMessages">
+              {{ pair.lastMessage }}
+            </div>
+            <ng-template #noMessages>
+              <div class="no-messages-placeholder">View conversation</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="typing-indicator" *ngIf="otherUserTyping && selectedUser">
+      <span>{{ selectedUser.name }} is typing</span>
+      <span class="typing-dots">
+        <span></span><span></span><span></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Main chat area -->
+  <div class="main-chat">
+    <!-- Chat header -->
+    <div class="chat-header">
+      <button class="toggle-sidebar-btn" (click)="toggleSidebar()" *ngIf="!showSidebar && windowWidth <= 768">
+        <i class="bi bi-list"></i>
+      </button>
+      
+      <div class="selected-user" *ngIf="selectedUser">
+        <div class="user-avatar">
+          <img [src]="getSafeImageUrl(selectedUser.profilePicture)" alt="{{selectedUser.name}}'s avatar" (error)="handleImageError($event)">
+        </div>
+        <div class="user-info">
+          <h4>{{ selectedUser.name }}</h4>
+          <span class="role-label" [ngClass]="selectedUser.role?.toLowerCase()">
+            {{ selectedUser.role === 'admin' ? 'Admin' : (selectedUser.role?.toLowerCase() === 'employee' || selectedUser.role === 'موظف' ? 'Employee' : 'User') }}
+          </span>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <div class="notification-container" (click)="toggleNotifications()">
+          <i class="bi bi-bell notification-icon"></i>
+          <span *ngIf="notificationCount > 0" class="notification-badge">
+            {{ notificationCount }}
+          </span>
+          <div *ngIf="showNotifications" class="notification-dropdown">
+            <div *ngIf="notifications.length === 0" class="notification-empty">
+              No notifications
+            </div>
+            <div class="notification-item" *ngFor="let notification of notifications" (click)="openNotificationChat(notification)">
+              {{ notification.content }}
+              <span class="notification-time">{{ notification.createdAt | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <button 
+          *ngIf="currentUserRole === 'admin' && (selectedUser || selectedPair)" 
+          class="delete-conversation-btn" (click)="deleteConversation()">
+          <i class="bi bi-trash"></i>
+          <span class="btn-text">Delete</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat messages area -->
+    <div class="chat-messages" #scrollContainer>
+      <div *ngIf="!selectedUser && !selectedPair" class="no-chat-selected">
+        <div class="no-chat-content">
+          <i class="bi bi-chat-dots"></i>
+          <p>Select a conversation to start chatting</p>
+        </div>
+      </div>
+
+      <div *ngIf="selectedUser || selectedPair" class="messages-container">
+        <div 
+          *ngFor="let message of currentMessages"
+          class="message"
+          [ngClass]="{'outgoing': isCurrentUserSender(message), 'incoming': !isCurrentUserSender(message)}"
+        >
+          <div class="message-avatar" *ngIf="!isCurrentUserSender(message)">
+            <img [src]="getSafeImageUrl(message.senderProfilePicture)" alt="avatar" (error)="handleImageError($event)">
+          </div>
+          <div class="message-content">
+            <div class="message-text">
+              <ng-container *ngIf="message.imagePath; else textMsg">
+                <img 
+                  [src]="message.imagePath"
+                  alt="sent image"
+                  class="message-image"
+                  (click)="openImagePreview(message.imagePath)"
+                />
+                <div *ngIf="message.message">{{ message.message }}</div>
+              </ng-container>
+              <ng-template #textMsg>
+                {{ message.message }}
+              </ng-template>
+            </div>
+            <div class="message-meta">
+              <span class="message-time">{{ message.sentAt | date:'short' }}</span>
+              <span class="message-status" *ngIf="isCurrentUserSender(message)">
+                <i class="bi" [ngClass]="{'bi-check': !message.isRead, 'bi-check-all': message.isRead}"></i>
+              </span>
+              <button
+                *ngIf="currentUserRole === 'admin'" 
+                class="delete-message-btn"
+                (click)="deleteMessage(message.id)"
+                title="Delete Message"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Message input area -->
+    <div class="message-input-container" *ngIf="shouldShowMessageInput">
+      <div class="message-input-wrapper">
+        <input 
+          type="text"
+          [(ngModel)]="newMessage"
+          placeholder="Type your message..." 
+          class="message-input"
+          (keyup.enter)="sendMessage()"
+          (input)="onTyping()"
+        />
+        <input #imageInput type="file" accept="image/*" (change)="onImageSelected($event)" style="display:none;">
+        <button class="send-button image-button" type="button" (click)="imageInput.click()" title="Send Image">
+          <i class="bi bi-image"></i>
+        </button>
+        <button class="send-button" [disabled]="!newMessage.trim() && !selectedImageBase64" (click)="sendMessage()">
+          <i class="bi bi-send"></i>
+        </button>
+      </div>
+      <!-- Show image preview if selected -->
+      <div *ngIf="selectedImageBase64" class="image-preview">
+        <img [src]="selectedImageBase64" alt="Preview" />
+        <button type="button" (click)="selectedImageBase64 = null; selectedImageFile = null;" class="remove-image-btn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div 
+      class="image-preview-popup" 
+      *ngIf="previewImageUrl"
+      (click)="closeImagePreview()"
+    >
+      <img [src]="previewImageUrl" alt="Preview" />
+    </div>
+  </div>
+</div>

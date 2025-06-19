@@ -1,0 +1,930 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FCE2B5 0%, #F4D03F 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // padding: 2rem 1rem;
+        }
+        .mainBg {
+            // background: rgba(0, 0, 0, 0.7) url('../../../assets/auth-imgs/97c077228459ba50ef898ed05a34f6fd.jpg');
+            // background:  url('../../../assets/auth-imgs/wbbg01-removebg-preview.png');
+            background:  url('../../../assets/auth-imgs/WhatsApp Image 2025-05-28 at 03.18.45_ae3ea63a.jpg');
+            // background-color: #FDF1DC;
+            background-position: center;
+            background-size: cover;
+            background-blend-mode: overlay;
+            // height: 100vh;
+            overflow-y: auto; 
+            // padding: 3rem; /* Add consistent padding */
+            width: 100%; 
+            justify-content: center; 
+        }
+        .registration-container {
+            width: 100%;
+            max-width: 900px;
+            // background: white;
+            border-radius: 10px;
+            // box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            min-height: 600px;
+            margin: 20px auto;
+        }
+
+        /* Left Side - Branding */
+        .branding-section {
+            // background: linear-gradient(135deg, #005b90, #0077b6);
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* توسيط رأسي */
+            height: 100vh; /* أو ارتفاع مناسب للجزء الأيسر */
+            position: relative;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .branding-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        @media (max-width: 767px) {
+        .branding-section {
+            display: none !important;
+        }
+        // .upload-guide
+        // {
+        //     display: none !important;
+        // }
+        .button-container {
+            flex-direction: column;
+            gap: 1rem; /* Space between stacked buttons */
+        }
+        .reset-btn,
+        .submit-btn {
+            width: 100%;
+            margin-bottom: 0.5rem; /* Extra space between buttons */
+        }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            margin: 0 auto 1rem;
+            animation: pulse 2s infinite;
+            // backdrop-filter: blur(10px);
+            // border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 30pz;
+        }
+
+        .logo-icon i {
+            font-size: 3rem;
+            color: #f59e0b;
+        }
+
+        .brand-title {
+            // font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-subtitle {
+            color: #005b90ae;
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Right Side - Form */
+        .form-section {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-top: 1rem; /* Add this */
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            // color: #1f2937;
+            margin: 1rem;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Profile Upload */
+.profile-upload {
+    display: flex;
+    align-items: center;
+    // justify-content: flex-end;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+.upload-guide {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #005b90;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+    .upload-arrow {
+        animation: bounceRight 2s ease-in-out infinite;
+    }
+    /* Add this to your existing CSS */
+    .upload-button:hover {
+        box-shadow: 0 0 10px rgba(0, 91, 144, 0.471);
+        transition: box-shadow 0.3s ease;
+    }
+
+
+
+@keyframes bounceRight {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(8px);
+    }
+    60% {
+        transform: translateX(4px);
+    }
+}
+
+.upload-container {
+    position: relative;
+}
+
+.upload-button {
+    width: 100px;
+    height: 100px;
+    border: 3px dashed #005b90;
+    border-radius: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #005b90;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.upload-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 91, 144, 0.471);
+}
+
+.upload-button i {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.upload-input {
+    display: none;
+}
+.image-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
+    object-fit: cover;
+    border: 3px solid #005b90;
+    display: block; 
+}
+
+
+
+.upload-button.has-image {
+    border: 3px solid #28a745;
+    color: #28a745;
+}
+/* ✅ ADDED: Remove Image Button Styles */
+.remove-image-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 25px;
+    height: 25px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.remove-image-btn.show {
+    display: flex; /* Show when image is selected */
+}
+.upload-container {
+    position: relative; /* ✅ ADDED: For absolute positioning of remove button */
+}
+@keyframes bounceRight {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(8px);
+    }
+    60% {
+        transform: translateX(4px);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    
+    // .upload-guide {
+    //     order: -1;
+    // }
+    .button-container {
+    flex-direction: row;
+    gap: 1.5rem; /* Space between side-by-side buttons */
+    }
+    
+    .reset-btn,
+    .submit-btn {
+        flex: 1; /* Make buttons equal width */
+    }
+}
+
+        .upload-button:hover {
+            transform: scale(1.05);
+            // box-shadow: 0 8px 25px #005b9049;
+        }
+
+        .upload-button i {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-input {
+            display: none;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Input Styles */
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 1.2;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+        
+.input-container .form-input {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 2.2rem; /* علشان نسيب مساحة للأيقونة */
+  box-sizing: border-box;
+}
+
+.input-container .bi-eye,
+.input-container .bi-eye-slash {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #666;
+  font-size: 1.2rem;
+}
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:hover {
+            border-color: #f59e0b;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+        }
+
+        .form-input:hover + .input-icon {
+            color: #f59e0b;
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        /* Error Messages */
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .input-container.error {
+        border-color: #dc3545;
+        }
+        /* Gender Section */
+        .gender-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .gender-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1f2937;
+            font-weight: 600;
+            min-width: 100px;
+        }
+
+        .gender-label i {
+            color: #005b90;
+            font-size: 1.2rem;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .gender-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #005b90;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .radio-inner {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #005b90;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .gender-option input:checked + .radio-custom {
+            border-color: #005b90;
+            box-shadow: 0 0 10px #005b9060;
+        }
+
+        .gender-option input:checked + .radio-custom .radio-inner {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Outlined Gradient Button */
+        .submit-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        color: #005b90; 
+        border: 2px solid #005b90af;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        }
+
+/* Gradient background that will appear on hover */
+        .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #005b90 0%, #0077b6 100%); 
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+        border: #005b90;
+        }
+        .submit-btn, .reset-btn {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        }
+        /* Hover effects */
+        .submit-btn:hover {
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 91, 144, 0.3);
+        }
+
+        .submit-btn:hover::before {
+        opacity: 1;
+        animation: shimmer 1.5s infinite;
+        }
+
+        /* Active state */
+        .submit-btn:active {
+        transform: translateY(0);
+        }
+
+        /* Disabled state */
+        .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        background: transparent;
+        // border-color: #d1d5db;
+        // color: #d1d5db;
+        color: #005b90;
+        }
+/* Button Container */
+.button-container {
+  display: flex;
+  width: 100%;
+  margin: 0.25rem 0;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+        .submit-btn:disabled::before {
+        display: none;
+        }
+        /* Password Toggle */
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 2;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #f59e0b;
+        }
+
+
+/* Reset Button */
+.reset-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: #ef4444;
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.reset-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.reset-btn:hover {
+    color: white;
+    transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+
+.reset-btn:hover::before {
+    opacity: 1;
+    animation: shimmer 1.5s infinite;
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+}
+        /* OTP Modal */
+        .otp-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .otp-modal.show {
+            display: flex;
+        }
+
+        .otp-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.2);
+        }
+
+        .otp-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #005b90, #0077b6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .otp-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .otp-subtitle {
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .otp-input {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        .otp-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .otp-btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .otp-btn.primary {
+            background: linear-gradient(135deg, #005b90, #0077b6);
+            color: white;
+        }
+
+        .otp-btn.secondary {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 2px solid #f59e0b;
+        }
+
+        .otp-btn.tertiary {
+            background: #f3f4f6;
+            color: #6b7280;
+            border: 2px solid #d1d5db;
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .registration-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .branding-section {
+                padding: 2rem;
+                min-height: 200px;
+            }
+
+            .brand-title {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-icon i {
+                font-size: 2rem;
+            }
+
+            .form-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .gender-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        .woman-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.woman-center img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+}
+
+.brand-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-img {
+  max-width: 150px;
+  margin-bottom: 0.5rem;
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-bottom: 0.75rem;
+}
+.create-account-title {
+  color:  #01324ed9;
+  font-weight:bolder;
+  font-size:xx-large;
+}
+
+
+.login-link {
+  display: flex;
+  align-items: center;
+  color: #005b90;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 1rem;
+  transition: color 0.2s;
+  &:hover {
+    color: #0077b6;
+  }
+}
+
+.login-arrow {
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.2em;
+  color: #005b90;
+  vertical-align: middle;
+  animation: bounceRight 1s infinite;
+}
+
+.create-account-btn, .submit-btn {
+  color: #005b90 !important;
+  border: 2px solid #005b90 !important;
+  background: transparent !important;
+}
+
+.create-account-btn:hover, .submit-btn:hover {
+  background: linear-gradient(135deg, #005b90 0%, #0077b6 100%) !important;
+  color: #fff !important;
+}
+
+.brand-content .main-brand-title,
+.brand-content .brand-subtitle,
+.brand-content .dahby,
+.start-journey-btn {
+  color: #005b90 !important;
+}
+
+.start-journey-btn {
+  background: #FCE2B5;
+  border: 2px solid #005b90;
+  color: #005b90;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: #005b90;
+    color: #fff;
+  }
+}
+
+.dahby {
+  font-weight: bold;
+  color: #f59e0b !important;
+}
+
+/* Highlight the Uncover the Secrets heading */
+.uncover-secrets-heading {
+  color: #DAA520; /* Golden color */
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px; /* Increase space between letters */
+//   text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  margin-bottom: 1rem;
+  
+  /* Optional: Add a subtle gradient to make it more vibrant */
+  background: linear-gradient(to bottom, #b09708f0, #DAA520);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.uncover-secrets-heading {
+  span.uncover {
+    color: #005b90; 
+    font-weight: bold;
+  }
+}
+
+/* Adjust button spacing */
+.button-container {
+  margin-top: 1rem !important; /* Reduce top margin */
+  margin-bottom: 1rem !important; /* Reduce bottom margin */
+}
+
+/* Make heading more visible */
+.uncover-secrets-heading {
+  color: #005b90; /* Change to a darker blue color */
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+/* Reduce upload arrow size */
+.upload-arrow svg {
+  width: 80px; /* Reduce from 120px */
+  height: 30px; /* Reduce from 40px */
+}
+
+/* Adjust arrow stroke width */
+.upload-arrow path {
+  stroke-width: 1.5px; /* Make arrow thinner */
+}
+
+/* Make upload text smaller */
+.upload-text {
+  font-size: 0.9rem;
+}
+.secrets-text {
+  font-size: 28px;
+  background:  #005b90;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+

@@ -1,0 +1,224 @@
+<div class="container-fluid p-0">
+    <!-- Video Background Section -->
+    <div class="filter-background">
+      <div class="overlay"></div>
+      <div class="video-background">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="assets/videos/0_Ancient Egypt_Temple_1280x720.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="container">
+        <div class="tour-title text-center">
+          <h1>Design Your Trip</h1>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Form Section -->
+    <div class="container py-5">
+      <div class="form-container bg-light rounded p-4 shadow">
+        <h2 class="text-center mb-4">Plan Your Perfect Trip</h2>
+        <form [formGroup]="travelRequestForm" (ngSubmit)="onSubmit()">
+          <div class="row g-3">
+            <!-- Your Name -->
+            <div class="col-md-6">
+              <label for="yourName" class="form-label">Your Name</label>
+              <input
+                id="yourName"
+                type="text"
+                class="form-control"
+                formControlName="yourName"
+                placeholder="Enter your full name"
+                [class.is-invalid]="travelRequestForm.get('yourName')?.invalid && travelRequestForm.get('yourName')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('yourName')?.hasError('required')">
+                Name is required.
+              </div>
+            </div>
+  
+            <!-- Email Address -->
+            <div class="col-md-6">
+              <label for="emailAddress" class="form-label">Email Address</label>
+              <input
+                id="emailAddress"
+                type="email"
+                class="form-control"
+                formControlName="emailAddress"
+                placeholder="Enter your email"
+                [class.is-invalid]="travelRequestForm.get('emailAddress')?.invalid && travelRequestForm.get('emailAddress')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('emailAddress')?.hasError('required')">
+                Email is required.
+              </div>
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('emailAddress')?.hasError('email')">
+                Please enter a valid email address.
+              </div>
+            </div>
+  
+            <!-- Preferred Destination -->
+            <div class="col-md-6">
+              <label for="preferredDestination" class="form-label">Preferred Destination</label>
+              <input
+                id="preferredDestination"
+                type="text"
+                class="form-control"
+                formControlName="preferredDestination"
+                placeholder="E.g., Cairo, Istanbul"
+                [class.is-invalid]="travelRequestForm.get('preferredDestination')?.invalid && travelRequestForm.get('preferredDestination')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('preferredDestination')?.hasError('required')">
+                Destination is required.
+              </div>
+            </div>
+  
+            <!-- Hotel Type -->
+            <div class="col-md-6">
+              <label for="hotelType" class="form-label">Hotel Type</label>
+              <select
+                id="hotelType"
+                class="form-select"
+                formControlName="hotelType"
+                [class.is-invalid]="travelRequestForm.get('hotelType')?.invalid && travelRequestForm.get('hotelType')?.touched"
+              >
+                <option value="" disabled>Select hotel type</option>
+                <option value="Budget">Budget</option>
+                <option value="Standard">Standard</option>
+                <option value="Luxury">Luxury</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('hotelType')?.hasError('required')">
+                Hotel type is required.
+              </div>
+            </div>
+  
+            <!-- Start Date -->
+            <div class="col-md-6">
+              <label for="startDate" class="form-label">Start Date</label>
+              <input
+                id="startDate"
+                type="date"
+                class="form-control"
+                formControlName="startDate"
+                [class.is-invalid]="travelRequestForm.get('startDate')?.invalid && travelRequestForm.get('startDate')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('startDate')?.hasError('required')">
+                Start date is required.
+              </div>
+            </div>
+  
+            <!-- End Date -->
+            <div class="col-md-6">
+              <label for="endDate" class="form-label">End Date</label>
+              <input
+                id="endDate"
+                type="date"
+                class="form-control"
+                formControlName="endDate"
+                [class.is-invalid]="travelRequestForm.get('endDate')?.invalid && travelRequestForm.get('endDate')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('endDate')?.hasError('required')">
+                End date is required.
+              </div>
+            </div>
+  
+            <!-- Number of Adults -->
+            <div class="col-md-4">
+              <label for="numberOfAdults" class="form-label">Number of Adults</label>
+              <input
+                id="numberOfAdults"
+                type="number"
+                class="form-control"
+                formControlName="numberOfAdults"
+                min="0"
+                placeholder="0"
+                [class.is-invalid]="travelRequestForm.get('numberOfAdults')?.invalid && travelRequestForm.get('numberOfAdults')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('numberOfAdults')?.hasError('required')">
+                Number of adults is required.
+              </div>
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('numberOfAdults')?.hasError('min')">
+                Number of adults cannot be negative.
+              </div>
+            </div>
+  
+            <!-- Number of Children -->
+            <div class="col-md-4">
+              <label for="numberOfChildren" class="form-label">Number of Children</label>
+              <input
+                id="numberOfChildren"
+                type="number"
+                class="form-control"
+                formControlName="numberOfChildren"
+                min="0"
+                placeholder="0"
+                [class.is-invalid]="travelRequestForm.get('numberOfChildren')?.invalid && travelRequestForm.get('numberOfChildren')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('numberOfChildren')?.hasError('min')">
+                Number of children cannot be negative.
+              </div>
+            </div>
+  
+            <!-- Number of Infants -->
+            <div class="col-md-4">
+              <label for="numberOfInfants" class="form-label">Number of Infants</label>
+              <input
+                id="numberOfInfants"
+                type="number"
+                class="form-control"
+                formControlName="numberOfInfants"
+                min="0"
+                placeholder="0"
+                [class.is-invalid]="travelRequestForm.get('numberOfInfants')?.invalid && travelRequestForm.get('numberOfInfants')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="travelRequestForm.get('numberOfInfants')?.hasError('min')">
+                Number of infants cannot be negative.
+              </div>
+            </div>
+  
+            <!-- Desired Activities -->
+            <div class="col-12">
+              <label for="desiredActivities" class="form-label">Desired Activities</label>
+              <textarea
+                id="desiredActivities"
+                class="form-control"
+                formControlName="desiredActivities"
+                rows="4"
+                placeholder="E.g., Sightseeing, Adventure, Cultural Tours"
+              ></textarea>
+            </div>
+  
+            <!-- Special Requests -->
+            <div class="col-12">
+              <label for="specialRequests" class="form-label">Special Requests</label>
+              <textarea
+                id="specialRequests"
+                class="form-control"
+                formControlName="specialRequests"
+                rows="4"
+                placeholder="Any special requirements or preferences"
+              ></textarea>
+            </div>
+  
+            <!-- Messages -->
+            <div class="col-12">
+              <label for="messages" class="form-label">Additional Messages</label>
+              <textarea
+                id="messages"
+                class="form-control"
+                formControlName="messages"
+                rows="4"
+                placeholder="Any other details you'd like to share"
+              ></textarea>
+            </div>
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary" [disabled]="travelRequestForm.invalid || isSubmitting">
+              {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

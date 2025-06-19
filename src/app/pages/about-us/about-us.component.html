@@ -1,0 +1,157 @@
+<section class="footer-section">
+  <div class="footer-overlay"></div>
+  <div class="footer-content">
+    <div class="breadcrumb-nav">
+      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">About</span>
+    </div>
+    <h1 class="fs-1">About Us</h1>
+
+  </div>
+  <div class="video-background">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="assets/videos/freepik__wideangle-shot-a-sunlit-ancient-temple-complex-wit__13300.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+<section class="about-page">
+    <!-- Header Section -->
+    <div class="header">
+      <div class="header-content">
+        <h1>Our Awesome <br>Story</h1>
+        <div class="intro">
+          <p>
+            Saba Tours is a growing Egyptian travel agency. It was established in 2008 
+            <span>
+              and since then Saba tours is a member in the Egyptian Travel Agents Association (E.T.A.A). Saba Tours is registered under the number 1707. Saba Tours is also a member in the International Air Transport Association (IATA) under the number 90265803
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="header-image"></div>
+  
+    <!-- Features Section -->
+    <div class="features">
+      <div class="feature-card">
+        <i class="bi bi-star-fill icon experience"></i>
+        <h3>Experience And Trust</h3>
+        <p>With more than 20 years of experience in the tourism sector, authorized to organize tourist trips with all the insurance coverage that the law requires.</p>
+      </div>
+      <div class="feature-card">
+        <i class="bi bi-award-fill icon quality"></i>
+        <h3>Quality And Commitment</h3>
+        <p>High quality staff for full customer satisfaction Reliability and commitment with respect to days and appointments from start to departure.</p>
+      </div>
+      <div class="feature-card">
+        <i class="bi bi-headset icon support"></i>
+        <h3>Support 24 Hours</h3>
+        <p>24-hour assistance and resolution of any program or need in every country in all programs based on our experience</p>
+      </div>
+      <div class="feature-card">
+        <i class="bi bi-bus-front-fill icon transport"></i>
+        <h3>Comfortable And New Transport</h3>
+        <p>The agency has 9 new buses for a convenient service for our customers</p>
+      </div>
+    </div>
+  
+    <!-- Support Section -->
+    <div class="support">
+      <div class="support-section">
+        <h2>24 Hours Support</h2>
+        <p>We are here for you anytime, anywhere! Our 24/7 support ensures that you get assistance whenever you need it. Whether you have questions, need help with bookings, or require immediate support during your trip, our dedicated team is here to assist you. Travel with confidence, knowing we’ve got you covered—day or night!</p>
+      </div>
+      <div class="support-section">
+        <h2>Saba User Panel</h2>
+        <p>Our User Panel is designed to provide a seamless and personalized experience. Easily manage your bookings, track your trip details, and access exclusive offers—all in one place. Stay informed with real-time updates, communicate with our support team, and make hassle-free modifications to your itinerary. Enjoy full control over your travel plans with just a few clicks!</p>
+      </div>
+    </div>
+  
+    <!-- Most Funning Company Travel and Tours Section -->
+    <div class="company-section">
+      <div class="company-image"></div>
+      <div class="company-content">
+        <h2>Most Funning Company <br>Travel and Tours</h2>
+        <p>Offering exciting adventures and excellent service for unforgettable travel experiences.</p>
+        <ul>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <span><strong>Exciting Adventures</strong><br> - Enjoy a variety of thrilling activities and unique experiences tailored for maximum fun.</span>
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <span><strong>Excellent Customer Service</strong><br> - Our dedicated team ensures your trip is smooth, enjoyable, and stress-free, providing assistance from start to finish.</span>
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <span><strong>Unforgettable Experiences</strong> <br>- Create lasting memories with well-planned tours that cater to all your travel desires.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+   <!-- Book Tickets Easy Section -->
+<div class="booking-section">
+    <div class="booking-container">
+      <div class="booking-content">
+        <h2>Book Tickets Easy with <br>Just a Few Steps</h2>
+        <p>The solution to all the hassle of ordering travel tickets, with just 3 steps you can travel anywhere you want.</p>
+        <button>Book Your Tour</button>
+      </div>
+      <div class="booking-steps">
+        <div class="step">
+          <img src="assets/Frame.png" alt="">
+          <div>
+            <div class="fw-bold fs-4 mb-2">Find Your Travel Destination</div>
+          <p>Do you want to relax on the beach, explore a new city, go on an adventure, or visit a remote village? Book Your Ticket.</p>
+          </div>
+        </div>
+        <div class="step">
+          <img src="assets/Group.png" alt="">
+          <div>
+            <div class="fw-bold fs-4 mb-2">Book Your Ticket</div>
+          <p>Travel preparation has become easy with us. We have covered all regions in the world.</p>
+          </div>
+        </div>
+        <div class="step">
+          <img src="assets/Group (15451).png" alt="">
+          <div>
+            <div class="fw-bold fs-4 mb-2">Pay And Go Tour</div>
+            <p>Pay for your tour easily, including all the necessary expenses such as tickets, tours, and accommodation.</p>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What People Say's Section -->
+  <div class="testimonials-section">
+    <h2>What People Say’s</h2>
+    <p>Discover exceptional experiences through testimonials from our satisfied customers.</p>
+    <div class="slider">
+      <div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i">
+        <div class="comment-card" *ngFor="let comment of slide">
+          <div class="stars">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <p>"{{ comment.content }}"</p>
+          <div class="user-info">
+            <img class="avatar" [src]="comment.user.profilePicture" alt="{{ comment.user.name }}'s profile picture">
+            <div class="user-details">
+              <span class="name">{{ comment.user.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <span *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i" (click)="goToSlide(i)"></span>
+    </div>
+  </div>
+</section>

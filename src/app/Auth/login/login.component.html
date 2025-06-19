@@ -1,0 +1,194 @@
+<!-- Login Component -->
+<section class="main-container">
+    <!-- Error Message -->
+    @if (errMsg) {
+    <div class="error-message-container">
+        <div class="error-message-content">
+            <i class="fas fa-exclamation-triangle text-lg mr-3"></i>
+            <span class="font-medium">{{ errMsg }}</span>
+        </div>
+    </div>
+    }
+
+    <div class="login-content">
+        <!-- Welcome Section (Left Side) -->
+        <div class="welcome-section">
+            <div>
+                <img src="./assets/ancientPage-removebg-preview.png" class="w-full mb-2" alt="Ancient Egyptian Scene" onerror="this.style.display='none'">
+            </div>
+            <h1 class="welcome-title">
+                Explore 
+                <span class="glow-text">Ancient Egypt</span>
+            </h1>
+            <p class="welcome-subtitle">
+                Journey through millennia of history, explore magnificent temples, and walk in the footsteps of pharaohs
+            </p>
+                            
+            <div class="text-animate">
+                <div class="flex justify-center space-x-4">
+                    <div class="flex items-center floating-text">
+                        <i class="fas fa-star mr-2 text-sm"></i>
+                        <span>5000+ Happy Travelers</span>
+                    </div>
+                    <div class="flex items-center floating-text" style="animation-delay: 0.5s;">
+                        <i class="fas fa-map-marker-alt mr-2 text-sm"></i>
+                        <span>50+ Destinations</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Policies Footer -->
+            <div class="privacy-footer">
+                © 2023 Saba Tours. All rights reserved. | 
+                <a [routerLink]="['/privacy']" class="privacy-link">Privacy Policy</a> | 
+                <a [routerLink]="['/terms']" class="privacy-link">Terms of Service</a>
+            </div>
+        </div>
+
+        <!-- Form Section (Right Side) -->
+        <div class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 class="form-title">
+                        Welcome Back 
+                        <i class="fas fa-ankh rotate-animation"></i>
+                    </h2>
+                    <p class="form-subtitle">Your gateway to ancient wonders awaits</p>
+                </div>
+
+                <!-- Login Form -->
+                <form [formGroup]="LogInForm" (ngSubmit)="onSubmit()" class="login-form" autocomplete="on">
+                    <!-- Email Field -->
+                    <div class="input-group">
+                        <label class="input-label" for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input 
+                                id="email"
+                                type="email"
+                                formControlName="email"
+                                class="form-input"
+                                [class.input-error]="hasFieldError('email')"
+                                [class.input-valid]="!hasFieldError('email') && LogInForm.get('email')?.value && LogInForm.get('email')?.valid"
+                                placeholder="Enter your email"
+                                autocomplete="email">
+                            <i class=" fas fa-envelope input-icon"></i>
+                        </div>
+                        @if (hasFieldError('email')) {
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span>{{ getFieldError('email') }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="input-group">
+                        <label class="input-label" for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input 
+                                id="password"
+                                [type]="showPassword ? 'text' : 'password'"
+                                formControlName="password"
+                                class="form-input"
+                                [class.input-error]="hasFieldError('password')"
+                                [class.input-valid]="!hasFieldError('password') && LogInForm.get('password')?.value && LogInForm.get('password')?.valid"
+                                placeholder="Enter your password"
+                                autocomplete="current-password">
+                            <i class="fas fa-lock input-icon"></i>
+                            <button 
+                                type="button" 
+                                class="password-toggle"
+                                (click)="togglePasswordVisibility()"
+                                tabindex="-1">
+                                <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
+                        @if (hasFieldError('password')) {
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span>{{ getFieldError('password') }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Remember Me and Forgot Password -->
+                    <div class="options-row">
+                        <div class="remember-me">
+                            <input 
+                                class="custom-checkbox" 
+                                type="checkbox" 
+                                id="rememberMe"
+                                name="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <button 
+                            type="button"
+                            (click)="navigateToForgotPassword()" 
+                            class="forgot-password">
+                            Forgot password?
+                        </button>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        [disabled]="!isFormValid || isLoading"
+                        class="submit-button">
+                        <span>{{ isLoading ? 'SIGNING IN...' : 'BEGIN YOUR JOURNEY' }}</span>
+                        @if (isLoading) {
+                        <i class="fas fa-spinner fa-spin ml-2"></i>
+                        }
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <button 
+                            type="button"
+                            (click)="loginWithGoogle()"
+                            [disabled]="isLoading"
+                            class="social-button google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button 
+                            type="button"
+                            (click)="loginWithFacebook()"
+                            [disabled]="isLoading"
+                            class="social-button facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sign Up Link -->
+                    <div class="signup-link">
+                        <span>New to our adventures?</span>
+                        <button 
+                            type="button"
+                            (click)="navigateToSignup()" 
+                            class="signup-button">
+                            Create your account
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <app-forgot-password-modal
+      *ngIf="isForgotModalVisible" 
+      (closeModalEvent)="isForgotModalVisible = false" 
+      (openResetModalEvent)="openResetModal($event)">
+    </app-forgot-password-modal>
+
+    <!-- Reset Password Modal -->
+    <app-reset-password-modal 
+      *ngIf="isResetModalVisible" 
+      [email]="emailForReset" 
+      (closeModalEvent)="isResetModalVisible = false">
+    </app-reset-password-modal>
+</section>

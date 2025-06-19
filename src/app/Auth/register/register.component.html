@@ -1,0 +1,303 @@
+<div class="flex items-center justify-content-center items-center mainBg">
+  <div class="registration-container ">
+    <!--! Left Side - Branding -->
+    <div class=" branding-section mt-4 ">
+      <div class="woman-center">
+        <img src="./assets/auth-imgs/woman-bg-removebg-preview.png" alt="Saba Tours Woman" />
+      </div>
+      <div class="brand-content">
+        <img src="./assets/sabba.png" class="logo-img" alt="saba logo" />
+        <h1 class="secrets-text">
+          Uncover the Secrets of Ancient Egypt
+        </h1>
+        <p class="brand-subtitle ">
+          Discover the Mysteries <br>
+          Ancient Egypt Awaits <br>
+          Start Your Journey
+        </p>
+      </div>
+    </div>
+    <!--! Right Side - Form -->
+    <div class="form-section mx-auto">
+      <h2 class="create-account-title text-[#005b90]">Create Account</h2>
+      <p class="form-subtitle">Join us to explore Ancient Egypt</p>
+      <!-- Profile Upload - Modified to start from left -->
+      <div class="profile-upload flex  items-center justify-content-start ms-1">
+      <div class="upload-container">
+          <label for="profilePicture" class="upload-button" [style.display]="imagePreview ? 'none' : 'flex'">
+              <i class="bi bi-camera-fill"></i>
+              <span>Add Photo</span>
+          </label>
+          
+          <!-- Add this image preview element -->
+          <img *ngIf="imagePreview" [src]="imagePreview" class="image-preview" alt="Preview" />
+          
+          <!-- Add this remove button -->
+          <button *ngIf="imagePreview" type="button" class="remove-image-btn" (click)="removeImage()">
+              <i class="bi bi-x"></i>
+          </button>
+          
+          <input type="file" id="profilePicture" class="upload-input" accept="image/*" (change)="onFileSelected($event)">
+      </div>
+    <div class="upload-guide">
+        <div class="upload-arrow">
+            <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                <!-- Straight horizontal arrow (reversed direction) -->
+                <path d="M110 20 L10 20" 
+                      stroke="#005b90" 
+                      stroke-width="2" 
+                      stroke-linecap="round"/>
+                <!-- Arrowhead (reversed direction) -->
+                <path d="M15 15 L10 20 L15 25" 
+                      stroke="#005b90" 
+                      stroke-width="2.5" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round"/>
+            </svg>
+            <span class="upload-text me-2">Upload Image</span>
+        </div>
+    </div>
+</div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Form Grid -->
+        <div class="form-grid">
+          <!-- First Name -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['name'].touched && f['name'].errors">
+              <i class="bi bi-person input-icon"></i>
+              <input type="text" formControlName="name" class="form-input" placeholder="First Name">
+            </div>
+            <div *ngIf="f['name'].touched && f['name'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['name'].errors?.['required']">First name is required</span>
+              <span *ngIf="f['name'].errors?.['minlength']">Minimum 3 characters required</span>
+              <span *ngIf="f['name'].errors?.['serverError']">{{ f['name'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Last Name -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['lastName'].touched && f['lastName'].errors">
+              <i class="bi bi-person input-icon"></i>
+              <input type="text" formControlName="lastName" class="form-input" placeholder="Last Name">
+            </div>
+            <div *ngIf="f['lastName'].touched && f['lastName'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['lastName'].errors?.['required']">Last name is required</span>
+              <span *ngIf="f['lastName'].errors?.['minlength']">Minimum 3 characters required</span>
+              <span *ngIf="f['lastName'].errors?.['serverError']">{{ f['lastName'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Username -->
+          <div class="form-group ">
+            <div class="input-container" [class.error]="f['username'].touched && f['username'].errors">
+              <i class="bi bi-person-circle input-icon"></i>
+              <input type="text" formControlName="username" class="form-input" placeholder="Username">
+            </div>
+            <div *ngIf="f['username'].touched && f['username'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['username'].errors?.['required']">Username is required</span>
+              <span *ngIf="f['username'].errors?.['minlength']">Minimum 3 characters required</span>
+              <span *ngIf="f['username'].errors?.['firstLetterNotCapital']">First letter must be capital</span>
+              <span *ngIf="f['username'].errors?.['invalidUsernamePattern']">Username can only contain letters, numbers, and symbols . _ -</span>
+              <span *ngIf="f['username'].errors?.['serverError']">{{ f['username'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Email -->
+          <div class="form-group ">
+            <div class="input-container" [class.error]="f['email'].touched && f['email'].errors">
+              <i class="bi bi-envelope input-icon"></i>
+              <input type="email" formControlName="email" class="form-input" placeholder="Email Address">
+            </div>
+            <div *ngIf="f['email'].touched && f['email'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+              <span *ngIf="f['email'].errors?.['email']">Please enter a valid email</span>
+              <span *ngIf="f['email'].errors?.['emailExists']">Email already exists</span>
+              <span *ngIf="f['email'].errors?.['serverError']">{{ f['email'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Birth Date -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['birthDate'].touched && f['birthDate'].errors">
+              <i class="bi bi-calendar-heart input-icon"></i>
+              <input type="date" formControlName="birthDate" class="form-input">
+            </div>
+            <div *ngIf="f['birthDate'].touched && f['birthDate'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['birthDate'].errors?.['required']">Birth date is required</span>
+              <span *ngIf="f['birthDate'].errors?.['serverError']">{{ f['birthDate'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Phone -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+              <i class="bi bi-telephone input-icon"></i>
+              <input
+                type="text"
+                id="phone"
+                class="form-input"
+                formControlName="phone"
+                placeholder="Enter phone number"
+              />
+            </div>
+            <div class="error-message" *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+              <i class="bi bi-exclamation-circle"></i>
+              <span>Please enter a valid phone number</span>
+            </div>
+          </div>
+          <!-- City -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['location'].touched && f['location'].errors">
+              <i class="bi bi-geo-alt input-icon"></i>
+              <input type="text" formControlName="location" class="form-input" placeholder="City">
+            </div>
+            <div *ngIf="f['location'].touched && f['location'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['location'].errors?.['required']">City is required</span>
+                <small *ngIf="f['location']?.touched && f['location'].errors?.['minlength']" class="error-message">
+                    City must be at least 3 characters.
+                </small>
+                <small *ngIf="f['location']?.touched && f['location'].errors?.['pattern']" class="error-message">
+                    City must contain only letters.
+                </small>
+              <span *ngIf="f['location'].errors?.['serverError']">{{ f['location'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Country -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['country'].touched && f['country'].errors">
+              <i class="bi bi-globe input-icon"></i>
+              <input type="text" formControlName="country" class="form-input" placeholder="Country">
+            </div>
+            <div *ngIf="f['country'].touched && f['country'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['country'].errors?.['required']">Country is required</span>
+                <small *ngIf="f['country']?.touched && f['country'].errors?.['minlength']" class="error-message">
+                    Country must be at least 3 characters.
+                </small>
+                <small *ngIf="f['country']?.touched && f['country'].errors?.['pattern']" class="error-message">
+                    Country must contain only letters.
+                </small>
+              <span *ngIf="f['country'].errors?.['serverError']">{{ f['country'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Password -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['password'].touched && f['password'].errors">
+              <i class="bi bi-lock input-icon"></i>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-input" placeholder="Password">
+              <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword" (click)="togglePassword()"></i>
+            </div>
+            <div *ngIf="f['password'].touched && f['password'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+              <span *ngIf="f['password'].errors?.['minlength']">Minimum 6 characters required</span>
+              <span *ngIf="f['password'].errors?.['pattern']">
+                Password must contain at least one uppercase letter, one number, and one special character
+              </span>
+              <span *ngIf="f['password'].errors?.['serverError']">{{ f['password'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <div class="input-container" [class.error]="f['confirmPassword'].touched && f['confirmPassword'].errors">
+              <i class="bi bi-lock input-icon"></i>
+              <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-input" placeholder="Confirm Password">
+              <i class="bi" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword" (click)="toggleConfirmPassword()"></i>
+            </div>
+            <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password</span>
+              <span *ngIf="f['confirmPassword'].errors?.['mismatch']">
+                Passwords must be matched
+              </span>
+              <span *ngIf="f['confirmPassword'].errors?.['serverError']">{{ f['confirmPassword'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+          <!-- Gender -->
+          <div class="form-group  full-width">
+            <div class="gender-section" [class.error]="f['gender'].touched && f['gender'].errors">
+              <div class="gender-label">
+                <i class="bi bi-gender-ambiguous"></i>
+                <span>Gender</span>
+              </div>
+              <div class="gender-options">
+                <label class="gender-option">
+                  <input type="radio" formControlName="gender" value="male">
+                  <div class="radio-custom">
+                    <div class="radio-inner"></div>
+                  </div>
+                  <span>Male</span>
+                </label>
+                <label class="gender-option">
+                  <input type="radio" formControlName="gender" value="female">
+                  <div class="radio-custom">
+                    <div class="radio-inner"></div>
+                  </div>
+                  <span>Female</span>
+                </label>
+              </div>
+            </div>
+            <div *ngIf="f['gender'].touched && f['gender'].errors" class="error-message">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['gender'].errors?.['required']">Gender is required</span>
+              <span *ngIf="f['gender'].errors?.['serverError']">{{ f['gender'].errors?.['serverError'] }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="button-container flex flex-col md:flex-row gap-3 my-4">
+        <!-- Reset Button -->
+        <button type="reset" class="reset-btn">
+          <i class="bi bi-arrow-counterclockwise"></i>
+          Reset
+        </button>
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" [disabled]="loading">
+          <i class="bi bi-person-plus"></i>
+          {{ loading ? 'Processing...' : 'Create Account' }}
+        </button>
+      </div>
+        <div class="login-row">
+  <span>Do you have an account?</span>
+  <a href="/login" class="login-link">
+    Login here
+    <svg class="login-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+    </svg>
+  </a>
+</div>
+      </form>
+    </div>
+  </div>
+    <!--! OTP Modal -->
+  <div class="otp-modal" id="otpModal" *ngIf="showOtpModal">
+    <div class="otp-content">
+      <div class="otp-icon">
+        <i class="bi bi-shield-check"></i>
+      </div>
+      <h3 class="otp-title">Verify Your Email</h3>
+      <p class="otp-subtitle">We've sent a verification code to your email</p>
+      
+      <div class="input-container">
+        <!-- <i class="bi bi-key "></i> -->
+        <input type="text" class="form-input otp-input" placeholder="Enter 6-digit code" maxlength="6" 
+              [(ngModel)]="otp" (keydown)="onKeyDown($event)">
+      </div>
+
+      <div class="otp-buttons">
+        <button class="otp-btn primary" (click)="verifyOtp()">
+          <i class="bi bi-check-circle"></i>
+          Verify Code
+        </button>
+        <button class="otp-btn secondary" (click)="resendOtp()">
+          <i class="bi bi-arrow-repeat"></i>
+          Resend Code
+        </button>
+        <button class="otp-btn tertiary" (click)="closeOtpModal()">
+          <i class="bi bi-x-circle"></i>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

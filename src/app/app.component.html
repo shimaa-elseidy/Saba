@@ -1,0 +1,29 @@
+<!-- app.component.html - Updated Template -->
+<app-loading *ngIf="isLoading"></app-loading>
+
+<!-- Show navbar even during loading but with reduced opacity -->
+<app-navbar 
+  *ngIf="showNavBarFooter" 
+  [ngClass]="{'loading-overlay': isLoading}">
+</app-navbar>
+
+<!-- Router outlet - always visible but with loading overlay -->
+<div class="router-container" [ngClass]="{'loading-state': isLoading}">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Footer with loading state -->
+<app-footer 
+  *ngIf="showNavBarFooter" 
+  [ngClass]="{'loading-overlay': isLoading}">
+</app-footer>
+
+<!-- Back to top button -->
+<div 
+  *ngIf="!isLoading"
+  class="back-to-top"
+  [ngClass]="{'show': showBackToTop}"
+  (click)="scrollToTop()"
+  title="Back to Top">
+  <i class="bi bi-chevron-up"></i>
+</div>

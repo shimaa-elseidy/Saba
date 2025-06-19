@@ -1,0 +1,200 @@
+<div class="container">
+    <div class="row">
+      <!-- القسم الأساسي -->
+      <div class="col-lg-8">
+        <!-- حالة التحميل -->
+        <div *ngIf="loading" class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading.......</span>
+          </div>
+        </div>
+  
+        <!-- محتوى المدونة بعد التحميل -->
+        <div *ngIf="!loading && selectedBlog" class="blog-details">
+          <!-- عنوان المدونة -->
+          <h1 class="blog-title mb-4">{{ selectedBlog.title }}</h1>
+  
+          <!-- معلومات المدونة -->
+          <div class="blog-meta d-flex justify-content-between gap-3 mb-4 text-muted">
+            <div class="d-flex">
+              <div *ngIf="selectedBlog.createdBy" class="meta-item m-2">
+                <i class="fa fa-user me-1"></i> {{ selectedBlog.createdBy }}
+              </div>
+              <div *ngIf="selectedBlog.createdAt" class="meta-item">
+                <i class="fa fa-calendar me-1"></i> {{ selectedBlog.createdAt | date:'mediumDate' }}
+              </div>
+            </div>
+             
+            <div class="d-flex">
+              <div *ngIf="selectedBlog.category" class="meta-item m-2 ">
+                <i class="fa fa-folder me-1"></i> {{ selectedBlog.category }}
+              </div>
+              <div *ngIf="selectedBlog.viewCount" class="meta-item m-2">
+                <i class="fa fa-eye me-1"></i> {{ selectedBlog.viewCount }} Views
+              </div>
+            </div>
+          </div>
+  
+          <!-- الصورة الرئيسية -->
+          <!-- <div *ngIf="selectedBlog.mainImage" class="blog-main-image mb-4 m-2">
+            <img [src]="selectedBlog.mainImage" alt="{{ selectedBlog.title }}" class="img-fluid rounded w-100">
+          </div>
+   -->
+        <!-- الصور الإضافية في حالة وجودها -->
+<!-- الصور الإضافية في حالة وجودها -->
+<div *ngIf="mergedHeaderImages.length > 0" class="blog-header-images mb-4">
+  <div class="row g-3">
+      <ng-container *ngIf="mergedHeaderImages.length === 1; else multipleImages">
+          <div class="col-12">
+              <div class="header-image-single">
+                  <img [src]="mergedHeaderImages[0]" alt="Header Image" class="img-fluid w-100">
+              </div>
+          </div>
+      </ng-container>
+
+      <ng-template #multipleImages>
+          <div *ngFor="let img of mergedHeaderImages" class="col-md-6">
+              <div class="header-image-multiple">
+                  <img [src]="img" alt="Header Image" class="img-fluid w-100">
+              </div>
+          </div>
+      </ng-template>
+  </div>
+</div>
+  
+          
+          <!-- وصف المدونة -->
+          <div *ngIf="selectedBlog.description" class="blog-description mb-5">
+            <p class="lead">{{ selectedBlog.description }}</p>
+          </div>
+  
+          <!-- الأماكن المذكورة في المدونة في حالة وجودها -->
+          <div *ngIf="selectedBlog.places && selectedBlog.places.length > 0" class="blog-places mb-5">
+            <h3 class="section-title mb-4">Places Mentioned</h3>
+            <div class="row g-4">
+              <div *ngFor="let place of selectedBlog.places" class="col-md-6">
+                <div class="place-card p-3 border rounded h-100">
+                  <h4 class="place-name h5 mb-3">{{ place }}</h4>
+                  <p *ngIf="place.description" class="place-description mb-0">{{ place.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- الوسوم في حالة وجودها -->
+          <div *ngIf="selectedBlog.tags && selectedBlog.tags.length > 0" class="blog-tags mb-5">
+            <h3 class="section-title mb-3">Tags</h3>
+            <div class="tags-list">
+              <span *ngFor="let tag of selectedBlog.tags" class="badge bg-secondary me-2 mb-2 p-2">{{ tag }}</span>
+            </div>
+          </div>
+          
+          <!-- خط فاصل -->
+          <hr class="my-5">
+          
+          <!-- قسم التعليقات -->
+       <!-- قسم التعليقات -->
+<div class="comments-section mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="comments-title">{{ (selectedBlog.comments?.length || 0) }} Comments</h3>
+      <button class="btn btn-outline-primary btn-sm">Write A Review</button>
+    </div>
+    
+    <!-- عرض التعليقات (3 فقط) -->
+    <div *ngIf="selectedBlog?.comments?.length > 0" class="comments-list">
+      <div *ngFor="let comment of selectedBlog.comments.slice(0, showAllComments ? selectedBlog.comments.length : 3)" class="comment-item mb-4">
+        <div class="d-flex">
+          <div class="comment-avatar me-3">
+            <img [src]="comment.profilePicture || 'assets/images/default-avatar.png'" alt="User Avatar" class="rounded-circle" width="40" height="40">
+          </div>
+          <div class="comment-content flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="comment-author mb-1">{{ comment.userName }}</h5>
+              <div class="comment-rating">
+                <span *ngFor="let star of [1,2,3,4,5]" class="text-warning">★</span>
+              </div>
+            </div>
+            <p class="comment-text mb-1">{{ comment.content }}</p>
+            <small class="text-muted">{{ comment.createdAt }}</small>
+          </div>
+        </div>
+      </div>
+      
+      <!-- زر عرض المزيد من التعليقات -->
+      <div *ngIf="selectedBlog.comments.length > 3 && !showAllComments" class="text-center mt-4">
+        <button class="btn btn-sm btn-link" (click)="showAllComments = true">View More</button>
+      </div>
+    </div>
+    
+    <!-- إذا لم تكن هناك تعليقات -->
+    <div *ngIf="!selectedBlog.comments || selectedBlog.comments.length === 0" class="no-comments text-center py-4">
+      <p class="text-muted">No comments yet</p>
+    </div>
+    
+    <!-- نموذج إضافة تعليق جديد -->
+    <div class="add-comment-form mt-5">
+      <h4 class="mb-4">Be The First To Review</h4>
+      <form (ngSubmit)="submitComment()">
+        <div class="row mb-3">
+          <div class="col-12">
+            <textarea class="form-control" rows="4" placeholder="Your Review" [(ngModel)]="newComment.content" name="content"></textarea>
+          </div>
+        </div>
+        <div class="form-check mb-4">
+          <label class="form-check-label" for="saveUserInfo">Save your name, email for the next time review</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+    </div>
+  </div>
+
+
+  
+        </div>
+  
+        <!-- رسالة في حالة عدم وجود بيانات -->
+        <div *ngIf="!loading && !selectedBlog" class="alert alert-warning">
+          No blog data available
+        </div>
+      </div>
+
+
+      
+      <!-- الشريط الجانبي -->
+      <div class="col-lg-4">
+        <app-blog-post-side-bar></app-blog-post-side-bar>
+      </div>
+    </div>
+    <div class="container">
+        <h1 class="fw-bolder my-4 fs-2">Blog and Travel Guides</h1>
+        <p class="mb-4">Explore the World through Informative Articles and Personal Stories</p>
+        <div class="row">
+          <!-- Mostrar 3 blogs diferentes al actual -->
+          <div class="col-lg-4" *ngFor="let blog of filteredBlogs.slice(0, 3)">
+            <div class="blog-post" (click)="navigateToBlog(blog.id)" style="cursor: pointer;">
+              <div class="card mb-4">
+                <div class="position-relative">
+                  <img [src]="blog.mainImage" class="card-img-top" alt="Blog Image" />
+                  <div class="date-box position-absolute d-flex flex-column align-items-center">
+                    <span class="day">{{ blog.date | date: 'd' }}</span>
+                    <span class="month">{{ blog.date | date: 'MMMM' }}</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div class="meta-info mb-2">
+                      <span class="author"><i class="bi bi-person"></i> By Sabatours --</span>
+                      <span class="category"><i class="bi bi-folder"></i> {{ blog.category }}</span>
+                    </div>
+                  </div>
+                  <h1 class="card-title fw-bold">{{ blog.title }}</h1>
+                  <p class="blog-excerpt">
+                    {{ (blog.description?.length > 100) ? (blog.description | slice:0:100) + '...' : blog.description || 'June is Pride Month, a time to celebrate and support the LGBTQ+ community...' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>

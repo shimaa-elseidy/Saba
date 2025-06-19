@@ -1,0 +1,424 @@
+body {
+  font-family: 'Barlow', sans-serif;
+}
+:host {
+  font-family: 'Barlow', sans-serif;
+}
+h1{
+    font-weight: 500;
+}
+
+.tour-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 20px;
+    margin: 50px 0;
+
+    padding: 20px;
+    border-radius: 8px;
+  
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  
+      .highlight-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #F7F7F7;
+        color: #000000;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        i {
+          font-size: 1.2rem;
+        }
+      }
+  
+      .highlight-content {
+        h5 {
+          font-size: 18px;
+          font-weight: 400;
+          color: #000000;
+          margin-bottom: 5px;
+        }
+  
+        p {
+          font-size: 13px;
+          font-weight: 600;
+          color: #000000;
+          margin: 0;
+        }
+      }
+    }
+  }
+img{
+    background-size: cover;
+}
+.tour-details {
+    .nav-tabs {
+      .nav-link {
+        color: #495057;
+        cursor: pointer;
+        
+        &.active {
+          font-weight: 600;
+          color: #0d6efd;
+          border-bottom-color: #0d6efd;
+        }
+      }
+    }
+    
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    
+    .img-thumbnail {
+      &.border-primary {
+        border-width: 2px;
+      }
+    }
+    
+    .custom-shadow {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .table-responsive {
+      overflow-x: auto;
+    }
+    
+    .comment {
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #f1f3f5;
+      }
+    }
+    
+    .replies {
+      border-left: 3px solid #dee2e6;
+      
+      .reply {
+        background-color: #fff;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: #f8f9fa;
+        }
+      }
+    }
+    
+    .badge {
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .card {
+      background-color: rgba(128, 128, 128, 0.13);
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .day-label {
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+  }
+  .days{
+    background-color:#0D62E2 ;
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .calendar-day {
+    min-height: 60px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    
+    &:hover:not(.disabled) {
+      background-color: #e9ecef !important;
+    }
+    
+    &.disabled {
+      cursor: default;
+      color: #B1B1B1;
+      background-color: #DFE2E7 !important;
+    }
+  }
+  
+  .month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #121212;
+    button {
+      border: none;
+      background-color: white;
+      font-size: 44px; /* حجم السهم */
+      padding: 4px 10px; /* مسافة داخل الزر */
+      cursor: pointer;
+    }
+  }
+  .available-dates{
+    font-size: 24px;
+    font-weight: 600;
+    color: #121212;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    
+  }
+
+  .notDisabled{
+    font-weight: 600;
+    font-size: 16px;
+    color: #121212;
+  }
+
+  .calendar-day.no-price {
+    background-color: #DFE2E7 !important; /* أحمر فاتح */
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  
+  .gallery-container {
+    height: 400px; /* ارتفاع ثابت للمجموعة */
+    
+    .main-image-container {
+      width: 70%;
+      height: 90%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      
+      .main-image {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+      }
+    }
+    
+    .thumbnail-container {
+      width: 30%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      .view-all-btn {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid black;
+        display: flex;
+        width: fit-content;
+        align-items: flex-end;
+        justify-content: end;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 14px;
+        white-space: nowrap;
+        margin-left: auto;
+        
+        &:hover {
+          background: white;
+        }
+      }
+      
+      .thumbnail-scroll {
+        flex-grow: 1;
+        overflow-y: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding-right: 8px;
+        
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: #ddd;
+          border-radius: 2px;
+        }
+        
+        .thumbnail-item {
+          .thumbnail-img {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+              transform: scale(1.02);
+            }
+            
+            &.active {
+              border-color: #0D62E2;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  /* المودال يبقى كما هو */
+  
+  /* مودال الصور */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    
+    .image-modal {
+      background: white;
+      border-radius: 8px;
+      max-width: 90%;
+      max-height: 90%;
+      width: 800px;
+      padding: 20px;
+      position: relative;
+      
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #555;
+        
+        &:hover {
+          color: #000;
+        }
+      }
+      
+      .modal-main-image {
+        
+        .modal-image {
+          height: 450px;
+          object-fit: cover;
+          width: 100%;
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      
+      .modal-thumbnails {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 8px 0;
+        
+        .modal-thumbnail {
+          width: 80px;
+          height: 60px;
+          object-fit: cover;
+          border-radius: 4px;
+          cursor: pointer;
+          border: 2px solid transparent;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            transform: scale(1.05);
+          }
+          
+          &.active {
+            border-color: #0D62E2;
+          }
+        }
+      }
+    }
+  }
+
+
+  .titllle{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 25px 0;
+  }
+
+  .comment-author{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .comment-text{
+    margin-top: 20px;
+
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .smal{
+    font-size: 14px;
+    font-weight: 400;
+    color: #64666C;
+  }
+
+  .tour-description {
+    margin-top: 0;
+    padding-top: 0;
+    
+    .titllle {
+      margin-top: 0;  // إزالة الهامش العلوي من العنوان
+    }
+  }
+
+  
+
+  .tour-description {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+.iiiii{
+  background-color: #EFEFEF;
+}
+.email-link{
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+ 
+}
+.phone-number{
+  cursor: pointer;
+}
+
+  

@@ -1,0 +1,212 @@
+.date-box {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #0D62E2; /* خلفية داكنة لسهولة القراءة */
+    color: white;
+    padding: 5px 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+  }
+  .card-title{
+    font-weight: 400;
+  }
+  .card{
+    border: none;
+  }
+  .day {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .month {
+    font-size: 14px;
+  }
+  
+.blog-details {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    
+    .blog-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      
+      .meta-item {
+        display: flex;
+        align-items: center;
+        
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+    
+    .blog-main-image {
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+      }
+    }
+    .blog-header-images {
+      margin-bottom: 2rem;
+      
+      .header-image-single, .header-image-multiple {
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+          
+          img {
+              width: 100%;
+              object-fit: contain;
+              display: block;
+          }
+      }
+      
+      .header-image-single {
+          img {
+            width: 100%;
+            object-fit: cover;
+
+              max-height: 350px; // ارتفاع أكبر للصورة المفردة
+          }
+      }
+      
+      .header-image-multiple {
+          height: 300px; // ارتفاع ثابت للصور المتعددة
+          
+          img {
+              height: 100%;
+              object-fit: cover; // أو contain حسب ما تفضل
+          }
+      }
+  }
+    .blog-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .place-card {
+      background-color: #f9f9f9;
+      transition: all 0.3s ease;
+      height: 100%;
+      
+      &:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      
+      .place-name {
+        color: #007bff;
+      }
+      
+      .place-description {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+    
+    .blog-tags {
+      .badge {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        background-color: #6c757d;
+        
+        &:hover {
+          background-color: #5a6268;
+        }
+      }
+    }
+    
+    /* تنسيقات قسم التعليقات */
+    .comments-section {
+      margin-top: 3rem;
+      
+      .comments-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      
+      .comment-item {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #f0f0f0;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .comment-author {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+        
+        .comment-text {
+          color: #666;
+          line-height: 1.6;
+        }
+        
+        .comment-rating {
+          font-size: 1rem;
+          color: #ffc107;
+        }
+      }
+      
+      .add-comment-form {
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
+        
+        h4 {
+          font-size: 1.3rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+          border-radius: 4px;
+          padding: 0.8rem 1rem;
+          border: 1px solid #ddd;
+          
+          &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+            border-color: #80bdff;
+          }
+        }
+        
+        .btn-primary {
+          padding: 0.6rem 2rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .card-img-top{
+    height: 300px;
+    object-fit: cover;
+  }

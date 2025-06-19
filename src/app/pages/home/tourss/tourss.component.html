@@ -1,0 +1,27 @@
+<section class="top-destinations py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h3 class="section-title">Top Tour Destinations</h3>
+      <p class="section-subtitle">Discover the Most Popular Places to Visit</p>
+    </div>
+
+    <div class="destinations-grid">
+      <div class="items-container" #slider>
+        <div class="destination-card" *ngFor="let dest of destinations">
+          <img class="destination-image" [src]="dest.image" alt="{{dest.name}}">
+          <div class="destination-overlay"></div>
+          <div class="destination-content">
+            <p class="destination-name">{{dest.name}}</p>
+            <div class="tour-count">{{dest.tours}} Tours</div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <div *ngFor="let slide of getSlides(); let i = index" 
+             class="slider-dot" 
+             [class.active]="i === currentIndex"
+             (click)="setSlide(i)"></div>
+      </div>
+    </div>
+  </div>
+</section>
