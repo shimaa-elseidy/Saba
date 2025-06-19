@@ -45,7 +45,7 @@ export class MainHomeComponent {
     this.fetchUniqueTourTypes();
     this.fetchTopTags();
     this.ensureVideoIsMuted();
-
+    this.setupLazyLoadVideo();
   }
 
   ensureVideoIsMuted() {
@@ -175,6 +175,44 @@ export class MainHomeComponent {
     if (!date) return '';
     const d = new Date(date);
     return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
+  }
+
+  setupLazyLoadVideo(): void {
+    // استخدام Intersection Observer لتحميل الفيديو فقط عندما يكون مرئيًا
+    if ('IntersectionObserver' in window) {
+      const videoElement = document.getElementById('hero-video') as HTMLVideoElement;
+      if (!videoElement) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // تحميل الفيديو عندما يصبح مرئيًا
+            const source = videoElement.querySelector('source');
+            if (source && source.dataset['src']) {
+              source.src = source.dataset['src'];
+              videoElement.load();
+              videoElement.play().catch(err => console.log('Auto-play prevented:', err));
+              observer.unobserve(videoElement); // إيقاف المراقبة بعد التحميل
+            }
+          }
+        });
+      }, { threshold: 0.1 }); // تحميل عندما يكون 10% من الفيديو مرئيًا
+
+      observer.observe(videoElement);
+    } else {
+      // للمتصفحات التي لا تدعم Intersection Observer
+      setTimeout(() => {
+        const videoElement = document.getElementById('hero-video') as HTMLVideoElement;
+        if (!videoElement) return;
+        
+        const source = videoElement.querySelector('source');
+        if (source && source.dataset['src']) {
+          source.src = source.dataset['src'];
+          videoElement.load();
+          videoElement.play().catch(err => console.log('Auto-play prevented:', err));
+        }
+      }, 1000); // تأخير بسيط للتحميل
+    }
   }
 
 

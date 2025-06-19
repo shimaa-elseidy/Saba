@@ -14,7 +14,7 @@
       font-size: 44px;
       font-family: 'Barlow', sans-serif;
       font-weight: 600;
-      color: #121212;
+      color: #005B90;
       margin-bottom: 1.5rem;
     }
 
@@ -45,8 +45,9 @@
       border-radius: 4px;
 
       &.active {
-        background: #0D62E2;
+        background: #005B90;
         color: white;
+        box-shadow: 0 4px 8px rgba(0, 91, 144, 0.2);
       }
 
       &:hover:not(.active) {
@@ -55,14 +56,18 @@
     }
 
     .view-all {
-      background: #0D62E2;
+      background: #005B90;
       color: white;
       border: none;
       font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0, 91, 144, 0.2);
+      transition: all 0.3s ease;
     }
 
     .view-all:hover:not(.active) {
-      background: #2980b9;
+      background: #004a75;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 91, 144, 0.3);
     }
   }
 
@@ -85,12 +90,13 @@
       background: white;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 91, 144, 0.1);
+      transition: all 0.3s ease;
       animation: fadeIn 0.5s ease;
 
       &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 91, 144, 0.18);
+        transform: translateY(-5px);
       }
 
       &:hover .tour-image img {
@@ -124,15 +130,15 @@
           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
           &.type-Guide {
-            background: #0D62E2;
+            background: #005B90;
           }
 
           &.type-Classical {
-            background: #0D62E2;
+            background: #005B90;
           }
 
           &.type-day {
-            background: #0D62E2;
+            background: #005B90;
           }
         }
       }
@@ -211,7 +217,7 @@
         }
 
         .book-now {
-          background: #0D62E2;
+          background: #005B90;
           color: white;
           border: none;
           padding: 0.4rem 1rem;
@@ -221,11 +227,12 @@
           transition: all 0.3s ease;
           text-transform: uppercase;
           font-size: 0.75rem;
+          box-shadow: 0 3px 6px rgba(0, 91, 144, 0.2);
 
           &:hover {
-            background: #2980b9;
+            background: #004a75;
             transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 91, 144, 0.3);
           }
 
           &:active {

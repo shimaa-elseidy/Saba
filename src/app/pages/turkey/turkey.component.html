@@ -30,7 +30,9 @@
   
             <!-- السعر -->
             <div class="col-md-3 col-sm-4">
-              <label for="priceRange" class="form-label">Price: 0 - {{ priceRange }} USD</label>
+              <label for="priceRange" class="form-label">
+                Price: <span class="price-range-value">0 - {{ priceRange }} USD</span>
+              </label>
               <input type="range" id="priceRange" class="form-range" min="0" max="5000" [(ngModel)]="priceRange" (ngModelChange)="applyFilters()">
             </div>
   

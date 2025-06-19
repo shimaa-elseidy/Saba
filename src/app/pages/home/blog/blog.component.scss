@@ -1,28 +1,41 @@
 :host {
   font-family: 'Barlow', sans-serif;
 }
-/* ✅ تنسيق القسم */
+
+
+
+// Main section styling
 .blog-section {
-  padding: 70px 0;
-  background: linear-gradient(to bottom, #f8faff, #ffffff);
-  text-align: center;
+  padding: 80px 0;
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  animation: fadeIn 0.8s ease-in-out;
+  overflow: hidden;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+// Background with subtle pattern
+.section-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+  opacity: 0.8;
+  z-index: -1;
 }
 
-/* ✅ العنوان الرئيسي */
+.section-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+// Title with animation
 .blog-title {
   font-size: 44px;
   font-weight: 700;
-  color: #121212;
+  color: #005B90;
   margin-bottom: 15px;
-  text-align: center;
   position: relative;
   display: inline-block;
   animation: slideInDown 0.8s ease-out;
@@ -36,11 +49,12 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #007bff, #00c6ff);
+  background: #005B90;
   border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 91, 144, 0.2);
 }
 
-/* Subtitle */
+// Subtitle with animation
 .blog-subtitle {
   font-size: 18px;
   font-weight: 400;
@@ -53,6 +67,221 @@
   animation: fadeIn 1s ease-out 0.3s both;
 }
 
+// Blog grid layout
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  perspective: 1000px;
+}
+
+// Blog card styling with animations
+.blog-card {
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e6f0ff;
+  animation: cardAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.blog-card[data-index="0"] { animation-delay: 0.1s; }
+.blog-card[data-index="1"] { animation-delay: 0.3s; }
+.blog-card[data-index="2"] { animation-delay: 0.5s; }
+
+.blog-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 35px rgba(0, 91, 144, 0.2);
+  border-color: #005B90;
+}
+
+// Blog image styling
+.blog-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.blog-card:hover .image-overlay {
+  opacity: 0.5;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.blog-card:hover .blog-image img {
+  transform: scale(1.08);
+}
+
+// Category badge
+.blog-category {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #005B90;
+  padding: 5px 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card:hover .blog-category {
+  background-color: #005B90;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 91, 144, 0.3);
+}
+
+// Blog content styling
+.blog-content {
+  padding: 24px;
+  text-align: left;
+  position: relative;
+}
+
+// Blog heading styling
+.blog-heading {
+  font-size: 22px;
+  color: #005B90;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.blog-card:hover .blog-heading {
+  color: #005B90;
+}
+
+// Blog text styling
+.blog-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #64666C;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Blog meta styling
+.blog-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+// Chat icon styling
+.chat-icon {
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #005B90;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 91, 144, 0.3);
+  animation: pulse 2.5s infinite;
+}
+
+.chat-icon:hover {
+  background-color: #004570;
+  transform: scale(1.15) rotate(5deg);
+}
+
+// Button container styling
+.blog-button-container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+// Button styling
+.blog-button {
+  background: #005B90;
+  color: white;
+  border: none;
+  padding: 14px 34px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 6px 20px rgba(0, 91, 144, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  animation: bounceIn 1s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+.blog-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #004570;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.blog-button .arrow-icon {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.blog-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 91, 144, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.blog-button:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+.blog-button:hover::before {
+  opacity: 1;
+}
+
+// Animations
 @keyframes slideInDown {
   from {
     opacity: 0;
@@ -64,38 +293,9 @@
   }
 }
 
-/* ✅ الشبكة التي تحتوي على المقالات */
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  text-align: center; /* جعل النص في اليسار داخل الشبكة */
-}
-
-/* ✅ تصميم كل مقالة */
-.blog-card {
-  overflow: hidden;
-  width: auto;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.4s ease;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e6f0ff;
-  animation: cardAppear 0.6s ease-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.blog-card:nth-child(1) { animation-delay: 0.1s; }
-.blog-card:nth-child(2) { animation-delay: 0.3s; }
-.blog-card:nth-child(3) { animation-delay: 0.5s; }
-
-.blog-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15);
-  border-color: #007bff;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes cardAppear {
@@ -103,178 +303,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.blog-card:hover .blog-image img{
-  transform: scale(1.05);
-}
-
-/* ✅ صورة المقال */
-.blog-image {
-  position: relative;
-  overflow: hidden;
-}
-
-.blog-image::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #007bff, #00c6ff);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-
-.blog-card:hover .blog-image::after {
-  transform: scaleX(1);
-}
-
-.blog-image img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.5s ease-in-out;
-}
-
-/* ✅ محتوى المقال */
-.blog-content {
-  padding: 20px;
-  text-align: left;
-  background-color: #ffffff;
-  border-radius: 0 0 12px 12px;
-}
-
-/* ✅ عنوان المقال */
-.blog-heading {
-  font-size: 22px;
-  color: #121212;
-  font-weight: 700;
-  margin-bottom: 12px;
-  text-align: left;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.blog-card:hover .blog-heading {
-  color: #007bff;
-}
-
-/* ✅ نص المقال */
-.blog-text {
-  font-size: 16px;
-  font-weight: 400;
-
-  color: #64666C;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  text-align: left; /* جعل النص في اليسار */
-}
-span{
-  font-size: 14px;
-  font-weight: 400;
-  color: #64666C;
-}
-
-.blog-meta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.chat-icon {
-  font-size: 18px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #007bff;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
-  animation: pulse 2s infinite;
-}
-
-.chat-icon:hover {
-  background-color: #0056b3;
-  transform: scale(1.1) rotate(5deg);
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-  }
-}
-
-// /* ✅ معلومات المقال */
-// .blog-meta {
-//   display: flex;
-//   align-items: center;
-//   gap: 10px;
-//   font-size: 12px;
-//   color: #777;
-//   text-align: left; /* جعل النص في اليسار */
-// }
-
-/* ✅ زر "Read All News" */
-.blog-button-container {
-  margin-top: 30px;
-  text-align: center; /* جعل الزر في اليسار */
-}
-
-.blog-button {
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  animation: bounceIn 1s ease-out 1s backwards;
-}
-
-.blog-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
-  z-index: -1;
-  transition: opacity 0.3s ease;
-  opacity: 0;
-}
-
-.blog-button span {
-  margin-left: 8px;
-}
-
-.blog-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
-}
-
-.blog-button:hover::before {
-  opacity: 1;
 }
 
 @keyframes bounceIn {
@@ -287,15 +315,27 @@ span{
     transform: scale(1.05);
   }
   100% {
+    opacity: 1;
     transform: scale(1);
   }
 }
 
-/* ✅ تحسين التباعد في الهواتف */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 91, 144, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(0, 91, 144, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 91, 144, 0);
+  }
+}
+
+// Responsive styles
 @media (max-width: 768px) {
   .blog-section {
     padding: 40px 15px;
-    width: 95%;
   }
 
   .blog-title {
@@ -328,33 +368,75 @@ span{
   .blog-button {
     width: 80%;
     max-width: 300px;
-    font-size: 16px;
   }
-
-  .blog-button-container {
-    text-align: center;
+}
+// Add animation for blog cards
+.blog-card {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #005B90;
+    transition: width 0.3s ease;
   }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+.animate-card {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
 
-  .blog-title{
-    line-height: 2.5rem;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ✅ تحسين العرض في الشاشات المتوسطة */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .blog-grid {
-    grid-template-columns: repeat(2, 1fr);
+// Staggered animation for blog cards
+.animate-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.animate-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.animate-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+// Enhanced hover effect for blog cards
+.blog-card {
+  &:hover .blog-image img {
+    transform: scale(1.08) translateY(-5px);
+  }
+  
+  &:hover .blog-category {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 91, 144, 0.4);
   }
 }
 
-
-.blog-category {
-  font-size: 14px;
-  font-weight: 500;
-  color: #007bff;
-  margin-bottom: 8px;
-  display: inline-block;
-  padding: 4px 10px;
-  background-color: rgba(0, 123, 255, 0.1);
-  border-radius: 20px;
+// Improved button animation
+.blog-button {
+  &:hover {
+    letter-spacing: 1px;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 91, 144, 0.3);
+  }
 }

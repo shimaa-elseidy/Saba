@@ -2,36 +2,35 @@ import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environment/environment';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
 
-  blogPosts: any[] = [];  // تخزين بيانات المدونات
-  private readonly baseUrl = environment.apiUrl;  // استخدام الـ URL للـ API
+  blogPosts: any[] = [];
+  private readonly baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient,private router : Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadBlogs();  // تحميل المدونات عند تحميل المكون
+    this.loadBlogs();
+    this.setupIntersectionObserver();
   }
 
   loadBlogs() {
-    // جلب البيانات من الـ API
-    this.http.get<any[]>(`${this.baseUrl}/blog/Get_All_Blogs_User`) // API URL
+    this.http.get<any[]>(`${this.baseUrl}/blog/Get_All_Blogs_User`)
       .subscribe(data => {
-        // أخذ أول 3 عناصر فقط
         this.blogPosts = data.slice(0, 3).map(post => ({
           title: post.title,
-          image: post.mainImage || 'assets/default-image.jpg',  // استخدام صورة افتراضية إذا لم توجد صورة
+          image: post.mainImage || 'assets/default-image.jpg',
           text: post.description,
-          date: new Date(post.createdAt).toLocaleDateString(),  // تحويل التاريخ
+          date: new Date(post.createdAt).toLocaleDateString(),
           views: post.viewCount,
           category: post.category
         }));
@@ -44,5 +43,23 @@ export class BlogComponent implements OnInit {
   
   navigateToChat() {
     this.router.navigate(['/chat']);
+  }
+
+  // Add intersection observer for scroll animations
+  setupIntersectionObserver(): void {
+    setTimeout(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.blog-card, .blog-title, .blog-subtitle, .blog-button').forEach(el => {
+        observer.observe(el);
+      });
+    }, 100);
   }
 }

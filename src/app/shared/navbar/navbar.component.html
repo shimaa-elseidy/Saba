@@ -33,7 +33,7 @@
     <div class="navbar-collapse d-lg-flex" id="navbarNav">
       <ul class="navbar-nav mx-auto d-lg-flex flex-row">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Homepage</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/listingTours" routerLinkActive="active-link">Tour List</a>
@@ -45,7 +45,7 @@
         <li class="nav-item dropdown" #categoryDropdown [ngClass]="{'show': isCategoryDropdownOpen}">
           <a class="nav-link d-flex align-items-center" id="categoryDropdown" (click)="toggleCategoryDropdown($event)">
             Categories
-            <i class="bi bi-chevron-down dropdown-icon ms-1"></i>
+            <i class="bi bi-chevron-down dropdown-icon ms-1" [ngClass]="{'rotate-icon': isCategoryDropdownOpen}"></i>
           </a>
           <ul class="dropdown-menu animate-dropdown" [ngClass]="{'show': isCategoryDropdownOpen}" aria-labelledby="categoryDropdown" (click)="$event.stopPropagation()">
             <li><a class="dropdown-item" routerLink="/guide" routerLinkActive="active-link">Guide Of Egypt</a></li>
@@ -64,7 +64,7 @@
         <li class="nav-item dropdown" #infoDropdown [ngClass]="{'show': isInfoDropdownOpen}">
           <a class="nav-link d-flex align-items-center" id="infoDropdown" (click)="toggleInfoDropdown($event)">
             Info
-            <i class="bi bi-chevron-down dropdown-icon ms-1"></i>
+            <i class="bi bi-chevron-down dropdown-icon ms-1" [ngClass]="{'rotate-icon': isInfoDropdownOpen}"></i>
           </a>
           <ul class="dropdown-menu animate-dropdown" [ngClass]="{'show': isInfoDropdownOpen}" aria-labelledby="infoDropdown" (click)="$event.stopPropagation()">
             <li><a class="dropdown-item" routerLink="/about" routerLinkActive="active-link">About Us</a></li>
@@ -122,7 +122,7 @@
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
       </li> -->
       <li class="nav-item">
-        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#categoryMenu" href="#categoryMenu" aria-expanded="false">
+        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#categoryMenu" href="#categoryMenu" aria-expanded="false" (click)="toggleMobileDropdown($event)">
           Categories <i class="bi bi-chevron-down dropdown-icon"></i>
         </a>
         <div class="collapse mobile-dropdown" id="categoryMenu" data-bs-parent="">
@@ -141,7 +141,7 @@
         <a class="nav-link" routerLink="/blogPosts" routerLinkActive="active-link">Blog</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#infoMenu" href="#infoMenu" aria-expanded="false">
+        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#infoMenu" href="#infoMenu" aria-expanded="false" (click)="toggleMobileDropdown($event)">
           Info <i class="bi bi-chevron-down dropdown-icon"></i>
         </a>
         <div class="collapse mobile-dropdown" id="infoMenu" data-bs-parent="">

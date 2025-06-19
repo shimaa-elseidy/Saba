@@ -87,6 +87,15 @@ export class TurkeyComponent {
     }
   
     applyFilters(): void {
+      // Add animation to price range value when it changes
+      const priceElement = document.querySelector('.price-range-value');
+      if (priceElement) {
+        priceElement.classList.remove('price-pulse');
+        setTimeout(() => {
+          priceElement.classList.add('price-pulse');
+        }, 10);
+      }
+      
       this.filteredTours = this.tours.filter(tour => {
         const priceMatch = tour.price <= this.priceRange;
         const peopleMatch = this.peopleCount === null || tour.peopleCount >= this.peopleCount;

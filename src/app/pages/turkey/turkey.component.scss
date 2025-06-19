@@ -90,6 +90,22 @@
 
 .form-range {
     height: 5px;
+    
+    &::-webkit-slider-thumb {
+        background: #005B90;
+    }
+    
+    &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #005B90, #005B90);
+    }
+    
+    &::-moz-range-thumb {
+        background: #005B90;
+    }
+    
+    &::-moz-range-track {
+        background: linear-gradient(to right, #005B90, #005B90);
+    }
 }
 
 .form-select {
@@ -107,8 +123,8 @@
 
 .form-select:focus {
     outline: none;
-    border-color: #0d62e2;
-    box-shadow: 0 0 5px rgba(13, 98, 226, 0.3);
+    border-color: #005B90;
+    box-shadow: 0 0 5px rgba(0, 91, 144, 0.3);
 }
 
 .card {
@@ -154,13 +170,13 @@
 }
 
 .btn-outline-primary {
-    border-color: #0d62e2;
-    color: #0d62e2;
+    border-color: #005B90;
+    color: #005B90;
     transition: all 0.3s ease;
 }
 
 .btn-outline-primary:hover {
-    background-color: #0d62e2;
+    background-color: #005B90;
     color: white;
 }
 
@@ -178,6 +194,8 @@
     padding: 5px 10px;
     font-size: 0.85rem;
     border-radius: 4px;
+    background-color: #005B90;
+    border-color: #005B90;
 }
 
 @media (max-width: 768px) {
@@ -206,4 +224,57 @@
         font-size: 0.8rem;
         padding: 4px 8px;
     }
+}
+
+// Custom text-primary class for Turkey component
+.text-primary {
+  color: #005B90 !important;
+}
+// Simple animations for Turkey component
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.filter-section {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.card {
+  animation: slideUp 0.5s ease-out;
+}
+
+// Hover effect for buttons
+.btn-primary, .btn-outline-primary {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 91, 144, 0.25);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+// Price range value styling
+.price-range-value {
+  color: #005B90;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+// Price pulse animation
+@keyframes pricePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.price-pulse {
+  animation: pricePulse 0.3s ease-in-out;
 }

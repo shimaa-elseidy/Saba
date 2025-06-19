@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(): void {
     this.ensureVideoIsMuted();
+    this.setupLazyLoadVideo();
   }
 
   ensureVideoIsMuted(): void {
@@ -95,5 +96,43 @@ export class HomeComponent implements OnInit,AfterViewInit {
 
   navigateToReels(): void {
     this.router.navigate(['/reels']);
+  }
+
+  setupLazyLoadVideo(): void {
+    // استخدام Intersection Observer لتحميل الفيديو فقط عندما يكون مرئيًا
+    if ('IntersectionObserver' in window) {
+      const videoElement = document.getElementById('section-video') as HTMLVideoElement;
+      if (!videoElement) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // تحميل الفيديو عندما يصبح مرئيًا
+            const source = videoElement.querySelector('source');
+            if (source && source.dataset['src']) {
+              source.src = source.dataset['src'];
+              videoElement.load();
+              videoElement.play().catch(err => console.log('Auto-play prevented:', err));
+              observer.unobserve(videoElement); // إيقاف المراقبة بعد التحميل
+            }
+          }
+        });
+      }, { threshold: 0.1 }); // تحميل عندما يكون 10% من الفيديو مرئيًا
+
+      observer.observe(videoElement);
+    } else {
+      // للمتصفحات التي لا تدعم Intersection Observer
+      setTimeout(() => {
+        const videoElement = document.getElementById('section-video') as HTMLVideoElement;
+        if (!videoElement) return;
+        
+        const source = videoElement.querySelector('source');
+        if (source && source.dataset['src']) {
+          source.src = source.dataset['src'];
+          videoElement.load();
+          videoElement.play().catch(err => console.log('Auto-play prevented:', err));
+        }
+      }, 1500); // تأخير أطول قليلاً لأن هذا الفيديو يظهر لاحقًا في الصفحة
+    }
   }
 }

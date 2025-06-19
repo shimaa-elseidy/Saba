@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule, NgIf, NgClass],
+  imports: [RouterModule, NgIf, NgClass, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss', './navbar-mobile.css']
 })
@@ -43,6 +43,13 @@ export class NavbarComponent implements OnInit {
     event.stopPropagation();
     this.isInfoDropdownOpen = !this.isInfoDropdownOpen;
     this.isCategoryDropdownOpen = false;
+  }
+  
+  toggleMobileDropdown(event: Event) {
+    const icon = (event.currentTarget as HTMLElement).querySelector('.dropdown-icon');
+    if (icon) {
+      icon.classList.toggle('rotate-icon');
+    }
   }
   userName: string = '';
   userRole: string = '';

@@ -1,70 +1,14 @@
-import { Component, OnInit, Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TourService, TravelRequest } from '../../services/Tours/tour.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-@Directive({
-  selector: '[countUp]',
-  standalone: true
-})
-export class CountUpDirective implements OnChanges {
-  @Input() countUp: number = 0;
-  @Input() duration: number = 1; // seconds
-  
-  private startValue: number = 0;
-  private startTime: number = 0;
-  private animationFrameId: number | null = null;
-
-  constructor(private el: ElementRef) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['countUp']) {
-      this.startAnimation();
-    }
-  }
-
-  private startAnimation(): void {
-    // Cancel any ongoing animation
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-
-    this.startValue = 0;
-    this.startTime = performance.now();
-    this.updateValue();
-  }
-
-  private updateValue(): void {
-    const currentTime = performance.now();
-    const elapsedTime = (currentTime - this.startTime) / 1000; // convert to seconds
-    
-    if (elapsedTime < this.duration) {
-      // Calculate the current value based on elapsed time
-      const value = Math.floor(this.easeOutQuad(elapsedTime, this.startValue, this.countUp, this.duration));
-      this.el.nativeElement.textContent = value;
-      
-      // Continue the animation
-      this.animationFrameId = requestAnimationFrame(() => this.updateValue());
-    } else {
-      // Animation complete, set to final value
-      this.el.nativeElement.textContent = this.countUp;
-      this.animationFrameId = null;
-    }
-  }
-
-  // Easing function for smoother animation
-  private easeOutQuad(t: number, b: number, c: number, d: number): number {
-    t /= d;
-    return -c * t * (t - 2) + b;
-  }
-}
-
 @Component({
   selector: 'app-designtrips',
   standalone: true,
-  imports: [CommonModule, DatePipe, CountUpDirective, FormsModule],
+  imports: [CommonModule, DatePipe, FormsModule],
   templateUrl: './designtrips.component.html',
   styleUrls: ['./designtrips.component.scss'],
   providers: [ToastrService, DatePipe]

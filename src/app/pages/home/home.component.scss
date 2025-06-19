@@ -99,8 +99,13 @@ body {
     height: 48px;
 
     path {
-      fill: #0D62E2; /* Blue color for the play icon */
+      fill: #005B90; /* Blue color for the play icon */
+      transition: fill 0.3s ease;
     }
+  }
+  
+  &:hover svg path {
+    fill: #004B77; /* Darker blue on hover */
   }
 
   &:hover {
@@ -146,7 +151,7 @@ h2 {
   justify-content: center;
   gap: 40px;
   padding: 50px;
-  background-color: #50b4f3; /* اللون الأساسي */
+  background-color: #005B90; /* اللون الأساسي */
 }
 
 .app-content {
@@ -232,7 +237,7 @@ h2 {
 
 /* ✅ زر التسجيل */
 .btn-primary {
-  background: #4EB4EF;
+  background: #005B90;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -247,12 +252,12 @@ h2 {
 }
 
 .btn-primary:hover {
-  background: #368de0;
+  background: #004B77;
 }
 
 /* ✅ زر تسجيل الدخول */
 .btn-secondary {
-  background: #4EB4EF;
+  background: #005B90;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -267,7 +272,7 @@ h2 {
 }
 
 .btn-secondary:hover {
-  background: #5aa3d6;
+  background: #004B77;
 }
 
 /* ✅ تحسين التجاوب */
@@ -333,7 +338,7 @@ h2 {
 .fooetr-section .explore-btn {
   position: relative;
   z-index: 2;
-  background-color: #0D62E2;
+  background-color: #005B90;
   color: white;
   padding: 14px 32px;
   border: none;
@@ -342,14 +347,14 @@ h2 {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(13, 98, 226, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 91, 144, 0.3);
   letter-spacing: 0.5px;
 }
 
 .fooetr-section .explore-btn:hover {
-  background-color: #0A4EBE;
+  background-color: #004B77;
   transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(13, 98, 226, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 91, 144, 0.4);
 }
 
 .fooetr-section .explore-btn:active {

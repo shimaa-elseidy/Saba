@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostSideBarComponent } from '../blog-post-side-bar/blog-post-side-bar.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BlogHomeService } from '../../services/blogHome/blog-home.service';
 
@@ -30,8 +30,8 @@ export class BlogPostComponent implements OnInit {
   ngOnInit() {
     this.getBlogs();
     this.ensureVideoIsMuted();
-
   }
+  
   ensureVideoIsMuted(): void {
     const video = document.querySelector('.video-background video') as HTMLVideoElement;
     

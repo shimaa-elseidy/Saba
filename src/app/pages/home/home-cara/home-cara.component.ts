@@ -51,7 +51,30 @@ export class HomeCaraComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.calculateCardWidths();
-    setTimeout(() => this.scrollToCard(), 100);
+    setTimeout(() => {
+      this.scrollToCard();
+      this.animateCardsEntrance();
+    }, 100);
+  }
+  
+  private animateCardsEntrance(): void {
+    if (!this.slider) return;
+    
+    const sliderElement = this.slider.nativeElement;
+    const cards = sliderElement.children;
+    
+    // Add staggered entrance animation
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i] as HTMLElement;
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        card.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100 + (i * 100)); // Stagger the animations
+    }
   }
 
   ngOnDestroy(): void {

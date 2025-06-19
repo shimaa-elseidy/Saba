@@ -103,8 +103,30 @@
 .page-title {
   font-size: 2rem;
   font-weight: 600;
-  color: #212529;
+  color: #005B90;
   margin: 0;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #005B90;
+    animation: widthGrow 0.8s ease-out forwards;
+  }
+}
+
+@keyframes widthGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
 }
 
 .card {
@@ -138,13 +160,25 @@
     position: absolute;
     left: 15px;
     top: 15px;
-    background-color: #007bff;
+    background-color: #005B90;
     color: white;
     padding: 8px;
     border-radius: 8px;
     text-align: center;
     width: 50px;
     font-weight: bold;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .date-box .day {
@@ -171,6 +205,12 @@
   .card-title {
     font-size: 1.3rem;
     margin-bottom: 8px;
+    color: #005B90;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #004570;
+    }
   }
   
   .blog-excerpt {
@@ -192,6 +232,8 @@
   .blog-post {
     transition: all 0.3s ease;
     margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
     
     &:hover {
       transform: translateY(-5px);
@@ -218,6 +260,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        border-top: 3px solid #005B90;
         
         .blog-excerpt {
           flex-grow: 1;
@@ -226,4 +269,134 @@
     }
   }
   
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Add staggered animation for blog posts */
+  .row .col-md-6:nth-child(odd) .blog-post {
+    animation-delay: 0.2s;
+  }
+  
+  .row .col-md-6:nth-child(even) .blog-post {
+    animation-delay: 0.4s;
+  }
+  
   // باقي الأنماط تبقى كما هي
+/* Custom pagination styling */
+.pagination {
+  margin-top: 2rem;
+  
+  .page-item {
+    margin: 0 3px;
+  }
+  
+  .custom-pagination {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #005B90;
+    border-color: #e0e0e0;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: rgba(0, 91, 144, 0.1);
+      border-color: #005B90;
+    }
+    
+    &.active {
+      background-color: #005B90;
+      border-color: #005B90;
+      color: white;
+    }
+  }
+}
+
+/* Animated title styles */
+.animated-title {
+  color: #005B90;
+  position: relative;
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Additional animations and styling */
+.blog-post.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover effect for blog cards */
+.blog-post .card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 91, 144, 0.2);
+  }
+}
+
+/* Animated category badge */
+.category {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #005B90;
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+/* Enhance blog stats with animation */
+.blog-stats span {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  color: #005B90;
+  
+  i {
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover i {
+    transform: scale(1.2);
+  }
+}
+
+/* Add a subtle hover effect to the video background */
+.video-background video {
+  transition: filter 0.5s ease;
+}
+
+.footer-section:hover .video-background video {
+  filter: brightness(1.1);
+}

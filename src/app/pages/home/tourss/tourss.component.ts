@@ -1,16 +1,34 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environment/environment';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-tourss',
   standalone: true,
   imports: [NgFor],
   templateUrl: './tourss.component.html',
-  styleUrl: './tourss.component.scss'
+  styleUrl: './tourss.component.scss',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(-20px)' }))
+      ])
+    ]),
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ transform: 'translateX(-30px)', opacity: 0 }),
+        animate('500ms 300ms ease-out', style({ transform: 'translateX(0)', opacity: 1 }))
+      ])
+    ])
+  ]
 })
-export class TourssComponent {
+export class TourssComponent implements OnInit {
   private readonly baseUrl = environment.apiUrl;
   destinations: any[] = [];
   @ViewChild('slider') slider!: ElementRef;
@@ -18,8 +36,11 @@ export class TourssComponent {
   isTransitioning = false;
   autoplayInterval: any;
   autoplayDelay = 4000; // 4 seconds per slide
+  isLoaded = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
     this.loadTours();
   }
 
@@ -38,9 +59,10 @@ export class TourssComponent {
           image: 'assets/giza-pyramids-sphinx-evening-egypt-e1669109796704.jpg'
         }));
         setTimeout(() => {
+          this.isLoaded = true;
           this.updateSlider();
           this.startAutoplay();
-        }, 0);
+        }, 300);
       });
   }
 

@@ -236,37 +236,17 @@ body {
 /* تأثير على الأيقونة عند الـ hover */
 .dropdown-icon {
   transition: transform 0.3s ease-in-out;
-  display: inline-block; /* Ensure the icon is a block element that can be transformed */
+  display: inline-block;
   cursor: pointer;
 }
 
 .main-navbar .dropdown-icon {
-  color: #333333; /* Make dropdown arrows black in desktop view */
+  color: #333333;
 }
 
-.main-navbar .nav-item.dropdown:hover .dropdown-icon {
-  transform: rotate(180deg);
-}
-
-/* Ensure dropdown icon rotates when dropdown is open */
-.main-navbar .nav-item.dropdown.show .dropdown-icon {
-  transform: rotate(180deg) !important;
-}
-
-/* Rotate arrow when dropdown is open */
-.main-navbar .nav-item.dropdown.show .dropdown-icon {
-  transform: rotate(180deg) !important;
-}
-
-/* Fix for dropdown icon rotation */
-.main-navbar .dropdown-icon {
-  transition: transform 0.3s ease;
-  display: inline-block;
-}
-
-/* Ensure dropdown icon rotates when dropdown is open */
-.nav-item.dropdown.show .dropdown-icon {
-  transform: rotate(180deg);
+/* Direct class for rotation */
+.rotate-icon {
+  transform: rotate(360deg) !important;
 }
 
 /* تحسين مظهر العناصر داخل القائمة المنسدلة */
@@ -354,23 +334,9 @@ body {
   transition: transform 0.3s ease;
 }
 
-.nav-link.collapsed .dropdown-icon {
-  transform: rotate(0deg); // Default state
-  transition: transform 0.3s ease;
-}
-
-.nav-link:not(.collapsed) .dropdown-icon {
-  transform: rotate(180deg); // Rotated state
-  transition: transform 0.3s ease;
-}
-
-/* Fix for mobile dropdown arrow rotation */
+/* Mobile dropdown arrow rotation */
 [data-bs-toggle="collapse"] .dropdown-icon {
-  transition: transform 0.3s ease;
-}
-
-[aria-expanded="true"] .dropdown-icon {
-  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
 }
 
 .collapse {

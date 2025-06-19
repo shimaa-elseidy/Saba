@@ -1,13 +1,15 @@
 <section class="top-destinations py-5">
   <div class="container">
-    <div class="text-center mb-5">
+    <div class="text-center mb-5" @fadeInOut>
       <h3 class="section-title">Top Tour Destinations</h3>
       <p class="section-subtitle">Discover the Most Popular Places to Visit</p>
     </div>
 
     <div class="destinations-grid">
       <div class="items-container" #slider>
-        <div class="destination-card" *ngFor="let dest of destinations">
+        <div class="destination-card" *ngFor="let dest of destinations; let i = index" 
+             [@slideIn]="isLoaded" 
+             [style.animation-delay]="(i * 100) + 'ms'">
           <img class="destination-image" [src]="dest.image" alt="{{dest.name}}">
           <div class="destination-overlay"></div>
           <div class="destination-content">
