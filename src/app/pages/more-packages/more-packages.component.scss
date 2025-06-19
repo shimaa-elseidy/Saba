@@ -7,7 +7,7 @@
   border-radius: 12px;
 
   h3 {
-    color: #121212;
+    color: #005B90;
     font-size: 44px;
     line-height: 50px;
     font-weight: bold;
@@ -19,7 +19,7 @@
   }
 
   .book-now {
-    background: #0D62E2;
+    background: #005B90;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -31,7 +31,7 @@
     font-size: 0.8rem;
 
     &:hover {
-      background: #2980b9;
+      background: #004B77;
       transform: translateY(-2px);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
@@ -70,7 +70,7 @@
     h4 {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #121212;
+      color: #005B90;
       margin-top: 10px;
       margin-bottom: 5px;
     }
@@ -115,6 +115,7 @@
 
       h4 {
         font-size: 1rem;
+        color: #005B90;
       }
 
       p {

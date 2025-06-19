@@ -93,7 +93,7 @@
   
   .breadcrumb-current {
     color: white;
-    font-weight: 500;
+    font-weight: 900;
   }
 }
 
@@ -107,6 +107,7 @@
   margin: 0;
   position: relative;
   display: inline-block;
+  animation: colorPulse 3s infinite ease-in-out;
   
   &::after {
     content: '';
@@ -116,7 +117,7 @@
     width: 60px;
     height: 3px;
     background-color: #005B90;
-    animation: widthGrow 0.8s ease-out forwards;
+    animation: widthGrow 0.8s ease-out forwards, backgroundPulse 3s infinite ease-in-out 0.8s;
   }
 }
 
@@ -134,8 +135,7 @@
     border-radius: 12px;
     
   }
-  .card:hover .card-img-top {
-  }
+
   .card-img-top {
     height: 400px;
     object-fit: cover;
@@ -167,7 +167,7 @@
     text-align: center;
     width: 50px;
     font-weight: bold;
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out, backgroundPulse 3s infinite ease-in-out 0.5s;
   }
   
   @keyframes fadeIn {
@@ -207,9 +207,11 @@
     margin-bottom: 8px;
     color: #005B90;
     transition: color 0.3s ease;
+    animation: colorPulse 3s infinite ease-in-out;
     
     &:hover {
       color: #004570;
+      animation: none;
     }
   }
   
@@ -318,6 +320,7 @@
       background-color: #005B90;
       border-color: #005B90;
       color: white;
+      animation: backgroundPulse 3s infinite ease-in-out;
     }
   }
 }
@@ -326,7 +329,10 @@
 .animated-title {
   color: #005B90;
   position: relative;
-  animation: fadeInDown 0.8s ease-out forwards;
+  animation: fadeInDown 0.8s ease-out forwards, colorPulse 3s infinite ease-in-out 0.8s;
+  text-shadow: #005B90 0px 0px 10px;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 @keyframes fadeInDown {
@@ -352,6 +358,11 @@
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 91, 144, 0.2);
+  }
+  
+  &-body {
+    border-top-color: #005B90;
+    animation: borderPulse 3s infinite ease-in-out;
   }
 }
 
@@ -381,14 +392,19 @@
   align-items: center;
   margin-left: 10px;
   color: #005B90;
+  animation: colorPulse 3s infinite ease-in-out;
   
   i {
     margin-right: 5px;
     transition: transform 0.3s ease;
   }
   
-  &:hover i {
-    transform: scale(1.2);
+  &:hover {
+    animation: none;
+    
+    i {
+      transform: scale(1.2);
+    }
   }
 }
 
@@ -399,4 +415,47 @@
 
 .footer-section:hover .video-background video {
   filter: brightness(1.1);
+}
+
+/* Add color pulse animation for #005B90 elements */
+@keyframes colorPulse {
+  0% {
+    color: #005B90;
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    color: #0077be;
+    text-shadow: 0 0 10px rgba(0, 91, 144, 0.3);
+  }
+  100% {
+    color: #005B90;
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+@keyframes borderPulse {
+  0% {
+    border-color: #005B90;
+    box-shadow: 0 0 0 transparent;
+  }
+  50% {
+    border-color: #0077be;
+    box-shadow: 0 0 10px rgba(0, 91, 144, 0.3);
+  }
+  100% {
+    border-color: #005B90;
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+@keyframes backgroundPulse {
+  0% {
+    background-color: #005B90;
+  }
+  50% {
+    background-color: #0077be;
+  }
+  100% {
+    background-color: #005B90;
+  }
 }

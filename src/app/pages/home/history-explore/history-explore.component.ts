@@ -121,6 +121,7 @@ export class HistoryExploreComponent implements OnInit {
     const width = window.innerWidth;
     if (width <= 480) return 1;
     if (width <= 768) return 2;
+    if (width <= 991) return 2;
     return 3;
   }
 

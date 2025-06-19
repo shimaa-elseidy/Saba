@@ -244,9 +244,14 @@ body {
   color: #333333;
 }
 
-/* Direct class for rotation */
+/* Rotate icon on hover */
+.nav-item.dropdown:hover .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Direct class for rotation - keep for mobile */
 .rotate-icon {
-  transform: rotate(360deg) !important;
+  transform: rotate(180deg) !important;
 }
 
 /* تحسين مظهر العناصر داخل القائمة المنسدلة */
@@ -337,6 +342,11 @@ body {
 /* Mobile dropdown arrow rotation */
 [data-bs-toggle="collapse"] .dropdown-icon {
   transition: transform 0.3s ease-in-out;
+}
+
+/* For mobile, we still need click behavior */
+[data-bs-toggle="collapse"][aria-expanded="true"] .dropdown-icon {
+  transform: rotate(180deg);
 }
 
 .collapse {
